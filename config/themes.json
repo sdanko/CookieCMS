@@ -1,0 +1,14 @@
+
+[
+	{
+		"name" : "Default",
+		"description" : "Default theme for Cookie",
+		"screenshot" : ""
+	},
+	{
+		"name" : "Admin",
+		"description" : "Test theme for Cookie",
+		"screenshot" : "/img/screenshot.png"
+	}
+]
+

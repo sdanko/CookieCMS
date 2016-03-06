@@ -1,0 +1,28 @@
+{
+	"name" : "Default",
+	"description" : "Default theme for CookieCMS",
+
+	"author" : "Danko Simunovic",
+	"authorEmail" : "",
+	"authorUrl" : "",
+
+	"menus" : [
+		"main",
+		"footer"
+	],
+
+	"regions" : [
+		"right"
+	],
+
+	"settings" : {
+		"icons": {
+			"translate": "flag"
+		},
+		"css" : {
+			"container" : "container-fluid",
+			"row" : "row-fluid",
+			"tableClass" : "table table-stripped"
+		}
+	}
+}

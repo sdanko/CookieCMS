@@ -1,0 +1,60 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright 2015 DANKO <EMAIL@ADDRESS>
+
+
+"Language: bs\n"
+
+
+# CRUD
+msgid "Edit"
+msgstr "Izmjeni"
+
+msgid "Delete"
+msgstr "Obriši"
+
+msgid "Actions"
+msgstr "Akcije"
+
+# Menu
+
+#Login
+msgid "Username"
+msgstr "Korisničko ime"
+
+msgid "Password"
+msgstr "Lozinka"
+
+msgid "Login"
+msgstr "Prijava"
+
+#Paging
+
+msgid "previous"
+msgstr "nazad"
+
+msgid "next"
+msgstr "naprijed"
+
+
+# Template/Admin/ContentTypes/index.ctp
+
+msgid "Content Types"
+msgstr "Tipovi sadržaja"
+
+msgid "Title"
+msgstr "Naziv"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "New Content Type"
+msgstr "Novi tip sadržaja"
+
+
+# Template/Admin/Home/index.ctp
+
+msgid "Content"
+msgstr "Sadržaj"
+
+msgid "Settings"
+msgstr "Postavke"
