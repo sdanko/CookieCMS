@@ -21,6 +21,7 @@ use Cake\I18n\I18n;
 use Cake\Core\Configure;
 use Cake\Utility\Hash;
 use Cake\I18n\Time;
+use \Ceeram\Blame\Controller\BlameTrait;
 /**
  * Application Controller
  *
@@ -31,7 +32,11 @@ use Cake\I18n\Time;
  */
 class AppController extends Controller
 {
-
+    /**
+     * Traits
+     */
+    use BlameTrait;
+    
     /**
      * Initialization hook method.
      *

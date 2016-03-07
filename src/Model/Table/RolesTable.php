@@ -27,6 +27,7 @@ class RolesTable extends Table
         $this->displayField('title');
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Ceeram/Blame.Blame');
         $this->belongsToMany('Users', [
             'foreignKey' => 'role_id',
             'targetForeignKey' => 'user_id',

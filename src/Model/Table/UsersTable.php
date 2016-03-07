@@ -23,10 +23,15 @@ class UsersTable extends Table
      */
     public function initialize(array $config)
     {
+        parent::initialize($config);
+
         $this->table('cms.users');
         $this->displayField('id');
         $this->primaryKey('id');
+
         $this->addBehavior('Timestamp');
+         $this->addBehavior('Ceeram/Blame.Blame');
+         
         $this->belongsToMany('Roles', [
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'role_id',
@@ -43,40 +48,40 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
+            ->integer('id')
             ->allowEmpty('id', 'create');
-            
+
         $validator
-            ->add('active', 'valid', ['rule' => 'numeric'])
+            ->boolean('active')
             ->requirePresence('active', 'create')
             ->notEmpty('active');
-            
+
         $validator
             ->requirePresence('first_name', 'create')
             ->notEmpty('first_name');
-            
+
         $validator
             ->allowEmpty('middle_name');
-            
+
         $validator
             ->requirePresence('last_name', 'create')
             ->notEmpty('last_name');
-            
+
         $validator
-            ->add('email', 'valid', ['rule' => 'email'])
+            ->email('email')
             ->requirePresence('email', 'create')
             ->notEmpty('email');
-            
+
         $validator
             ->requirePresence('password', 'create')
             ->notEmpty('password');
-            
+
         $validator
-            ->add('created_by', 'valid', ['rule' => 'numeric'])
+            ->integer('created_by')
             ->allowEmpty('created_by');
-            
+
         $validator
-            ->add('modified_by', 'valid', ['rule' => 'numeric'])
+            ->integer('modified_by')
             ->allowEmpty('modified_by');
 
         return $validator;
