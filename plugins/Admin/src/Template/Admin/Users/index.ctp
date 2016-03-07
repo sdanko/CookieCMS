@@ -1,13 +1,11 @@
-<div class="actions columns large-2 medium-3">
-    <h3><?= __('Actions') ?></h3>
-    <ul class="side-nav">
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?></li>
-    </ul>
+
+<div class="actions">
+    <div class="btn-group">
+        <?= $this->Html->link(__d('admin','New User'), ['prefix' => 'admin', 'action' => 'add'], ['class'=> 'btn btn-success']) ?>
+    </div>
 </div>
-<div class="users index large-10 medium-9 columns">
-    <table cellpadding="0" cellspacing="0">
+<div class="table-responsive">
+    <table class="table table-stripped">
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id') ?></th>
@@ -16,7 +14,6 @@
             <th><?= $this->Paginator->sort('middle_name') ?></th>
             <th><?= $this->Paginator->sort('last_name') ?></th>
             <th><?= $this->Paginator->sort('email') ?></th>
-            <th><?= $this->Paginator->sort('password') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
     </thead>
@@ -29,23 +26,27 @@
             <td><?= h($user->middle_name) ?></td>
             <td><?= h($user->last_name) ?></td>
             <td><?= h($user->email) ?></td>
-            <td><?= h($user->password) ?></td>
             <td class="actions">
-                <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+              <!--   <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?> -->
+              
+              <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $user->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
+               <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>
             </td>
         </tr>
 
     <?php endforeach; ?>
     </tbody>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
-    </div>
+
 </div>
+
+  <div class="col-md-12 text-center">
+        <div class="paginator">
+            <ul class="pagination">
+                <?= $this->Paginator->prev('< ' . __d('admin','previous')) ?>
+                <?= $this->Paginator->numbers() ?>
+                <?= $this->Paginator->next(__d('admin','next') . ' >') ?>
+            </ul>
+            <p><?= $this->Paginator->counter() ?></p>
+        </div>
+    </div>

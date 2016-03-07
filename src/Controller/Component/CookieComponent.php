@@ -129,6 +129,28 @@ class CookieComponent extends Component {
                         'action' => 'index'
                     )
         ));
+        
+        CookieNav::add('sidebar', 'users', array(
+            'icon' => false,
+            'title' => '<span class="glyphicon glyphicon-user"></span>' . __d('admin', 'Users'),
+            'url' => '#dropdown-users',
+            'children' => array(
+                'blocks' => array(
+                    'title' => '<span class="glyphicon glyphicon-user"></span>' . __d('admin', 'Users'),
+                    'url' => array(
+                        'controller' => 'Users',
+                        'action' => 'index'
+                    ),
+                ),
+                'regions' => array(
+                    'title' => '<span class="glyphicon glyphicon-filter"></span>' . __d('admin', 'Roles'),
+                    'url' => array(
+                        'controller' => 'Roles',
+                        'action' => 'index'
+                    ),
+                )
+            )
+        ));
     }
     
     public function getThemeData($alias = null) {
