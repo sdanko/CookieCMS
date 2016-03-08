@@ -20,7 +20,7 @@
             <td><?= $this->Number->format($menu->id) ?></td>
             <td><?= h($menu->title) ?></td>
             <td><?= h($menu->alias) ?></td>
-            <td><?= h($menu->active) ?></td>
+            <td><?= h($menu->active ?  __d('admin','Yes') : __d('admin','No')) ?></td>
             <td class="actions">
                 <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $menu->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
                 <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $menu->id], ['confirm' => __('Are you sure you want to delete # {0}?', $menu->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>

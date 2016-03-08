@@ -9,11 +9,11 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id') ?></th>
-            <th><?= $this->Paginator->sort('active') ?></th>
-            <th><?= $this->Paginator->sort('first_name') ?></th>
-            <th><?= $this->Paginator->sort('middle_name') ?></th>
-            <th><?= $this->Paginator->sort('last_name') ?></th>
-            <th><?= $this->Paginator->sort('email') ?></th>
+            <th><?= $this->Paginator->sort('active', __d('admin', 'Active')) ?></th>
+            <th><?= $this->Paginator->sort('first_name', __d('admin', 'First name')) ?></th>
+            <th><?= $this->Paginator->sort('middle_name', __d('admin', 'Middle name')) ?></th>
+            <th><?= $this->Paginator->sort('last_name', __d('admin', 'Last name')) ?></th>
+            <th><?= $this->Paginator->sort('email', __d('admin', 'Email')) ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
     </thead>
@@ -21,7 +21,7 @@
     <?php foreach ($users as $user): ?>
         <tr>
             <td><?= $this->Number->format($user->id) ?></td>
-            <td><?= $this->Number->format($user->active) ?></td>
+            <td><?= h($user->active ?  __d('admin','Yes') : __d('admin','No')) ?></td>
             <td><?= h($user->first_name) ?></td>
             <td><?= h($user->middle_name) ?></td>
             <td><?= h($user->last_name) ?></td>
