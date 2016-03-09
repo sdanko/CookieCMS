@@ -23,21 +23,20 @@ class RolesUsersController extends AppController
 //        ];
 //        $this->set('rolesUsers', $this->paginate($this->RolesUsers));
 //        $this->set('_serialize', ['rolesUsers']);
-        
-         $query = $this->Roles->find();
+        if($userId==null) {
+              $this->Flash->error(__d('croogo', 'Invalid user'));
+              return $this->redirect('/admin');
+        }
+                       
+         $query = $this->RolesUsers->Roles->find();
             $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
                 return $results->map(function ($row) {
-                    $row['active'] = array(
-                        'controller' => 'content',
-                        'action' => 'view',
-                        'slug' => $row['slug'],
-                       'type' => $row['content_type']['alias']
-                        
-                    );
+                    $userRole = $this->RolesUsers->find()->where(['user_id' => $userId, 'role_id' => $row['role_id']])->first();
+                    $row['active'] = $userRole ? true : false;
                     return $row;
                 });
             });
-            $content = $this->paginate($query);
+            $roles = $this->paginate($query);
 
             $this->set(compact('roles')); 
     }
