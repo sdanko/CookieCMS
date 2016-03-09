@@ -16,13 +16,30 @@ class RolesUsersController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index($userId=null)
     {
-        $this->paginate = [
-            'contain' => ['Roles', 'Users']
-        ];
-        $this->set('rolesUsers', $this->paginate($this->RolesUsers));
-        $this->set('_serialize', ['rolesUsers']);
+//        $this->paginate = [
+//            'contain' => ['Roles', 'Users']
+//        ];
+//        $this->set('rolesUsers', $this->paginate($this->RolesUsers));
+//        $this->set('_serialize', ['rolesUsers']);
+        
+         $query = $this->Roles->find();
+            $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
+                return $results->map(function ($row) {
+                    $row['active'] = array(
+                        'controller' => 'content',
+                        'action' => 'view',
+                        'slug' => $row['slug'],
+                       'type' => $row['content_type']['alias']
+                        
+                    );
+                    return $row;
+                });
+            });
+            $content = $this->paginate($query);
+
+            $this->set(compact('roles')); 
     }
 
     /**
