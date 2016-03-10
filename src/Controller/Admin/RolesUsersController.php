@@ -29,15 +29,18 @@ class RolesUsersController extends AppController
         }
                        
          $query = $this->RolesUsers->Roles->find();
-            $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
-                return $results->map(function ($row) {
-                    $userRole = $this->RolesUsers->find()->where(['user_id' => $userId, 'role_id' => $row['role_id']])->first();
+            $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) use($userId) {
+                return $results->map(function ($row) use($userId){
+                    $userRole = $this->RolesUsers->find()->where(['user_id' => $userId, 'role_id' => $row['id']])->first();
                     $row['active'] = $userRole ? true : false;
                     return $row;
                 });
             });
+            
             $roles = $this->paginate($query);
-
+            
+            $this->set('userId', $userId);
+            
             $this->set(compact('roles')); 
     }
 
@@ -124,5 +127,33 @@ class RolesUsersController extends AppController
             $this->Flash->error(__('The roles user could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+    public function activate($id = null, $userId=null)
+    {
+        $this->request->allowMethod(['post', 'activate']);
+        $rolesUser = $this->RolesUsers->newEntity();
+        $rolesUser->user_id=$userId;
+        $rolesUser->role_id=$id;
+        
+        if ($this->RolesUsers->save($rolesUser)) {
+            $this->Flash->success(__('User role has been activated.'));
+            return $this->redirect(['action' => 'index', $userId]);
+        } else {
+            $this->Flash->error(__('User role could not be activated. Please, try again.'));
+        }
+
+    }
+    
+    public function deactivate($id = null, $userId=null)
+    {
+        $this->request->allowMethod(['post', 'deactivate']);
+        $rolesUser = $this->RolesUsers->find()->where(['user_id' => $userId, 'role_id' => $id])->first();
+        if ($this->RolesUsers->delete($rolesUser)) {
+            $this->Flash->success(__('User has been deactivated.'));
+        } else {
+            $this->Flash->error(__('User role could not be deactivated. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'index', $userId]);
     }
 }

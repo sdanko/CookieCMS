@@ -132,7 +132,7 @@ class AppController extends Controller
         }
         else {
             $this->Auth->allow();
-			$this->viewBuilder()->theme(Configure::read('Site.theme'));
+            $this->viewBuilder()->theme(Configure::read('Site.theme'));
             //$this->theme  = Configure::read('Site.theme');
         }
     }
