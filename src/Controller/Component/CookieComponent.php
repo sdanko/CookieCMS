@@ -67,14 +67,14 @@ class CookieComponent extends Component {
             'url' => '#dropdown-content',
             'children' => array(
                 'content' => array(
-                    'title' => '<span class="glyphicon glyphicon-book"></span>' . __d('admin', 'Content'),
+                    'title' =>  __d('admin', 'Content'),
                     'url' => array(
                         'controller' => 'Content',
                         'action' => 'index'
                     ),
                 ),
                 'content-types' => array(
-                    'title' => '<span class="glyphicon glyphicon-list-alt"></span>' . __d('admin', 'Content Types'),
+                    'title' => __d('admin', 'Content Types'),
                     'url' => array(
                         'controller' => 'ContentTypes',
                         'action' => 'index'
@@ -89,21 +89,21 @@ class CookieComponent extends Component {
             'url' => '#dropdown-layout',
             'children' => array(
                 'blocks' => array(
-                    'title' => '<span class="glyphicon glyphicon-option-horizontal"></span>' . __d('admin', 'Blocks'),
+                    'title' =>  __d('admin', 'Blocks'),
                     'url' => array(
                         'controller' => 'Blocks',
                         'action' => 'index'
                     ),
                 ),
                 'regions' => array(
-                    'title' => '<span class="glyphicon glyphicon-option-vertical"></span>' . __d('admin', 'Regions'),
+                    'title' => __d('admin', 'Regions'),
                     'url' => array(
                         'controller' => 'Regions',
                         'action' => 'index'
                     ),
                 ),
                 'themes' => array(
-                    'title' => '<span class="glyphicon glyphicon-eye-open"></span>' . __d('admin', 'Themes'),
+                    'title' =>  __d('admin', 'Themes'),
                     'url' => array(
                         'controller' => 'Themes',
                         'action' => 'index'
@@ -135,15 +135,15 @@ class CookieComponent extends Component {
             'title' => '<span class="glyphicon glyphicon-user"></span>' . __d('admin', 'Users'),
             'url' => '#dropdown-users',
             'children' => array(
-                'blocks' => array(
-                    'title' => '<span class="glyphicon glyphicon-user"></span>' . __d('admin', 'Users'),
+                'users' => array(
+                    'title' =>  __d('admin', 'Users'),
                     'url' => array(
                         'controller' => 'Users',
                         'action' => 'index'
                     ),
                 ),
-                'regions' => array(
-                    'title' => '<span class="glyphicon glyphicon-filter"></span>' . __d('admin', 'Roles'),
+                'roles' => array(
+                    'title' =>  __d('admin', 'Roles'),
                     'url' => array(
                         'controller' => 'Roles',
                         'action' => 'index'

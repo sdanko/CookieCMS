@@ -85,6 +85,8 @@ class LinksController extends AppController
         $link = $this->Links->get($id, [
             'contain' => []
         ]);
+        $menuId = $link->menu_id;
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $link = $this->Links->patchEntity($link, $this->request->data);
             if ($this->Links->save($link)) {
@@ -94,7 +96,7 @@ class LinksController extends AppController
                 $this->Flash->error(__('The link could not be saved. Please, try again.'));
             }
         }
-        
+        $this->set('menuId', $menuId);
         $parentLinks = $this->Links->ParentLinks->find('list', ['limit' => 200,  'conditions' => array(
                                   'menu_id' => $menuId
                           )]);

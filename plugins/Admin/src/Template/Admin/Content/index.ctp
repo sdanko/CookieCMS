@@ -25,7 +25,7 @@
             <td>
                 <?= $content->has('content_type') ? $this->Html->link($content->content_type->title, ['controller' => 'ContentTypes', 'action' => 'view', $content->content_type->id]) : '' ?>
             </td>
-            <td><?= h($content->active) ?></td>
+            <td><?= h($content->active ?  __d('admin','Yes') : __d('admin','No')) ?></td>
             <td><?= h($content->create_date) ?></td>
             <td><?= h($content->modified_date) ?></td>
             <td><?= h($content->slug) ?></td>

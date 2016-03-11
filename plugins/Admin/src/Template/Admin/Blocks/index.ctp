@@ -25,7 +25,7 @@
             <td><?= h($block->title) ?></td>
             <td><?= h($block->alias) ?></td>
             <td><?= h($block->show_title) ?></td>
-            <td><?= h($block->active) ?></td>
+            <td><?= h($block->active ?  __d('admin','Yes') : __d('admin','No')) ?></td>
             <td><?= h($block->class) ?></td>
             <td><?= h($block->element) ?></td>
             <td>

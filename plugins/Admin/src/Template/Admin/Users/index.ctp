@@ -30,7 +30,9 @@
               <!--   <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?> -->
               
               <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $user->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
-               <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>
+              <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>
+              <?= $this->Html->link('<i class="fa fa-users fa-lg"></i>', ['controller' => 'RolesUsers', 'action' => 'index', "userId" => $user->id],
+                        ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','User roles')]) ?>
             </td>
         </tr>
 
