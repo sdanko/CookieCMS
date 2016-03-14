@@ -10,14 +10,6 @@
     echo $this->Form->input('title');
     echo $this->Form->input('content_type_id');
     echo $this->Form->input('active');
-    echo $this->Form->input('create_date',  array(
-        'class'=>'form-control datefield',
-        'type'=>'text'
-     ));
-    echo $this->Form->input('modified_date',  array(
-        'class'=>'form-control datefield',
-        'type'=>'text'
-     ));
     echo $this->Form->input('slug');
     echo $this->Form->input('body');
     echo $this->Form->input('promote');

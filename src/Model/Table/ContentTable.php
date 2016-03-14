@@ -23,9 +23,15 @@ class ContentTable extends Table
      */
     public function initialize(array $config)
     {
+        parent::initialize($config);
+
         $this->table('cms.content');
         $this->displayField('title');
         $this->primaryKey('id');
+
+        $this->addBehavior('Timestamp');
+        $this->addBehavior('Ceeram/Blame.Blame');
+
         $this->belongsTo('ContentTypes', [
             'foreignKey' => 'content_type_id'
         ]);
@@ -40,37 +46,41 @@ class ContentTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
+            ->integer('id')
             ->allowEmpty('id', 'create');
-            
+
         $validator
             ->allowEmpty('title');
-            
+
         $validator
-            ->add('active', 'valid', ['rule' => 'boolean'])
+            ->boolean('active')
             ->allowEmpty('active');
-            
-        $validator
-            ->allowEmpty('create_date');
-            
-        $validator
-            ->allowEmpty('modified_date');
-            
+
         $validator
             ->allowEmpty('slug');
-            
+
         $validator
             ->allowEmpty('body');
-            
+
         $validator
-            ->add('promote', 'valid', ['rule' => 'boolean'])
+            ->boolean('promote')
             ->allowEmpty('promote');
-            
+
         $validator
+            ->dateTime('publish_start')
             ->allowEmpty('publish_start');
-            
+
         $validator
+            ->dateTime('publish_end')
             ->allowEmpty('publish_end');
+
+        $validator
+            ->integer('created_by')
+            ->allowEmpty('created_by');
+
+        $validator
+            ->integer('modified_by')
+            ->allowEmpty('modified_by');
 
         return $validator;
     }
@@ -123,15 +133,4 @@ class ContentTable extends Table
         
         return $query;
     }
-    
-//    public function findById(Query $query, array $options)
-//    {
-//        $id = isset($options["id"]) ? $options["id"] : null;
-//
-//        $query->where([
-//            'id' => $id
-//        ]);
-//        
-//        return $query;
-//    }
 }

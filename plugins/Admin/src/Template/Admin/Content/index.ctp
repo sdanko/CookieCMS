@@ -11,8 +11,8 @@
             <th><?= $this->Paginator->sort('title',  __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('content_type_id',  __d('admin', 'Content type')) ?></th>
             <th><?= $this->Paginator->sort('active',  __d('admin', 'Active')) ?></th>
-            <th><?= $this->Paginator->sort('create_date',  __d('admin', 'Create date')) ?></th>
-            <th><?= $this->Paginator->sort('modified_date',  __d('admin', 'Modified date')) ?></th>
+            <th><?= $this->Paginator->sort('created',  __d('admin', 'Create date')) ?></th>
+            <th><?= $this->Paginator->sort('modified',  __d('admin', 'Modified date')) ?></th>
             <th><?= $this->Paginator->sort('slug', __d('admin', 'Slug')) ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
@@ -26,8 +26,8 @@
                 <?= $content->has('content_type') ? $this->Html->link($content->content_type->title, ['controller' => 'ContentTypes', 'action' => 'view', $content->content_type->id]) : '' ?>
             </td>
             <td><?= h($content->active ?  __d('admin','Yes') : __d('admin','No')) ?></td>
-            <td><?= h($content->create_date) ?></td>
-            <td><?= h($content->modified_date) ?></td>
+            <td><?= h($content->created) ?></td>
+            <td><?= h($content->modified) ?></td>
             <td><?= h($content->slug) ?></td>
             <td class="actions">
                 <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $content->id]) ?>-->

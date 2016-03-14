@@ -120,7 +120,7 @@ class AppController extends Controller
         {
             //I18n::locale('bs');
             Time::setToStringFormat(Configure::read('Writing.date_time_format'));
-			$this->viewBuilder()->theme('Admin');
+            $this->viewBuilder()->theme('Admin');
             //$this->theme  = 'Admin';
             $this->set('title_for_layout', 'Cookie Dashboard');
             $this->set('form_templates', Configure::read('Templates'));
