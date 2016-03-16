@@ -6,6 +6,9 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Event\Event;
+use Cake\I18n\Time;
+use Cake\Core\Configure;
 
 /**
  * Content Model
@@ -37,6 +40,14 @@ class ContentTable extends Table
         ]);
     }
     
+    public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
+    {
+        foreach (['publish_start', 'publish_end'] as $key) {
+            if (isset($data[$key]) && is_string($data[$key])) {
+                $data[$key] = Time::parseDateTime($data[$key], Configure::read('Writing.date_time_format'));
+            }
+        }
+    }
     
 
     /**
@@ -69,11 +80,11 @@ class ContentTable extends Table
             ->allowEmpty('promote');
 
         $validator
-            ->date('publish_start', 'dmy')
+            ->date('publish_start', Configure::read('Writing.validation_date_time_format'))
             ->allowEmpty('publish_start');
 
         $validator
-            ->date('publish_end', 'dmy')
+            ->date('publish_end', Configure::read('Writing.validation_date_time_format'))
             ->allowEmpty('publish_end');
 
         $validator
