@@ -36,6 +36,8 @@ class ContentTable extends Table
             'foreignKey' => 'content_type_id'
         ]);
     }
+    
+    
 
     /**
      * Default validation rules.
@@ -67,11 +69,11 @@ class ContentTable extends Table
             ->allowEmpty('promote');
 
         $validator
-            ->dateTime('publish_start')
+            ->date('publish_start', 'dmy')
             ->allowEmpty('publish_start');
 
         $validator
-            ->dateTime('publish_end')
+            ->date('publish_end', 'dmy')
             ->allowEmpty('publish_end');
 
         $validator
