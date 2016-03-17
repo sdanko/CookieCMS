@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 use Cake\Event\Event;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
+use Cake\ORM\Entity;
+use ArrayObject;
 
 /**
  * Content Model
@@ -47,6 +49,13 @@ class ContentTable extends Table
                 $data[$key] = Time::parseDateTime($data[$key], Configure::read('Writing.date_time_format'));
             }
         }
+    }
+    
+    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+         if(!empty($entity->published)) {
+             
+         }
     }
     
 
