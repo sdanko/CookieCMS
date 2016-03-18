@@ -30,7 +30,7 @@ class ContentTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('cms.content');
+         $this->table('cms.content');
         $this->displayField('title');
         $this->primaryKey('id');
 
@@ -42,7 +42,7 @@ class ContentTable extends Table
         ]);
     }
     
-    public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
+     public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
     {
         foreach (['publish_start', 'publish_end'] as $key) {
             if (isset($data[$key]) && is_string($data[$key])) {
@@ -53,11 +53,22 @@ class ContentTable extends Table
     
     public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-         if(!empty($entity->published)) {
-             
-         }
+        if (empty($options['loggedInUser'])) {
+                return;
+        }
+        
+        if(!empty($entity->published)) {
+            if($entity->published==true) {
+                $entity->set('published_by', $options['loggedInUser']);
+            }
+        }
+        
+        if(!empty($entity->promoted)) {
+            if($entity->promoted==true) {
+                $entity->set('promoted_by', $options['loggedInUser']);
+            }
+        }
     }
-    
 
     /**
      * Default validation rules.
@@ -88,7 +99,7 @@ class ContentTable extends Table
             ->boolean('promote')
             ->allowEmpty('promote');
 
-        $validator
+              $validator
             ->date('publish_start', Configure::read('Writing.validation_date_time_format'))
             ->allowEmpty('publish_start');
 
@@ -103,6 +114,18 @@ class ContentTable extends Table
         $validator
             ->integer('modified_by')
             ->allowEmpty('modified_by');
+
+        $validator
+            ->boolean('publish')
+            ->allowEmpty('publish');
+
+        $validator
+            ->integer('published_by')
+            ->allowEmpty('published_by');
+
+        $validator
+            ->integer('promoted_by')
+            ->allowEmpty('promoted_by');
 
         return $validator;
     }
@@ -120,7 +143,7 @@ class ContentTable extends Table
         return $rules;
     }
     
-    public function findByType(Query $query, array $options)
+     public function findByType(Query $query, array $options)
     {
         $type = isset($options["type"]) ? $options["type"] : null;
 

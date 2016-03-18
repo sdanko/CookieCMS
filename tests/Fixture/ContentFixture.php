@@ -37,6 +37,9 @@ class ContentFixture extends TestFixture
         'created_by' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => 'NULL', 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         'modified' => ['type' => 'timestamp', 'length' => null, 'null' => false, 'default' => null, 'precision' => null, 'comment' => null],
         'modified_by' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => 'NULL', 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'publish' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => 0, 'precision' => null, 'comment' => null],
+        'published_by' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'promoted_by' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -57,12 +60,15 @@ class ContentFixture extends TestFixture
             'slug' => 'Lorem ipsum dolor sit amet',
             'body' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'promote' => 1,
-            'publish_start' => 1457960758,
-            'publish_end' => 1457960758,
-            'created' => 1457960758,
+            'publish_start' => 1458306021,
+            'publish_end' => 1458306021,
+            'created' => 1458306021,
             'created_by' => 1,
-            'modified' => 1457960758,
-            'modified_by' => 1
+            'modified' => 1458306021,
+            'modified_by' => 1,
+            'publish' => 1,
+            'published_by' => 1,
+            'promoted_by' => 1
         ],
     ];
 }

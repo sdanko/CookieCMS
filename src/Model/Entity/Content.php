@@ -20,6 +20,9 @@ use Cake\ORM\Entity;
  * @property int $created_by
  * @property \Cake\I18n\Time $modified
  * @property int $modified_by
+ * @property bool $publish
+ * @property int $published_by
+ * @property int $promoted_by
  */
 class Content extends Entity
 {
