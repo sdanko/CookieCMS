@@ -57,14 +57,14 @@ class ContentTable extends Table
                 return;
         }
         
-        if(!empty($entity->published)) {
-            if($entity->published==true) {
+        if(!empty($entity->publish)) {
+            if($entity->publish==true) {
                 $entity->set('published_by', $options['loggedInUser']);
             }
         }
         
-        if(!empty($entity->promoted)) {
-            if($entity->promoted==true) {
+        if(!empty($entity->promote)) {
+            if($entity->promote==true) {
                 $entity->set('promoted_by', $options['loggedInUser']);
             }
         }
