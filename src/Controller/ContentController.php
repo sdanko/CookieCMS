@@ -17,7 +17,8 @@ use Cake\Routing\Router;
  */
 class ContentController extends AppController {
 
-    public function view($id = null) {
+    public function view($id = null)
+    {
         if ($this->request->query('type')!=null && $this->request->query('slug')!=null) {
             $content = $this->Content->find('bySlug', array(
                     'type' => $this->request->query('type'),
@@ -42,7 +43,8 @@ class ContentController extends AppController {
         $this->set(compact('content'));
     }
 
-    public function promoted($type = null) {
+    public function promoted($type = null)
+    {
         //$Content = $this->{$this->modelClass};
         $this->set('title_for_layout', __d('cookie', 'Home'));
 

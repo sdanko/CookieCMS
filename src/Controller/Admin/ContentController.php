@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Content Controller
@@ -48,6 +49,7 @@ class ContentController extends AppController
      */
     public function add()
     {
+        $this->canPublish();
         $content = $this->Content->newEntity();
         if ($this->request->is('post')) {
             $content = $this->Content->patchEntity($content, $this->request->data);
@@ -106,5 +108,19 @@ class ContentController extends AppController
             $this->Flash->error(__('The content could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+    public function canPublish()
+    {
+        $uid = $this->Auth->User('user_id');
+        
+        $pivotTable = TableRegistry::get('RolesUsers');
+        $roles = $pivotTable->find()
+                ->select('role_id')
+                ->where(['user_id' => $uid])
+                ->all()
+                ->extract('role_id')
+                ->toArray();
+        debug($roles);die;
     }
 }
