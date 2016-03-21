@@ -32,7 +32,13 @@
             <td class="actions">
                 <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $content->id]) ?>-->
                  <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
-                <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $content->id], ['confirm' => __('Are you sure you want to delete # {0}?', $content->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>
+                 <?= $this->Html->link('<i class="fa fa-thumbs-up  fa-lg"></i>', ['action' => 'publish', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Publish')]) ?>
+                <?= $content->promote ?
+                        $this->Form->postLink(__('<i class="fa fa-lock fa-lg"></i>'), ['action' => 'unpromote', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Unpromote')])
+                        :
+                        $this->Form->postLink(__('<i class="fa fa-unlock fa-lg"></i>'), ['action' => 'promote', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Promote')])
+   
+                ?>
                
             </td>
         </tr>

@@ -12,16 +12,6 @@
     echo $this->Form->input('active');
     echo $this->Form->input('slug');
     echo $this->Form->input('body');
-    echo $this->Form->input('promote');
-    echo $this->Form->input('publish');
-    echo $this->Form->input('publish_start',  array(
-        'class'=>'form-control datefield',
-        'type'=>'text'
-     ));
-    echo $this->Form->input('publish_end',  array(
-        'class'=>'form-control datefield',
-        'type'=>'text'
-     ));
     ?>
 </fieldset>
 <?= $this->Form->button(__('Submit')) ?>

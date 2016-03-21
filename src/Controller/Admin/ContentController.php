@@ -49,7 +49,6 @@ class ContentController extends AppController
      */
     public function add()
     {
-        $this->canPublish();
         $content = $this->Content->newEntity();
         if ($this->request->is('post')) {
             $content = $this->Content->patchEntity($content, $this->request->data);
@@ -110,17 +109,51 @@ class ContentController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     
-    public function canPublish()
+     public function publish($id = null)
     {
-        $uid = $this->Auth->User('user_id');
+        $content = $this->Content->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $content = $this->Content->patchEntity($content, $this->request->data);
+            if ($this->Content->save($content)) {
+                $this->Flash->success(__('The content has been published.'));
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('The content could not be published. Please, try again.'));
+            }
+        }
+        $this->set(compact('content'));
+        $this->set('_serialize', ['content']);
+    }
+    
+    public function promote($id = null)
+    {
+        $this->request->allowMethod(['post', 'promote']);
+        $content = $this->Content->get($id);
+        $content->promote = true;
         
-        $pivotTable = TableRegistry::get('RolesUsers');
-        $roles = $pivotTable->find()
-                ->select('role_id')
-                ->where(['user_id' => $uid])
-                ->all()
-                ->extract('role_id')
-                ->toArray();
-        debug($roles);die;
+        if ($this->Content->save($content)) {
+            $this->Flash->success(__('Content has been promoted.'));
+            return $this->redirect(['action' => 'index']);
+        } else {
+            $this->Flash->error(__('Content not be promoted. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'index']);
+    }
+    
+    public function unpromote($id = null)
+    {
+        $this->request->allowMethod(['post', 'unpromote']);
+        $content = $this->Content->get($id);
+        $content->promote = false;
+        
+        if ($this->Content->save($content)) {
+            $this->Flash->success(__('Content has been unpromoted.'));
+            return $this->redirect(['action' => 'index']);
+        } else {
+            $this->Flash->error(__('Content not be unpromoted. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'index']);
     }
 }
