@@ -178,4 +178,17 @@ class ContentTable extends Table
         
         return $query;
     }
+    
+    public function findPublished(Query $query, array $options)
+    {
+        $date = Time::now();
+
+        $query->contain(['ContentTypes'])->where([
+            'publish' => true,
+            'publish_start <= ' => $date,
+            'publish_end >= ' => $date,
+        ]);
+        
+        return $query;
+    }
 }

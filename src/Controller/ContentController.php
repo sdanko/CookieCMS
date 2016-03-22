@@ -38,6 +38,11 @@ class ContentController extends AppController {
             $this->Flash->error(__d('croogo', 'Invalid content'));
             return $this->redirect('/');
         }
+        
+        if ($content->publish) {
+            $this->Flash->error(__d('croogo', 'Invalid content'));
+            return $this->redirect('/');
+        }
 
         $this->set('title_for_layout', $content->title);
         $this->set(compact('content'));
@@ -82,7 +87,8 @@ class ContentController extends AppController {
                 'contain' => ['ContentTypes']
             ];
             
-            $query = $this->Content->find();
+            $query = $this->Content->find('published');
+
             $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
                 return $results->map(function ($row) {
                     $row['url'] = array(
