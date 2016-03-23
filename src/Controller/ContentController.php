@@ -25,7 +25,7 @@ class ContentController extends AppController {
                     'slug' => $this->request->query('slug')
             ))->first();
         } elseif ($id == null) {
-             $this->Flash->error(__d('croogo', 'Invalid content'));
+             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         } else {
 //             $content = $this->Content->find('byId', array(
@@ -35,12 +35,12 @@ class ContentController extends AppController {
         }
 
         if (!isset($content->id)) {
-            $this->Flash->error(__d('croogo', 'Invalid content'));
+            $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         }
         
-        if ($content->publish) {
-            $this->Flash->error(__d('croogo', 'Invalid content'));
+        if (empty($content->publish)) {
+            $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         }
 
