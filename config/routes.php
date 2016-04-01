@@ -92,18 +92,36 @@ Router::prefix('admin', function ($routes) {
             'pass' => ['menuId',]
         ]
     );
-	$routes->connect(
-        '/rolesusers/:userId', 
-        ['controller' => 'RolesUsers', 'action' => 'index'],
-        [
-            'pass' => ['userId',]
-        ]
-    );
+
 	$routes->connect(
         '/links/add/:menuId', 
         ['controller' => 'Links', 'action' => 'add'],
         [
             'pass' => ['menuId',]
+        ]
+    );
+	
+	$routes->connect(
+        '/content/:contentTypeId', 
+        ['controller' => 'Content', 'action' => 'index'],
+        [
+            'pass' => ['contentTypeId',]
+        ]
+    );
+	
+	$routes->connect(
+        '/content/add/:contentTypeId', 
+        ['controller' => 'Content', 'action' => 'add'],
+        [
+            'pass' => ['contentTypeId',]
+        ]
+    );
+	
+	$routes->connect(
+        '/rolesusers/:userId', 
+        ['controller' => 'RolesUsers', 'action' => 'index'],
+        [
+            'pass' => ['userId',]
         ]
     );
 

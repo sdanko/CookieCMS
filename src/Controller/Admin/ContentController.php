@@ -17,7 +17,7 @@ class ContentController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index($contentTypeId = null)
     {
         $this->paginate = [
             'contain' => ['ContentTypes']
@@ -155,5 +155,13 @@ class ContentController extends AppController
             $this->Flash->error(__('Content not be unpromoted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+    public function types() {
+        $this->set('title_for_layout', __d('admin', 'Choose content type'));
+
+        $types = $this->Content->ContentTypes->find();
+              
+        $this->set(compact('types'));
     }
 }

@@ -16,7 +16,7 @@ class LinksController extends AppController
      *
      * @return void
      */
-    public function index($menuId=null)
+    public function index($menuId = null)
     {
         $query = $this->Links->find()->where(['Links.menu_id' => $menuId]);
         
