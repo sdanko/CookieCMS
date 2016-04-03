@@ -4,7 +4,7 @@
     foreach ($types as $type):
         ?>
         <blockquote>
-                <p><?= $this->Html->link($type['title'], ['action' => 'index', "contentTypeId" => $type['id']]) ?></p>
+                <p><?= $this->Html->link($type['title'], ['action' => 'index', "typeAlias" => $type['alias']]) ?></p>
                 <small><?= $type['description'] ?></small>
         </blockquote>
         <?php

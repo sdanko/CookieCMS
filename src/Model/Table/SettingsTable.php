@@ -92,7 +92,6 @@ class SettingsTable extends Table
 
         Configure::write($settings);
         foreach ($settings as $key => $setting) {
-            debug($setting);debug($key);
             list($key, $ignore) = explode('.', $key, 2);
             $keys[] = $key;
         }

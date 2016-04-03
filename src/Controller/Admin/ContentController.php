@@ -17,12 +17,25 @@ class ContentController extends AppController
      *
      * @return void
      */
-    public function index($contentTypeId = null)
+    public function index()
     {
+        $typeAlias = $this->request->query('typeAlias');
+        $query = $this->Content->find('byType', array(
+            'type' => $typeAlias
+        ));
+        
+        $type = $this->Content->ContentTypes->find('byAlias',array(
+                    'alias' => $typeAlias
+                ))->first();
+        debug($type);
+        
         $this->paginate = [
             'contain' => ['ContentTypes']
         ];
-        $this->set('content', $this->paginate($this->Content));
+        
+        $content = $this->paginate($query);
+        $this->set(compact('typeAlias', 'content'));
+        //$this->set('content', $this->paginate($this->Content));
         $this->set('_serialize', ['content']);
     }
 
@@ -47,7 +60,7 @@ class ContentController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($typeAlias = null)
     {
         $content = $this->Content->newEntity();
         if ($this->request->is('post')) {
