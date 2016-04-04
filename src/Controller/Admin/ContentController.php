@@ -25,16 +25,15 @@ class ContentController extends AppController
         ));
         
         $type = $this->Content->ContentTypes->find('byAlias',array(
-                    'alias' => $typeAlias
-                ))->first();
-        debug($type);
+            'alias' => $typeAlias
+        ))->first();
         
         $this->paginate = [
             'contain' => ['ContentTypes']
         ];
         
         $content = $this->paginate($query);
-        $this->set(compact('typeAlias', 'content'));
+        $this->set(compact('type', 'content'));
         //$this->set('content', $this->paginate($this->Content));
         $this->set('_serialize', ['content']);
     }
@@ -62,6 +61,10 @@ class ContentController extends AppController
      */
     public function add($typeAlias = null)
     {
+        $type = $this->Content->ContentTypes->find('byAlias',array(
+            'alias' => $typeAlias
+        ))->first();
+        
         $content = $this->Content->newEntity();
         if ($this->request->is('post')) {
             $content = $this->Content->patchEntity($content, $this->request->data);
@@ -73,7 +76,7 @@ class ContentController extends AppController
             }
         }
         $contentTypes = $this->Content->ContentTypes->find('list', ['limit' => 200]);
-        $this->set(compact('content', 'contentTypes'));
+        $this->set(compact('content', 'contentTypes', 'type'));
         $this->set('_serialize', ['content']);
     }
 

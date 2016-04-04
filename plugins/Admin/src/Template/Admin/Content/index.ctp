@@ -1,6 +1,7 @@
+<h2><?= $type->title ?></h2>
 <div class="actions">
     <div class="btn-group">
-        <?= $this->Html->link(__d('admin','New Content'), ['prefix' => 'admin', 'action' => 'add', $typeAlias], ['class'=> 'btn btn-success']) ?>
+        <?= $this->Html->link(__d('admin','New Content'), ['prefix' => 'admin', 'action' => 'add', $type->alias], ['class'=> 'btn btn-success']) ?>
     </div>
 </div>
 <div class="table-responsive">

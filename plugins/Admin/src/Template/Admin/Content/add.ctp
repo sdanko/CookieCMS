@@ -1,14 +1,15 @@
    <?php
         echo $this->Html->script('tinymce/tinymce.min', ['block' => true]);
-         echo $this->Html->script('tinymce.init', ['block' => true]);
+        echo $this->Html->script('tinymce.init', ['block' => true]);
     ?>
 <?php $this->Form->templates($form_templates['default']); ?>
 <?= $this->Form->create($content) ?>
 <fieldset>
-    <legend><?= __d('admin','Add Content') ?></legend>
+    <legend><?= __d('admin','Add Content') . ' - ' . __d('admin', $type->title)?></legend>
     <?php
     echo $this->Form->input('title');
-    echo $this->Form->input('content_type_id');
+    //echo $this->Form->input('content_type_id');
+    echo $this->Form->input('menu_id', array('type' => 'hidden', 'value' => $type->id));
     echo $this->Form->input('active');
     echo $this->Form->input('slug');
     echo $this->Form->input('body');
