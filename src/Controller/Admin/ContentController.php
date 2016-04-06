@@ -76,8 +76,12 @@ class ContentController extends AppController
             }
         }
         $contentTypes = $this->Content->ContentTypes->find('list', ['limit' => 200]);
-        $this->set(compact('content', 'contentTypes', 'type'));
+        $this->set(compact('content', 'contentTypes'));
         $this->set('_serialize', ['content']);
+        
+        if (isset($this->Taxonomies)) {
+            $this->Taxonomies->prepareCommonData($type);
+        }
     }
 
     /**
