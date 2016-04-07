@@ -5,16 +5,67 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Utility\Hash;
 use Cake\Core\Exception\Exception;
+use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
+
 /**
  * CakePHP TaxonomiesComponent
  * @author DANKO
  */
 class TaxonomiesComponent extends Component {
+
+    /**
+     * Types for layout
+     *
+     * @var string
+     * @access public
+     */
+    public $typesForLayout = array();
+
+    /**
+     * Vocabularies for layout
+     *
+     * @var string
+     * @access public
+     */
+    public $vocabulariesForLayout = array();
+
+    public function startup(Event $event) {
+        $this->controller = $this->_registry->getController();
+        if (isset($this->controller->Taxonomy)) {
+            $this->Taxonomy = $this->controller->Taxonomy;
+        } else {
+            $this->Taxonomy = ClassRegistry::init('Taxonomy');
+        }
+
+        if (isset($this->request->params['prefix'])) {
+            if ($this->request->params['prefix'] == 'admin') {
+                return;
+            }
+        }
+        $this->types();
+        $this->vocabularies();
+    }
+
+    public function beforeRender(Event $event) {
+        $controller = $this->_registry->getController();
+        $this->controller->set('types_for_layout', $this->typesForLayout);
+        $this->controller->set('vocabularies_for_layout', $this->vocabulariesForLayout);
+    }
+    
+     public function types() {
+        
+    }
+    
+    public function vocabularies() {
+        
+    }
 
     public function prepareCommonData($type, $options = array()) {
         $options = Hash::merge(array(
@@ -29,7 +80,8 @@ class TaxonomiesComponent extends Component {
                     'Model %s not found in controller %s', $Model, $this->controller->name
             ));
         }
-        debug($type);die;
+        debug($type);
+        die;
         $vocabularies = Hash::combine($type['Vocabulary'], '{n}.id', '{n}');
         $taxonomy = array();
         foreach ($type['Vocabulary'] as $vocabulary) {
