@@ -41,7 +41,7 @@ class TaxonomiesComponent extends Component {
         if (isset($this->controller->Taxonomy)) {
             $this->Taxonomy = $this->controller->Taxonomy;
         } else {
-            $this->Taxonomy = ClassRegistry::init('Taxonomy');
+            $this->Taxonomy = TableRegistry::get('Taxonomy');
         }
 
         if (isset($this->request->params['prefix'])) {
@@ -54,12 +54,12 @@ class TaxonomiesComponent extends Component {
     }
 
     public function beforeRender(Event $event) {
-        $controller = $this->_registry->getController();
+        $this->controller = $this->_registry->getController();
         $this->controller->set('types_for_layout', $this->typesForLayout);
         $this->controller->set('vocabularies_for_layout', $this->vocabulariesForLayout);
     }
     
-     public function types() {
+    public function types() {
         
     }
     
@@ -72,7 +72,6 @@ class TaxonomiesComponent extends Component {
                     'modelClass' => $this->controller->modelClass,
                         ), $options);
         $modelClass = $options['modelClass'];
-        debug($this->controller);
         if (isset($this->controller->{$modelClass})) {
             $Model = $this->controller->{$modelClass};
         } else {
@@ -80,8 +79,7 @@ class TaxonomiesComponent extends Component {
                     'Model %s not found in controller %s', $Model, $this->controller->name
             ));
         }
-        debug($type);
-        die;
+
         $vocabularies = Hash::combine($type['Vocabulary'], '{n}.id', '{n}');
         $taxonomy = array();
         foreach ($type['Vocabulary'] as $vocabulary) {
