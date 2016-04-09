@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  * ContentTypes Model
  *
  * @property \Cake\ORM\Association\HasMany $Content
+ * @property \Cake\ORM\Association\BelongsToMany $Vocabularies
  */
 class ContentTypesTable extends Table
 {
@@ -23,11 +24,19 @@ class ContentTypesTable extends Table
      */
     public function initialize(array $config)
     {
+        parent::initialize($config);
+
         $this->table('cms.content_types');
         $this->displayField('title');
         $this->primaryKey('id');
+
         $this->hasMany('Content', [
             'foreignKey' => 'content_type_id'
+        ]);
+        $this->belongsToMany('Vocabularies', [
+            'foreignKey' => 'content_type_id',
+            'targetForeignKey' => 'vocabulary_id',
+            'joinTable' => 'content_types_vocabularies'
         ]);
     }
 
@@ -40,15 +49,15 @@ class ContentTypesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
+            ->integer('id')
             ->allowEmpty('id', 'create');
-            
+
         $validator
             ->allowEmpty('title');
-            
+
         $validator
             ->allowEmpty('description');
-            
+
         $validator
             ->allowEmpty('alias');
 
