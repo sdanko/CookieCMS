@@ -64,7 +64,7 @@ class ContentController extends AppController
         $type = $this->Content->ContentTypes->find('byAlias',array(
             'alias' => $typeAlias
         ))->first();
-        
+        debug($type);die;
         $content = $this->Content->newEntity();
         if ($this->request->is('post')) {
             $content = $this->Content->patchEntity($content, $this->request->data);
