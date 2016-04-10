@@ -36,7 +36,8 @@ class VocabulariesTable extends Table
         $this->belongsToMany('ContentTypes', [
             'foreignKey' => 'vocabulary_id',
             'targetForeignKey' => 'content_type_id',
-            'joinTable' => 'content_types_vocabularies'
+            'joinTable' => 'content_types_vocabularies',
+            
         ]);
     }
 

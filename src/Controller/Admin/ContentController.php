@@ -27,7 +27,7 @@ class ContentController extends AppController
         $type = $this->Content->ContentTypes->find('byAlias',array(
             'alias' => $typeAlias
         ))->first();
-        
+        //debug($type);
         $this->paginate = [
             'contain' => ['ContentTypes']
         ];

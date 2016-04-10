@@ -36,7 +36,8 @@ class ContentTypesTable extends Table
         $this->belongsToMany('Vocabularies', [
             'foreignKey' => 'content_type_id',
             'targetForeignKey' => 'vocabulary_id',
-            'joinTable' => 'content_types_vocabularies'
+            'joinTable' => 'content_types_vocabularies',
+            'through' => 'ContentTypesVocabularies'
         ]);
     }
 
@@ -68,7 +69,7 @@ class ContentTypesTable extends Table
     {
         $alias = isset($options["alias"]) ? $options["alias"] : null;
 
-        $query->where([
+        $query->contain(['Vocabularies'])->where([
             'alias' => $alias
         ]);
         
