@@ -2,7 +2,6 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
-use Cake\I18n\I18n;
 
 /**
  * ContentTypes Controller
@@ -15,11 +14,13 @@ class ContentTypesController extends AppController
     /**
      * Index method
      *
-     * @return void
+     * @return \Cake\Network\Response|null
      */
     public function index()
     {
-        $this->set('contentTypes', $this->paginate($this->ContentTypes));
+        $contentTypes = $this->paginate($this->ContentTypes);
+
+        $this->set(compact('contentTypes'));
         $this->set('_serialize', ['contentTypes']);
     }
 
@@ -27,14 +28,15 @@ class ContentTypesController extends AppController
      * View method
      *
      * @param string|null $id Content Type id.
-     * @return void
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return \Cake\Network\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
         $contentType = $this->ContentTypes->get($id, [
-            'contain' => []
+            'contain' => ['Vocabularies', 'Content']
         ]);
+
         $this->set('contentType', $contentType);
         $this->set('_serialize', ['contentType']);
     }
@@ -42,7 +44,7 @@ class ContentTypesController extends AppController
     /**
      * Add method
      *
-     * @return void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -56,7 +58,8 @@ class ContentTypesController extends AppController
                 $this->Flash->error(__('The content type could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('contentType'));
+        $vocabularies = $this->ContentTypes->Vocabularies->find('list', ['limit' => 200]);
+        $this->set(compact('contentType', 'vocabularies'));
         $this->set('_serialize', ['contentType']);
     }
 
@@ -64,13 +67,13 @@ class ContentTypesController extends AppController
      * Edit method
      *
      * @param string|null $id Content Type id.
-     * @return void Redirects on successful edit, renders view otherwise.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $contentType = $this->ContentTypes->get($id, [
-            'contain' => []
+            'contain' => ['Vocabularies']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $contentType = $this->ContentTypes->patchEntity($contentType, $this->request->data);
@@ -81,7 +84,8 @@ class ContentTypesController extends AppController
                 $this->Flash->error(__('The content type could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('contentType'));
+        $vocabularies = $this->ContentTypes->Vocabularies->find('list', ['limit' => 200]);
+        $this->set(compact('contentType', 'vocabularies'));
         $this->set('_serialize', ['contentType']);
     }
 
@@ -89,8 +93,8 @@ class ContentTypesController extends AppController
      * Delete method
      *
      * @param string|null $id Content Type id.
-     * @return void Redirects to index.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {

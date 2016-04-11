@@ -151,6 +151,21 @@ class CookieComponent extends Component {
                 )
             )
         ));
+        
+         CookieNav::add('sidebar', 'taxonomy', array(
+            'icon' => false,
+            'title' => '<span class="glyphicon glyphicon-book"></span>' . __d('admin', 'Taxonomy'),
+            'url' => '#dropdown-taxonomy',
+            'children' => array(
+                'Vocabulary' => array(
+                    'title' =>  __d('admin', 'Vocabulary'),
+                    'url' => array(
+                        'controller' => 'Vocabularies',
+                        'action' => 'index'
+                    ),
+                )
+            )
+        ));
     }
     
     public function getThemeData($alias = null) {
