@@ -8,11 +8,11 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id') ?></th>
-            <th><?= $this->Paginator->sort('link') ?></th>
-            <th><?= $this->Paginator->sort('title') ?></th>
-            <th><?= $this->Paginator->sort('parent_id') ?></th>
-            <th><?= $this->Paginator->sort('menu_id') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
+            <th><?= $this->Paginator->sort('link', __d('admin', 'Link')) ?></th>
+            <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
+            <th><?= $this->Paginator->sort('parent_id', __d('admin', 'Parent')) ?></th>
+            <th><?= $this->Paginator->sort('menu_id', __d('admin', 'Menu')) ?></th>
+            <th class="actions"><?= __d('admin','Actions') ?></th>
         </tr>
     </thead>
     <tbody>

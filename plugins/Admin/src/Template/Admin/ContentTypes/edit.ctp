@@ -6,7 +6,7 @@
             echo $this->Form->input('title');
             echo $this->Form->input('description');
             echo $this->Form->input('alias');
-            echo $this->Form->input('vocabularies._ids', ['options' => $vocabularies]);
+            echo $this->Form->input('vocabularies._ids', ['class'=>'form-control','options' => $vocabularies]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

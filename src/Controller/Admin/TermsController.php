@@ -16,7 +16,7 @@ class TermsController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
+    public function index($vocabularyId = null)
     {
         $terms = $this->paginate($this->Terms);
 
