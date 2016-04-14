@@ -18,6 +18,8 @@ class TermsController extends AppController
      */
     public function index($vocabularyId = null)
     {
+        $this->__ensureVocabularyIdExists($vocabularyId);
+        
         $terms = $this->paginate($this->Terms);
 
         $this->set(compact('terms'));
@@ -104,5 +106,24 @@ class TermsController extends AppController
             $this->Flash->error(__('The term could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+        /**
+     * Checks that Vocabulary exists or flash redirect to $url when it is not found
+     *
+     * @param integer $vocabularyId Vocabulary Id
+     * @param string $url Redirect Url
+     * @return bool True if Term exists
+     */
+    private function __ensureVocabularyIdExists($vocabularyId, $url = null) {
+        $redirectUrl = is_null($url) ? $this->_redirectUrl : $url;
+        if (!$vocabularyId) {
+                return $this->redirect($redirectUrl);
+        }
+
+        if (!$this->Terms->Vocabularies->exists($vocabularyId)) {
+            $this->Flash->error(__d('cookie', 'Invalid Vocabulary ID.'));
+            return $this->redirect($redirectUrl);
+        }
     }
 }
