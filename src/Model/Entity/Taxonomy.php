@@ -13,6 +13,8 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Term $term
  * @property int $vocabulary_id
  * @property \App\Model\Entity\Vocabulary $vocabulary
+ * @property int $lft
+ * @property int $rght
  * @property \App\Model\Entity\Taxonomy[] $child_taxonomies
  */
 class Taxonomy extends Entity

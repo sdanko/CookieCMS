@@ -11,6 +11,13 @@ class TaxonomiesFixture extends TestFixture
 {
 
     /**
+     * Table name
+     *
+     * @var string
+     */
+    public $table = 'cms.taxonomies';
+
+    /**
      * Fields
      *
      * @var array
@@ -21,6 +28,8 @@ class TaxonomiesFixture extends TestFixture
         'parent_id' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         'term_id' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         'vocabulary_id' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'lft' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'rght' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -37,7 +46,9 @@ class TaxonomiesFixture extends TestFixture
             'id' => 1,
             'parent_id' => 1,
             'term_id' => 1,
-            'vocabulary_id' => 1
+            'vocabulary_id' => 1,
+            'lft' => 1,
+            'rght' => 1
         ],
     ];
 }

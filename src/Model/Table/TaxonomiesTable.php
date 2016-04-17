@@ -32,6 +32,8 @@ class TaxonomiesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->addBehavior('Tree');
+
         $this->belongsTo('ParentTaxonomies', [
             'className' => 'Taxonomies',
             'foreignKey' => 'parent_id'
@@ -59,6 +61,14 @@ class TaxonomiesTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
+
+        $validator
+            ->integer('lft')
+            ->allowEmpty('lft');
+
+        $validator
+            ->integer('rght')
+            ->allowEmpty('rght');
 
         return $validator;
     }

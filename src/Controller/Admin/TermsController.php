@@ -20,7 +20,14 @@ class TermsController extends AppController
     {
         $this->__ensureVocabularyIdExists($vocabularyId);
         
-        $terms = $this->paginate($this->Terms);
+        $vocabulary = $this->Terms->Vocabularies->findById($vocabularyId)->first();
+        $this->set('title_for_layout', __d('admin', 'Vocabulary: %s', $vocabulary->title));
+        
+        $query = $this->Terms->find('byVocabulary', array(
+                'vocabularyId' => $vocabularyId
+        ));
+            
+        $terms = $this->paginate($query);
 
         $this->set(compact('terms'));
         $this->set('_serialize', ['terms']);

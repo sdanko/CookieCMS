@@ -57,4 +57,20 @@ class TermsTable extends Table
 
         return $validator;
     }
+    
+    public function findByVocabulary(Query $query, array $options)
+    {
+        $vocabularyId = isset($options["vocabularyId"]) ? $options["vocabularyId"] : null;
+        
+        if (empty($vocabularyId)) {
+                trigger_error(__d('admin', '"vocabulary_id" key not found'));
+        }
+                
+        $query->contain(['ContentTypes'])->where([
+            'slug' => $slug,
+            'ContentTypes.alias' => $type
+        ]);
+        
+        return $query;
+    }
 }
