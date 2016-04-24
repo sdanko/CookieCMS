@@ -127,8 +127,8 @@ class TermsController extends AppController
         if (!$vocabularyId) {
                 return $this->redirect($redirectUrl);
         }
-
-        if (!$this->Terms->Vocabularies->exists($vocabularyId)) {
+        
+        if (!$this->Terms->Taxonomies->Vocabularies->exists($vocabularyId)) {
             $this->Flash->error(__d('cookie', 'Invalid Vocabulary ID.'));
             return $this->redirect($redirectUrl);
         }

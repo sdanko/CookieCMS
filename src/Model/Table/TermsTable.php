@@ -66,9 +66,10 @@ class TermsTable extends Table
                 trigger_error(__d('admin', '"vocabulary_id" key not found'));
         }
                 
-        $query->contain(['ContentTypes'])->where([
-            'slug' => $slug,
-            'ContentTypes.alias' => $type
+        $query->Taxonomy->find('treeList', [
+            'keyPath' => 'url',
+            'valuePath' => 'id',
+            'spacer' => ' '
         ]);
         
         return $query;

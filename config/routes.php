@@ -116,6 +116,14 @@ Router::prefix('admin', function ($routes) {
             'pass' => ['typeAlias',]
         ]
     );
+	
+	$routes->connect(
+        '/terms/:vocabularyId', 
+        ['controller' => 'Terms', 'action' => 'index'],
+        [
+            'pass' => ['vocabularyId',]
+        ]
+    );
 
 });
 

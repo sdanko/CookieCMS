@@ -28,6 +28,8 @@
                 <td class="actions">
                     <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $vocabulary->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
                     <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $vocabulary->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vocabulary->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>
+                    <?= $this->Html->link('<i class="fa fa-book fa-lg"></i>', ['controller' => 'Terms', 'action' => 'index', "vocabularyId" => $vocabulary->id],
+                        ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Terms')]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
