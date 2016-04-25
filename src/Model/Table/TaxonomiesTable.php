@@ -87,4 +87,21 @@ class TaxonomiesTable extends Table
         $rules->add($rules->existsIn(['vocabulary_id'], 'Vocabularies'));
         return $rules;
     }
+    
+    public function findByVocabulary(Query $query, array $options)
+    {
+        $vocabularyId = isset($options["vocabularyId"]) ? $options["vocabularyId"] : null;
+        
+        if (empty($vocabularyId)) {
+                trigger_error(__d('admin', '"vocabulary_id" key not found'));
+        }
+                
+        $query->find('treeList', [
+            'keyPath' => 'id',
+            'valuePath' => 'title',
+            'spacer' => ' '
+        ]);
+        
+        return $query;
+    }
 }

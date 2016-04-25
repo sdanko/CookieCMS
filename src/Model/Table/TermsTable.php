@@ -57,21 +57,4 @@ class TermsTable extends Table
 
         return $validator;
     }
-    
-    public function findByVocabulary(Query $query, array $options)
-    {
-        $vocabularyId = isset($options["vocabularyId"]) ? $options["vocabularyId"] : null;
-        
-        if (empty($vocabularyId)) {
-                trigger_error(__d('admin', '"vocabulary_id" key not found'));
-        }
-                
-        $query->Taxonomy->find('treeList', [
-            'keyPath' => 'url',
-            'valuePath' => 'id',
-            'spacer' => ' '
-        ]);
-        
-        return $query;
-    }
 }

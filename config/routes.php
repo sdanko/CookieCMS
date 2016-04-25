@@ -124,6 +124,15 @@ Router::prefix('admin', function ($routes) {
             'pass' => ['vocabularyId',]
         ]
     );
+	
+	
+	$routes->connect(
+        '/terms/add/:vocabularyId', 
+        ['controller' => 'Terms', 'action' => 'add'],
+        [
+            'pass' => ['vocabularyId',]
+        ]
+    );
 
 });
 

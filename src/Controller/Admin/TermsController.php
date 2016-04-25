@@ -20,15 +20,16 @@ class TermsController extends AppController
     {
         $this->__ensureVocabularyIdExists($vocabularyId);
         
-        $vocabulary = $this->Terms->Vocabularies->findById($vocabularyId)->first();
-        $this->set('title_for_layout', __d('admin', 'Vocabulary: %s', $vocabulary->title));
+        $vocabulary = $this->Terms->Taxonomies->Vocabularies->findById($vocabularyId)->first();
+        $this->set('title_for_layout', __d('admin', 'Vocabulary: {0}', $vocabulary->title));
         
-        $query = $this->Terms->find('byVocabulary', array(
+        $query = $this->Terms->Taxonomies->find('byVocabulary', array(
                 'vocabularyId' => $vocabularyId
         ));
             
         $terms = $this->paginate($query);
 
+        $this->set('vocabularyId', $vocabularyId );
         $this->set(compact('terms'));
         $this->set('_serialize', ['terms']);
     }
@@ -55,19 +56,24 @@ class TermsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($vocabularyId = null)
     {
         $term = $this->Terms->newEntity();
         if ($this->request->is('post')) {
             $term = $this->Terms->patchEntity($term, $this->request->data);
             if ($this->Terms->save($term)) {
                 $this->Flash->success(__('The term has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', "vocabularyId" => $vocabularyId]);
             } else {
                 $this->Flash->error(__('The term could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('term'));
+        
+        $parentTree = $this->Terms->Taxonomies->find('byVocabulary', array(
+                'vocabularyId' => $vocabularyId
+        ))->toList();
+             
+        $this->set(compact('term', 'vocabularyId', 'parentTree'));
         $this->set('_serialize', ['term']);
     }
 
@@ -128,7 +134,7 @@ class TermsController extends AppController
                 return $this->redirect($redirectUrl);
         }
         
-        if (!$this->Terms->Taxonomies->Vocabularies->exists($vocabularyId)) {
+        if (!$this->Terms->Taxonomies->Vocabularies->exists(['id' => $vocabularyId])) {
             $this->Flash->error(__d('cookie', 'Invalid Vocabulary ID.'));
             return $this->redirect($redirectUrl);
         }
