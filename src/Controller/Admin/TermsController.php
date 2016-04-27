@@ -58,6 +58,11 @@ class TermsController extends AppController
      */
     public function add($vocabularyId = null)
     {
+        $this->__ensureVocabularyIdExists($vocabularyId);
+        
+        $vocabulary = $this->Terms->Taxonomies->Vocabularies->findById($vocabularyId)->first();
+        $this->set('title_for_layout', __d('admin', '{0} : Add Term', $vocabulary->title));
+        
         $term = $this->Terms->newEntity();
         if ($this->request->is('post')) {
             $term = $this->Terms->patchEntity($term, $this->request->data);
@@ -84,8 +89,13 @@ class TermsController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($id = null, $vocabularyId = null)
     {
+        $this->__ensureVocabularyIdExists($vocabularyId);
+        
+        $vocabulary = $this->Terms->Taxonomies->Vocabularies->findById($vocabularyId)->first();
+        $this->set('title_for_layout', __d('admin', '{0} : Edit Term', $vocabulary->title));
+        
         $term = $this->Terms->get($id, [
             'contain' => []
         ]);
@@ -98,7 +108,11 @@ class TermsController extends AppController
                 $this->Flash->error(__('The term could not be saved. Please, try again.'));
             }
         }
-        $this->set(compact('term'));
+        
+        $parentTree = $this->Terms->Taxonomies->find('byVocabulary', array(
+                'vocabularyId' => $vocabularyId
+        ))->toList();
+        $this->set(compact('term', 'vocabularyId', 'parentTree'));
         $this->set('_serialize', ['term']);
     }
 

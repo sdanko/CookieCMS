@@ -57,4 +57,37 @@ class TermsTable extends Table
 
         return $validator;
     }
+    
+    public function add($data, $vocabularyId)
+    {
+        return $this->_save($data, $vocabularyId);
+    }
+    
+    protected function _save($data, $vocabularyId, $taxonomyId = null)
+    {
+        $added = false;
+        
+        $termId = $this->saveAndGetId($data);
+        if (!$this->isInVocabulary($termId, $vocabularyId, $taxonomyId)) {
+                $dataToPersist = array(
+                        'parent_id' => $data['Taxonomy']['parent_id'],
+                        'term_id' => $termId,
+                        'vocabulary_id' => $vocabularyId,
+                );
+                if (!is_null($taxonomyId)) {
+                        $dataToPersist['id'] = $taxonomyId;
+                }
+                $added = $this->Taxonomy->save($dataToPersist);
+        }
+        return $added;
+    }
+    
+    public function isInVocabulary($id, $vocabularyId, $taxonomyId = null)
+    {
+        $conditions = array('term_id' => $id, 'vocabulary_id' => $vocabularyId);
+        if (!is_null($taxonomyId)) {
+                $conditions['Taxonomy.id !='] = $taxonomyId;
+        }
+        return $this->Vocabulary->Taxonomy->hasAny($conditions);
+    }
 }

@@ -133,6 +133,14 @@ Router::prefix('admin', function ($routes) {
             'pass' => ['vocabularyId',]
         ]
     );
+	
+	$routes->connect(
+        '/terms/edit/:id/:vocabularyId', 
+        ['controller' => 'Terms', 'action' => 'edit'],
+        [
+            'pass' => ['id','vocabularyId']
+        ]
+    );
 
 });
 
