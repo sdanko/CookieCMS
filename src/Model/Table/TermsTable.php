@@ -67,7 +67,9 @@ class TermsTable extends Table
     {
         $added = false;
         
-        $termId = $this->saveAndGetId($data);
+        $term = $this->patchEntity($term, $data);
+        
+        $termId = $this->saveAndGetId($term);
         if (!$this->isInVocabulary($termId, $vocabularyId, $taxonomyId)) {
                 $dataToPersist = array(
                         'parent_id' => $data['Taxonomy']['parent_id'],
@@ -89,5 +91,25 @@ class TermsTable extends Table
                 $conditions['Taxonomy.id !='] = $taxonomyId;
         }
         return $this->Vocabulary->Taxonomy->hasAny($conditions);
+    }
+    
+    public function saveAndGetId($data)
+    {
+        if (!array_key_exists($this->alias, $data)) {
+                $data = array($this->alias => $data);
+        }
+        $termId = $this->field('id', array(
+                $this->escapeField('slug') => $data[$this->alias]['slug'],
+        ));
+
+        $this->id = false;
+        if ($termId) {
+                $this->id = $termId;
+        }
+        if ($this->save($data)) {
+                return $this->id;
+        }
+
+        return false;
     }
 }
