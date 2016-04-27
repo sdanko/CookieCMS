@@ -66,7 +66,7 @@ class TermsController extends AppController
         $term = $this->Terms->newEntity();
         if ($this->request->is('post')) {
             $term = $this->Terms->patchEntity($term, $this->request->data);
-            if ($this->Terms->save($term)) {
+            if ($this->Terms->add($term, $vocabularyId)) {
                 $this->Flash->success(__('The term has been saved.'));
                 return $this->redirect(['action' => 'index', "vocabularyId" => $vocabularyId]);
             } else {
