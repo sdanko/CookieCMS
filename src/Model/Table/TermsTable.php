@@ -77,7 +77,9 @@ class TermsTable extends Table
                 if (!is_null($taxonomyId)) {
                         $dataToPersist['id'] = $taxonomyId;
                 }
-                $added = $this->Vocabulary->Taxonomy->save($dataToPersist);
+                $term = $this->newEntity();
+                $term = $this->patchEntity($term, $dataToPersist);
+                $added = $this->Taxonomies->save($term);
         }
         return $added;
     }
@@ -88,7 +90,7 @@ class TermsTable extends Table
         if (!is_null($taxonomyId)) {
                 $conditions['Taxonomy.id !='] = $taxonomyId;
         }
-        return $this->Vocabulary->Taxonomy->hasAny($conditions);
+        return $this->Taxonomies->exists($conditions);
     }
     
     public function saveAndGetId($data)
