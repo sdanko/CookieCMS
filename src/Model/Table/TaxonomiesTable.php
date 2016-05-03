@@ -101,7 +101,7 @@ class TaxonomiesTable extends Table
             'valuePath' => 'title',
             'spacer' => ' '
         ]);
-        
+        debug($query->toList());
         return $query;
     }
 }

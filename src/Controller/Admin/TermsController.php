@@ -28,7 +28,6 @@ class TermsController extends AppController
         ));
             
         $terms = $this->paginate($query);
-
         $this->set('vocabularyId', $vocabularyId );
         $this->set(compact('terms'));
         $this->set('_serialize', ['terms']);

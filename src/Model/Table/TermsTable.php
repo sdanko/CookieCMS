@@ -77,9 +77,9 @@ class TermsTable extends Table
                 if (!is_null($taxonomyId)) {
                         $dataToPersist['id'] = $taxonomyId;
                 }
-                $term = $this->newEntity();
-                $term = $this->patchEntity($term, $dataToPersist);
-                $added = $this->Taxonomies->save($term);
+                $taxonomy = $this->Taxonomies->newEntity();
+                $taxonomy = $this->Taxonomies->patchEntity($taxonomy, $dataToPersist);
+                $added = $this->Taxonomies->save($taxonomy);
         }
         return $added;
     }
@@ -95,12 +95,12 @@ class TermsTable extends Table
     
     public function saveAndGetId($data)
     {
-        $this->id = false;
+        //$this->id = false;
         
         if ($this->save($data)) {
-                return $this->id;
+                return $data->id;
         }
-
+        
         return false;
     }
 }
