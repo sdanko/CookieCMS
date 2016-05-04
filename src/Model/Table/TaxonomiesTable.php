@@ -96,9 +96,10 @@ class TaxonomiesTable extends Table
                 trigger_error(__d('admin', '"vocabulary_id" key not found'));
         }
                 
-        $query->find('treeList', [
-            'keyPath' => 'id',
-            'valuePath' => 'title',
+        $query->find('treeList',
+        [
+            'keyPath' => 'term_id',
+            'valuePath' => 'term_id',
             'spacer' => ' '
         ]);
         debug($query->toList());
