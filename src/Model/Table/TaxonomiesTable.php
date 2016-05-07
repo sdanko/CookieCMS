@@ -98,11 +98,11 @@ class TaxonomiesTable extends Table
                 
         $query->find('treeList',
         [
-            'keyPath' => 'term_id',
+            'keyPath' => 'id',
             'valuePath' => 'term_id',
-            'spacer' => ' '
-        ]);
-        debug($query->toList());
+            'spacer' => '_'
+        ])->where(['vocabulary_id' => $vocabularyId ]);
+        
         return $query;
     }
 }

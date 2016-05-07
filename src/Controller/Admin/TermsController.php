@@ -23,9 +23,8 @@ class TermsController extends AppController
         $vocabulary = $this->Terms->Taxonomies->Vocabularies->findById($vocabularyId)->first();
         $this->set('title_for_layout', __d('admin', 'Vocabulary: {0}', $vocabulary->title));
         
-        $query = $this->Terms->Taxonomies->find('byVocabulary', array(
-                'vocabularyId' => $vocabularyId
-        ));
+        $terms = $this->getTreeList($vocabularyId, array('taxonomyId' => true));
+        
             
         $terms = $this->paginate($query);
         $this->set('vocabularyId', $vocabularyId );
@@ -150,6 +149,55 @@ class TermsController extends AppController
         if (!$this->Terms->Taxonomies->Vocabularies->exists(['id' => $vocabularyId])) {
             $this->Flash->error(__d('cookie', 'Invalid Vocabulary ID.'));
             return $this->redirect($redirectUrl);
+        }
+    }
+    
+    private function getTreeList($vocabularyId, $options = array()) {
+        $_options = array(
+            'key' => 'slug', // Term.slug
+            'value' => 'title', // Term.title
+            'taxonomyId' => false,
+            'cache' => false,
+        );
+        $options = array_merge($_options, $options);
+        
+        $tree = $this->Terms->Taxonomies->find('byVocabulary', array(
+                'vocabularyId' => $vocabularyId
+        ))->toArray();
+        
+        $termsIds = array_keys($tree);
+        
+        $terms = $this->Terms->find('list', array(
+            'conditions' => array(
+                    'Term.id' => $termsIds,
+            ),
+            'fields' => array(
+                    $options['key'],
+                    $options['value'],
+                    'id',
+            ),
+        ))->toArray();
+        
+        debug($terms);die;
+        $termsTree = array();
+        foreach ($tree as $termId => $tvId) {
+            if (isset($terms[$termId])) {
+                $term = $terms[$termId];
+                $key = array_keys($term);
+                $key = $key['0'];
+                $value = $term[$key];
+                if (strstr($tvId, '_')) {
+                    $tvIdN = str_replace('_', '', $tvId);
+                    $tvIdE = explode($tvIdN, $tvId);
+                    $value = $tvIdE['0'] . $value;
+                }
+
+                if (!$options['taxonomyId']) {
+                    $termsTree[$key] = $value;
+                } else {
+                    $termsTree[str_replace('_', '', $tvId)] = $value;
+                }
+            }
         }
     }
 }
