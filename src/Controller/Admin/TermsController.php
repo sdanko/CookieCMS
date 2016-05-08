@@ -26,10 +26,8 @@ class TermsController extends AppController
         $terms = $this->getTreeList($vocabularyId, array('taxonomyId' => true));
         
             
-        $terms = $this->paginate($query);
         $this->set('vocabularyId', $vocabularyId );
         $this->set(compact('terms'));
-        $this->set('_serialize', ['terms']);
     }
 
     /**
@@ -166,26 +164,23 @@ class TermsController extends AppController
         ))->toArray();
         
         $termsIds = array_keys($tree);
-        
-        $terms = $this->Terms->find('list', array(
+
+        $termsList = $this->Terms->find('list', array(
             'conditions' => array(
-                    'Term.id' => $termsIds,
+                    'Terms.id IN' => $termsIds
             ),
             'fields' => array(
-                    $options['key'],
-                    $options['value'],
-                    'id',
-            ),
+                 'id',
+                 'slug'
+ 
+            )
         ))->toArray();
-        
-        debug($terms);die;
+
         $termsTree = array();
         foreach ($tree as $termId => $tvId) {
-            if (isset($terms[$termId])) {
-                $term = $terms[$termId];
-                $key = array_keys($term);
-                $key = $key['0'];
-                $value = $term[$key];
+            if (isset($termsList[$termId])) {
+                $key = $termId;
+                $value = $termsList[$key];
                 if (strstr($tvId, '_')) {
                     $tvIdN = str_replace('_', '', $tvId);
                     $tvIdE = explode($tvIdN, $tvId);
@@ -199,5 +194,22 @@ class TermsController extends AppController
                 }
             }
         }
+  
+        $termsById = $this->Terms->find('all', array(
+            'conditions' => array(
+                    'Terms.id IN' => array_keys($termsTree)
+            )
+        ))->toArray();
+        
+        $ordered = array_keys($termsTree);
+        $terms = array();
+        foreach ($termsById as $tempTerm) {
+                $term = $tempTerm;
+                $id = $term['id'];
+                $term['indent'] = substr_count($termsTree[$id], '_');
+                $position = array_search($id, $ordered);
+                $terms[$position] = $term;
+        }
+        ksort($terms);          debug($terms);   
     }
 }
