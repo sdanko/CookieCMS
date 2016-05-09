@@ -1,7 +1,7 @@
     <?php $this->Form->templates($form_templates['default']); ?>
     <?= $this->Form->create($term) ?>
     <fieldset>
-        <legend><?= __d('admin','Add Term') ?></legend>
+        <legend><?= $title_for_layout ?></legend>
         <?php
             echo $this->Form->input('parent_id', array(
                 'options' => $parentTree,

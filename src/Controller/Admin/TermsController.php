@@ -23,11 +23,32 @@ class TermsController extends AppController
         $vocabulary = $this->Terms->Taxonomies->Vocabularies->findById($vocabularyId)->first();
         $this->set('title_for_layout', __d('admin', 'Vocabulary: {0}', $vocabulary->title));
         
-        $terms = $this->getTreeList($vocabularyId, array('taxonomyId' => true));
+        $terms = array();
         
+        $termsTree = $this->getTreeList($vocabularyId, array('taxonomyId' => true));
+
+        if(!empty($termsTree))
+        {   
+            $termsById = $this->Terms->find('all', array(
+                'conditions' => array(
+                        'Terms.id IN' => array_keys($termsTree)
+                )
+            ))->toArray();
+            debug($termsById);
+            $ordered = array_keys($termsTree);
+            foreach ($termsById as $tempTerm) {
+                    $term = $tempTerm;
+                    $id = $term['id'];
+                    $term['indent'] = substr_count($termsTree[$id], '_');
+                    $position = array_search($id, $ordered);
+                    $terms[$position] = $term;
+            }
+            ksort($terms); 
+        }
+
             
         $this->set('vocabularyId', $vocabularyId );
-        $this->set(compact('terms'));
+        $this->set('terms', $terms);
     }
 
     /**
@@ -70,9 +91,7 @@ class TermsController extends AppController
             }
         }
         
-        $parentTree = $this->Terms->Taxonomies->find('byVocabulary', array(
-                'vocabularyId' => $vocabularyId
-        ))->toList();
+        $parentTree = $this->getTreeList($vocabularyId);
              
         $this->set(compact('term', 'vocabularyId', 'parentTree'));
         $this->set('_serialize', ['term']);
@@ -163,6 +182,11 @@ class TermsController extends AppController
                 'vocabularyId' => $vocabularyId
         ))->toArray();
         
+        if(empty($tree))
+        {
+           return []; 
+        }
+                 
         $termsIds = array_keys($tree);
 
         $termsList = $this->Terms->find('list', array(
@@ -195,21 +219,6 @@ class TermsController extends AppController
             }
         }
   
-        $termsById = $this->Terms->find('all', array(
-            'conditions' => array(
-                    'Terms.id IN' => array_keys($termsTree)
-            )
-        ))->toArray();
-        
-        $ordered = array_keys($termsTree);
-        $terms = array();
-        foreach ($termsById as $tempTerm) {
-                $term = $tempTerm;
-                $id = $term['id'];
-                $term['indent'] = substr_count($termsTree[$id], '_');
-                $position = array_search($id, $ordered);
-                $terms[$position] = $term;
-        }
-        ksort($terms);          debug($terms);   
+        return $termsTree;
     }
 }

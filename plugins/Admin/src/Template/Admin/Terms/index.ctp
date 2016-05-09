@@ -3,13 +3,14 @@
          <?= $this->Html->link(__d('admin','New Term'), ['action' => 'add', $vocabularyId], ['class'=> 'btn btn-success']) ?>
     </div>
 </div>
+<h3><?=  $title_for_layout ?></h3>
 <div class="table-responsive">
     <table class="table table-stripped">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('title', __d('admin','Title')) ?></th>
-                <th><?= $this->Paginator->sort('slug', __d('admin','Slug')) ?></th>
+                <th>id</th>
+                <th><?=  __d('admin','Title') ?></th>
+                <th><?=  __d('admin','Slug') ?></th>
                 <th class="actions"><?= __d('admin','Actions') ?></th>
             </tr>
         </thead>
