@@ -18,7 +18,7 @@ use Cake\Event\Event;
  * CakePHP TaxonomiesComponent
  * @author DANKO
  */
-class TaxonomiesComponent extends Component {
+class TaxonomiesDataComponent extends Component {
 
     /**
      * Types for layout

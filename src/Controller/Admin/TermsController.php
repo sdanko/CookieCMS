@@ -25,7 +25,7 @@ class TermsController extends AppController
         
         $terms = array();
         
-        $termsTree = $this->getTreeList($vocabularyId, array('taxonomyId' => true));
+        $termsTree = $this->getTreeList($vocabularyId);
 
         if(!empty($termsTree))
         {   
@@ -34,7 +34,7 @@ class TermsController extends AppController
                         'Terms.id IN' => array_keys($termsTree)
                 )
             ))->toArray();
-            debug($termsById);
+
             $ordered = array_keys($termsTree);
             foreach ($termsById as $tempTerm) {
                     $term = $tempTerm;
@@ -82,8 +82,8 @@ class TermsController extends AppController
         
         $term = $this->Terms->newEntity();
         if ($this->request->is('post')) {
-            $term = $this->Terms->patchEntity($term, $this->request->data);
-            if ($this->Terms->add($term, $vocabularyId)) {
+            //$term = $this->Terms->patchEntity($term, $this->request->data);
+            if ($this->Terms->add($this->request->data, $vocabularyId)) {
                 $this->Flash->success(__('The term has been saved.'));
                 return $this->redirect(['action' => 'index', "vocabularyId" => $vocabularyId]);
             } else {
@@ -91,7 +91,7 @@ class TermsController extends AppController
             }
         }
         
-        $parentTree = $this->getTreeList($vocabularyId);
+        $parentTree = $this->getTreeList($vocabularyId, array('taxonomyId' => true));
              
         $this->set(compact('term', 'vocabularyId', 'parentTree'));
         $this->set('_serialize', ['term']);
@@ -181,7 +181,7 @@ class TermsController extends AppController
         $tree = $this->Terms->Taxonomies->find('byVocabulary', array(
                 'vocabularyId' => $vocabularyId
         ))->toArray();
-        
+
         if(empty($tree))
         {
            return []; 
@@ -218,7 +218,7 @@ class TermsController extends AppController
                 }
             }
         }
-  
+
         return $termsTree;
     }
 }

@@ -15,10 +15,16 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($terms as $term): ?>
+            <?php 
+            foreach ($terms as $term): 
+                $titleCol = $term->title;
+                if (!empty($term->indent)):
+			$titleCol = str_repeat('&emsp;', $term->indent) . $term->title;
+		endif; 
+            ?>
             <tr>
                 <td><?= $this->Number->format($term->id) ?></td>
-                <td><?= h($term->title) ?></td>
+                <td><?= $titleCol ?></td>
                 <td><?= h($term->slug) ?></td>
                 <td class="actions">
                     <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $term->id, $vocabularyId], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
