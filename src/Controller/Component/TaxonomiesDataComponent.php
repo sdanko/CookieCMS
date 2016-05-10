@@ -70,7 +70,7 @@ class TaxonomiesDataComponent extends Component {
     public function prepareCommonData($type, $options = array()) {
         $options = Hash::merge(array(
                     'modelClass' => $this->controller->modelClass,
-                        ), $options);
+        ), $options);
         $modelClass = $options['modelClass'];
         if (isset($this->controller->{$modelClass})) {
             $Model = $this->controller->{$modelClass};
@@ -89,7 +89,7 @@ class TaxonomiesDataComponent extends Component {
             );
         }
         $this->controller->set(compact(
-                        'type', 'taxonomy', 'vocabularies'
+            'type', 'taxonomy', 'vocabularies'
         ));
     }
 
