@@ -6,6 +6,11 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\Entity;
+use ArrayObject;
+use Cake\Event\Event;
+
 
 /**
  * Terms Model
@@ -58,15 +63,54 @@ class TermsTable extends Table
         return $validator;
     }
     
+    public function beforeDelete(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+        $count = $this->Taxonomies->find('all', array(
+            'conditions' => array(
+                    'term_id' => $entity->id,
+            ),
+        ))->count();
+        return $count === 0;
+    }
+    
     public function add($data, $vocabularyId)
     {
         return $this->_save($data, $vocabularyId);
     }
     
+    public function edit($data, $vocabularyId)
+    {
+        $id = $data['id'];
+        $slug = $data['slug'];
+
+        if ($this->hasSlugChanged($id, $slug) && $this->slugExists($slug)) {
+            $edited = false;
+        } else {
+            $taxonomyId = !empty($data['Taxonomy']['id']) ? $data['Taxonomy']['id'] : null;        debug($data);
+            $edited = $this->_save($data, $vocabularyId, $taxonomyId);
+        }
+        return $edited;
+    }
+    
+    public function hasSlugChanged($id, $slug)
+    {
+        if (!is_numeric($id) || !$this->exists(['id' => $id])) {
+                throw new NotFoundException(__d('admin', 'Invalid Term Id'));
+        }
+        
+        $term = $this->findById($id)->first();
+        return $term->slug != $slug;
+    }
+    
+    public function slugExists($slug)
+    {
+        return $this->exists(['slug' => $slug]);
+    }
+    
     protected function _save($data, $vocabularyId, $taxonomyId = null)
     {
         $added = false;
-        
+
         $termId = $this->saveAndGetId($data);
         if (!$this->isInVocabulary($termId, $vocabularyId, $taxonomyId)) {
                 $dataToPersist = array(
@@ -75,10 +119,12 @@ class TermsTable extends Table
                         'vocabulary_id' => $vocabularyId,
                 );
                 if (!is_null($taxonomyId)) {
-                        $dataToPersist['id'] = $taxonomyId;
+                    $taxonomy = $this->Taxonomies->findById($taxonomyId)->first();
                 }
-
-                $taxonomy = $this->Taxonomies->newEntity();
+                else {
+                    $taxonomy = $this->Taxonomies->newEntity();
+                }
+              
                 $taxonomy = $this->Taxonomies->patchEntity($taxonomy, $dataToPersist);
                 $added = $this->Taxonomies->save($taxonomy);
         }
@@ -89,7 +135,7 @@ class TermsTable extends Table
     {
         $conditions = array('term_id' => $id, 'vocabulary_id' => $vocabularyId);
         if (!is_null($taxonomyId)) {
-                $conditions['Taxonomy.id !='] = $taxonomyId;
+                $conditions['Taxonomies.id !='] = $taxonomyId;
         }
         return $this->Taxonomies->exists($conditions);
     }
@@ -101,7 +147,13 @@ class TermsTable extends Table
             'slug' => $data['slug'],
             'description' => $data['description'],
         );
-        $term = $this->newEntity();
+        
+        $term = $this->findBySlug($data['slug'])->first();
+        
+        if(!$term) {
+            $term = $this->newEntity();
+        }
+        
         $term = $this->patchEntity($term, $dataToPersist);
         
         if ($this->save($term)) {
@@ -109,5 +161,14 @@ class TermsTable extends Table
         }
         
         return false;
+    }
+    
+    public function remove($id, $vocabularyId)
+    {
+        $taxonomy = $this->Taxonomies->find('all', array(
+                'term_id' => $id, 'vocabulary_id' => $vocabularyId
+        ))->first();
+  
+        return $this->Taxonomies->delete($taxonomy->id) && $this->delete($id);
     }
 }

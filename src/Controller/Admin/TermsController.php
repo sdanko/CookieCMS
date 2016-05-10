@@ -114,20 +114,28 @@ class TermsController extends AppController
         $term = $this->Terms->get($id, [
             'contain' => []
         ]);
+        
+        $taxonomy = $this->Terms->Taxonomies->find('all', array(
+            'conditions' => array(
+                    'Taxonomies.term_id' => $id,
+                    'Taxonomies.vocabulary_id' => $vocabularyId,
+            )
+        ))->first();
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $term = $this->Terms->patchEntity($term, $this->request->data);
-            if ($this->Terms->save($term)) {
+            //$term = $this->Terms->patchEntity($term, $this->request->data);
+            if ($this->Terms->edit($this->request->data, $vocabularyId)) {
                 $this->Flash->success(__('The term has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', "vocabularyId" => $vocabularyId]);
             } else {
                 $this->Flash->error(__('The term could not be saved. Please, try again.'));
             }
         }
         
-        $parentTree = $this->Terms->Taxonomies->find('byVocabulary', array(
-                'vocabularyId' => $vocabularyId
-        ))->toList();
-        $this->set(compact('term', 'vocabularyId', 'parentTree'));
+        $parentTree = $this->getTreeList($vocabularyId, array('taxonomyId' => true));
+        $taxonomyId = $taxonomy ? $taxonomy->id : null;
+        
+        $this->set(compact('term', 'vocabularyId', 'parentTree', 'taxonomyId'));
         $this->set('_serialize', ['term']);
     }
 
@@ -138,16 +146,16 @@ class TermsController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($id = null, $vocabularyId = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $term = $this->Terms->get($id);
-        if ($this->Terms->delete($term)) {
+        //$term = $this->Terms->get($id);
+        if ($this->Terms->remove($id, $vocabularyId)) {
             $this->Flash->success(__('The term has been deleted.'));
         } else {
             $this->Flash->error(__('The term could not be deleted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index', "vocabularyId" => $vocabularyId]);
     }
     
         /**

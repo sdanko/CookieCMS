@@ -141,6 +141,14 @@ Router::prefix('admin', function ($routes) {
             'pass' => ['id','vocabularyId']
         ]
     );
+	
+	$routes->connect(
+        '/terms/delete/:id/:vocabularyId', 
+        ['controller' => 'Terms', 'action' => 'delete'],
+        [
+            'pass' => ['id','vocabularyId']
+        ]
+    );
 
 });
 
