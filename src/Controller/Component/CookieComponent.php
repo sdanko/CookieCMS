@@ -70,7 +70,7 @@ class CookieComponent extends Component {
                     'title' =>  __d('admin', 'Content'),
                     'url' => array(
                         'controller' => 'Content',
-                        'action' => 'index'
+                        'action' => 'types'
                     ),
                 ),
                 'content-types' => array(

@@ -69,7 +69,7 @@ class TaxonomiesDataComponent extends Component {
 
     public function prepareCommonData($type, $options = array()) {
         $options = Hash::merge(array(
-                    'modelClass' => $this->controller->modelClass,
+            'modelClass' => $this->controller->modelClass,
         ), $options);
         $modelClass = $options['modelClass'];
         if (isset($this->controller->{$modelClass})) {
@@ -80,12 +80,12 @@ class TaxonomiesDataComponent extends Component {
             ));
         }
 
-        $vocabularies = Hash::combine($type['Vocabulary'], '{n}.id', '{n}');
+        $vocabularies = Hash::combine($type->vocabularies, '{n}.id', '{n}');
         $taxonomy = array();
-        foreach ($type['Vocabulary'] as $vocabulary) {
+        foreach ($type->vocabularies as $vocabulary) {
             $vocabularyId = $vocabulary['id'];
-            $taxonomy[$vocabularyId] = $Model->Taxonomy->getTree(
-                    $vocabulary['alias'], array('taxonomyId' => true)
+            $taxonomy[$vocabularyId] = $Model->ContentTypes->ContentTypesVocabularies->Vocabularies->Taxonomies->getTreeList(
+                    $vocabularyId, array('taxonomyId' => true)
             );
         }
         $this->controller->set(compact(

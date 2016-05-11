@@ -64,7 +64,7 @@ class ContentController extends AppController
         $type = $this->Content->ContentTypes->find('byAlias',array(
             'alias' => $typeAlias
         ))->first();
-        debug($type);die;
+
         $content = $this->Content->newEntity();
         if ($this->request->is('post')) {
             $content = $this->Content->patchEntity($content, $this->request->data);
@@ -79,8 +79,8 @@ class ContentController extends AppController
         $this->set(compact('content', 'contentTypes'));
         $this->set('_serialize', ['content']);
         
-        if (isset($this->Taxonomies)) {
-            $this->Taxonomies->prepareCommonData($type);
+        if (isset($this->TaxonomiesData)) {
+            $this->TaxonomiesData->prepareCommonData($type);
         }
     }
 
