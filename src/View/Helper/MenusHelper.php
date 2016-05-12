@@ -30,7 +30,8 @@ class MenusHelper extends Helper {
         $this->_setupEvents();
     }
     
-     protected function _setupEvents() {
+     protected function _setupEvents()
+    {
         $events = [
             'filter' => [$this, 'filter']
         ];
@@ -58,20 +59,22 @@ class MenusHelper extends Helper {
  * @param string $content
  * @return string
  */
-    public function filter($event) {
-            $content = & $event->data['content'];
-            preg_match_all('/\[(menu|m):([A-Za-z0-9_\-]*)(.*?)\]/i', $content, $tagMatches);
-            for ($i = 0, $ii = count($tagMatches[1]); $i < $ii; $i++) {
-                    $regex = '/(\S+)=[\'"]?((?:.(?![\'"]?\s+(?:\S+)=|[>\'"]))+.)[\'"]?/i';
-                    preg_match_all($regex, $tagMatches[3][$i], $attributes);
-                    $menuAlias = $tagMatches[2][$i];
-                    $options = array();
-                    for ($j = 0, $jj = count($attributes[0]); $j < $jj; $j++) {
-                            $options[$attributes[1][$j]] = $attributes[2][$j];
-                    }
-                    $content = str_replace($tagMatches[0][$i], $this->menu($menuAlias, $options), $content);
-            }
-            return $content;
+    public function filter($event) 
+    {
+        $content = & $event->data['content'];
+        preg_match_all('/\[(menu|m):([A-Za-z0-9_\-]*)(.*?)\]/i', $content, $tagMatches);
+        for ($i = 0, $ii = count($tagMatches[1]); $i < $ii; $i++) 
+        {
+                $regex = '/(\S+)=[\'"]?((?:.(?![\'"]?\s+(?:\S+)=|[>\'"]))+.)[\'"]?/i';
+                preg_match_all($regex, $tagMatches[3][$i], $attributes);
+                $menuAlias = $tagMatches[2][$i];
+                $options = array();
+                for ($j = 0, $jj = count($attributes[0]); $j < $jj; $j++) {
+                        $options[$attributes[1][$j]] = $attributes[2][$j];
+                }
+                $content = str_replace($tagMatches[0][$i], $this->menu($menuAlias, $options), $content);
+        }
+        return $content;
     }
 
 /**
@@ -81,7 +84,8 @@ class MenusHelper extends Helper {
  * @param array $options (optional)
  * @return string
  */
-    public function menu($menuAlias, $options = array()) {
+    public function menu($menuAlias, $options = array())
+    {
             $_options = array(
                     'tag' => 'ul',
                     'tagAttributes' => array(),
@@ -113,7 +117,8 @@ class MenusHelper extends Helper {
      * @param integer $depth depth level
      * @return string
      */
-    public function nestedLinks($links, $options = array(), $depth = 1) {
+    public function nestedLinks($links, $options = array(), $depth = 1)
+    {
         $_options = array();
         $options = array_merge($_options, $options);
         
@@ -174,7 +179,8 @@ class MenusHelper extends Helper {
      * @param array $attributes Default options
      * @return string
      */
-    protected function _mergeLinkParams($link, $param, $options = array()) {
+    protected function _mergeLinkParams($link, $param, $options = array())
+    {
         if (isset($link['Params'][$param])) {
             $options = array_merge($options, $link['Params'][$param]);
         }
@@ -199,7 +205,8 @@ class MenusHelper extends Helper {
      * @return array
      * @see Use StringConverter::linkStringToArray()
      */
-    public function linkStringToArray($link) {
+    public function linkStringToArray($link)
+    {
         return $this->_converter->linkStringToArray($link);
     }
     
@@ -210,7 +217,8 @@ class MenusHelper extends Helper {
      * @return array
      * @see StringConverter::urlToLinkString()
      */
-    public function urlToLinkString($url) {
+    public function urlToLinkString($url)
+    {
         return $this->_converter->urlToLinkString($url);
     }
 

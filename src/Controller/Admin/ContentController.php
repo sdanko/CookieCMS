@@ -68,7 +68,8 @@ class ContentController extends AppController
         $content = $this->Content->newEntity();
         if ($this->request->is('post')) {
             $content = $this->Content->patchEntity($content, $this->request->data);
-            if ($this->Content->save($content)) {
+            //if ($this->Content->save($content)) {
+                if ($this->Content->saveContent($this->request->data, $typeAlias)) {
                 $this->Flash->success(__('The content has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {

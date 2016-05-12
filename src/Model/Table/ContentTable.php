@@ -11,6 +11,7 @@ use Cake\I18n\Time;
 use Cake\Core\Configure;
 use Cake\ORM\Entity;
 use ArrayObject;
+use Cake\Event\EventManager;
 
 /**
  * Content Model
@@ -19,6 +20,7 @@ use ArrayObject;
  */
 class ContentTable extends Table
 {
+    const DEFAULT_TYPE = 'news';
 
     /**
      * Initialize method
@@ -30,12 +32,13 @@ class ContentTable extends Table
     {
         parent::initialize($config);
 
-         $this->table('cms.content');
+        $this->table('cms.content');
         $this->displayField('title');
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Ceeram/Blame.Blame');
+        $this->addBehavior('Taxonomizable');
 
         $this->belongsTo('ContentTypes', [
             'foreignKey' => 'content_type_id'
@@ -191,4 +194,27 @@ class ContentTable extends Table
         
         return $query;
     }
+    
+    public function saveContent($data, $typeAlias = self::DEFAULT_TYPE)
+    {
+        $result = false;
+
+        $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
+        EventManager::instance()->dispatch($event);
+        
+
+        if (!$event->result) {
+                return $event->result;
+        }
+
+        if (empty($event->data['data'][$this->alias]['path'])) {
+                $event->data['data'][$this->alias]['path'] = $this->_getNodeRelativePath($event->data['data']);
+        }
+
+        $result = $this->saveAll($event->data['data']);
+        Croogo::dispatchEvent('Model.Node.afterSaveNode', $this, $event->data);
+
+        return $result;
+    }
+        
 }
