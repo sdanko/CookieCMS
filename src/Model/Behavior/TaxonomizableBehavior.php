@@ -60,35 +60,47 @@ class TaxonomizableBehavior extends Behavior {
         if (empty($type)) {
             throw new InvalidArgumentException(__d('croogo', 'Invalid Content Type'));
         }
-        debug($data);die;
-        if (empty($data[$model->alias]['type'])) {
-            $data[$model->alias]['type'] = $typeAlias;
+
+        if (empty($data['content_type_id'])) {
+            $data['content_type_id'] = $type->id;
         }
-        $model->type = $type['Type']['alias'];
 
         if (array_key_exists('TaxonomyData', $data)) {
-            $foreignKey = $model->id;
-            if (isset($data[$model->alias][$model->primaryKey])) {
-                $foreignKey = $data[$model->alias][$model->primaryKey];
-            }
+
             $data['Taxonomy'] = array();
             foreach ($data['TaxonomyData'] as $vocabularyId => $taxonomyIds) {
                 if (empty($taxonomyIds)) {
                     continue;
                 }
                 foreach ((array) $taxonomyIds as $taxonomyId) {
-                    $join = array(
-                        'model' => $model->alias,
-                        'foreign_key' => $foreignKey,
-                        'taxonomy_id' => $taxonomyId,
-                    );
-                    $data['Taxonomy'][] = $join;
+                    $data['Taxonomy'][] = taxonomyId;
                 }
             }
-            unset($data['TaxonomyData']);
+            unset($data['TaxonomyData']);die;
         }
 
-        $this->cacheTerms($model, $data);
+        $this->cacheTerms($table, $data);
+    }
+    
+     /**
+     * Caches Term in `terms` field
+     *
+     * @param Table $table
+     * @param array $data
+     * @return void
+     */
+    public function cacheTerms(Table $table, &$data = null) 
+    {	
+        $taxonomies = $model->Taxonomy->find('all', array(
+                'conditions' => array(
+                        'Taxonomies.id IN ' => $data['Taxonomy'],
+                ),
+        ));
+        $terms = Hash::combine($taxonomies, '{n}.Terms.id', '{n}.Terms.slug');
+        $data['terms'] = $model->encodeData($terms, array(
+                'trim' => false,
+                'json' => true,
+        ));
     }
 
 }

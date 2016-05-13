@@ -207,12 +207,7 @@ class ContentTable extends Table
                 return $event->result;
         }
 
-        if (empty($event->data['data'][$this->alias]['path'])) {
-                $event->data['data'][$this->alias]['path'] = $this->_getNodeRelativePath($event->data['data']);
-        }
-
         $result = $this->saveAll($event->data['data']);
-        Croogo::dispatchEvent('Model.Node.afterSaveNode', $this, $event->data);
 
         return $result;
     }
