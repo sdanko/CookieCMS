@@ -39,6 +39,7 @@ class ContentTable extends Table
         $this->addBehavior('Timestamp');
         $this->addBehavior('Ceeram/Blame.Blame');
         $this->addBehavior('Taxonomizable');
+        $this->addBehavior('Encoder');
 
         $this->belongsTo('ContentTypes', [
             'foreignKey' => 'content_type_id'

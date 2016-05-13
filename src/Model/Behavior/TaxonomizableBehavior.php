@@ -8,6 +8,7 @@ use Cake\Event\Event;
 use Cake\ORM\Entity;
 use Cake\Event\EventManager;
 use Cake\ORM\Table;
+use Cake\Utility\Hash;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -73,10 +74,10 @@ class TaxonomizableBehavior extends Behavior {
                     continue;
                 }
                 foreach ((array) $taxonomyIds as $taxonomyId) {
-                    $data['Taxonomy'][] = taxonomyId;
+                    $data['Taxonomy'][] = $taxonomyId;
                 }
             }
-            unset($data['TaxonomyData']);die;
+            unset($data['TaxonomyData']);
         }
 
         $this->cacheTerms($table, $data);
@@ -91,13 +92,14 @@ class TaxonomizableBehavior extends Behavior {
      */
     public function cacheTerms(Table $table, &$data = null) 
     {	
-        $taxonomies = $model->Taxonomy->find('all', array(
-                'conditions' => array(
-                        'Taxonomies.id IN ' => $data['Taxonomy'],
-                ),
-        ));
-        $terms = Hash::combine($taxonomies, '{n}.Terms.id', '{n}.Terms.slug');
-        $data['terms'] = $model->encodeData($terms, array(
+        $taxonomies = $table->ContentTypes->ContentTypesVocabularies->Vocabularies->Taxonomies->find('all', array(
+            'conditions' => array(
+                    'Taxonomies.id IN ' => $data['Taxonomy'],
+            )
+        ))->contain(['Terms'])->hydrate(false)->toArray();
+
+        $terms = Hash::combine($taxonomies, '{n}.term.id', '{n}.term.slug');        
+        $data['terms'] = $table->encodeData($terms, array(
                 'trim' => false,
                 'json' => true,
         ));
