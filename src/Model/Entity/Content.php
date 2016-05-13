@@ -23,6 +23,7 @@ use Cake\ORM\Entity;
  * @property bool $publish
  * @property int $published_by
  * @property int $promoted_by
+ * @property string $terms
  */
 class Content extends Entity
 {

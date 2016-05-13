@@ -40,6 +40,7 @@ class ContentFixture extends TestFixture
         'publish' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => 0, 'precision' => null, 'comment' => null],
         'published_by' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         'promoted_by' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'terms' => ['type' => 'text', 'length' => null, 'null' => true, 'default' => null, 'precision' => null, 'comment' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -60,15 +61,16 @@ class ContentFixture extends TestFixture
             'slug' => 'Lorem ipsum dolor sit amet',
             'body' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'promote' => 1,
-            'publish_start' => 1458306021,
-            'publish_end' => 1458306021,
-            'created' => 1458306021,
+            'publish_start' => 1463179895,
+            'publish_end' => 1463179895,
+            'created' => 1463179895,
             'created_by' => 1,
-            'modified' => 1458306021,
+            'modified' => 1463179895,
             'modified_by' => 1,
             'publish' => 1,
             'published_by' => 1,
-            'promoted_by' => 1
+            'promoted_by' => 1,
+            'terms' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.'
         ],
     ];
 }

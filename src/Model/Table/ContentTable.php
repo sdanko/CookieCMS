@@ -20,7 +20,6 @@ use Cake\Event\EventManager;
  */
 class ContentTable extends Table
 {
-    const DEFAULT_TYPE = 'news';
 
     /**
      * Initialize method
@@ -44,34 +43,6 @@ class ContentTable extends Table
         $this->belongsTo('ContentTypes', [
             'foreignKey' => 'content_type_id'
         ]);
-    }
-    
-     public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
-    {
-        foreach (['publish_start', 'publish_end'] as $key) {
-            if (isset($data[$key]) && is_string($data[$key])) {
-                $data[$key] = Time::parseDateTime($data[$key], Configure::read('Writing.date_time_format'));
-            }
-        }
-    }
-    
-    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
-    {
-        if (empty($options['loggedInUser'])) {
-                return;
-        }
-        
-        if(!empty($entity->publish)) {
-            if($entity->publish==true) {
-                $entity->set('published_by', $options['loggedInUser']);
-            }
-        }
-        
-        if(!empty($entity->promote)) {
-            if($entity->promote==true) {
-                $entity->set('promoted_by', $options['loggedInUser']);
-            }
-        }
     }
 
     /**
@@ -103,7 +74,7 @@ class ContentTable extends Table
             ->boolean('promote')
             ->allowEmpty('promote');
 
-              $validator
+        $validator
             ->date('publish_start', Configure::read('Writing.validation_date_time_format'))
             ->allowEmpty('publish_start');
 
@@ -131,6 +102,9 @@ class ContentTable extends Table
             ->integer('promoted_by')
             ->allowEmpty('promoted_by');
 
+        $validator
+            ->allowEmpty('terms');
+
         return $validator;
     }
 
@@ -147,7 +121,35 @@ class ContentTable extends Table
         return $rules;
     }
     
-     public function findByType(Query $query, array $options)
+    public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
+    {
+        foreach (['publish_start', 'publish_end'] as $key) {
+            if (isset($data[$key]) && is_string($data[$key])) {
+                $data[$key] = Time::parseDateTime($data[$key], Configure::read('Writing.date_time_format'));
+            }
+        }
+    }
+    
+    public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options)
+    {
+        if (empty($options['loggedInUser'])) {
+                return;
+        }
+        
+        if(!empty($entity->publish)) {
+            if($entity->publish==true) {
+                $entity->set('published_by', $options['loggedInUser']);
+            }
+        }
+        
+        if(!empty($entity->promote)) {
+            if($entity->promote==true) {
+                $entity->set('promoted_by', $options['loggedInUser']);
+            }
+        }
+    }
+    
+    public function findByType(Query $query, array $options)
     {
         $type = isset($options["type"]) ? $options["type"] : null;
 
@@ -203,14 +205,10 @@ class ContentTable extends Table
         $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
         EventManager::instance()->dispatch($event);
         
-
-        if (!$event->result) {
-                return $event->result;
-        }
-
-        $result = $this->saveAll($event->data['data']);
+        $content = $this->newEntity();
+        $content = $this->patchEntity($content, $event->data['data']);
+        $result = $this->save($content);
 
         return $result;
     }
-        
 }

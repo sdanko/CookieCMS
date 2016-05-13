@@ -25,7 +25,11 @@ class ContentTableTest extends TestCase
      */
     public $fixtures = [
         'app.content',
-        'app.content_types'
+        'app.content_types',
+        'app.vocabularies',
+        'app.taxonomies',
+        'app.terms',
+        'app.content_types_vocabularies'
     ];
 
     /**
@@ -118,6 +122,26 @@ class ContentTableTest extends TestCase
      * @return void
      */
     public function testFindBySlug()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test findPublished method
+     *
+     * @return void
+     */
+    public function testFindPublished()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test saveContent method
+     *
+     * @return void
+     */
+    public function testSaveContent()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
