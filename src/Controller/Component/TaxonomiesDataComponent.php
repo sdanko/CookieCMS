@@ -79,7 +79,10 @@ class TaxonomiesDataComponent extends Component {
                     'Model %s not found in controller %s', $Model, $this->controller->name
             ));
         }
-
+        
+        if(!$type->vocabularies)
+            return;
+        
         $vocabularies = Hash::combine($type->vocabularies, '{n}.id', '{n}');
         $taxonomy = array();
         foreach ($type->vocabularies as $vocabulary) {

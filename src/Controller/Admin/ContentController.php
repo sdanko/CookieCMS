@@ -97,6 +97,11 @@ class ContentController extends AppController
         $content = $this->Content->get($id, [
             'contain' => []
         ]);
+
+        $type = $this->Content->ContentTypes->get($content->content_type_id, [
+            'contain' => ['Vocabularies']
+        ]);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $content = $this->Content->patchEntity($content, $this->request->data);
             if ($this->Content->save($content)) {
@@ -109,6 +114,10 @@ class ContentController extends AppController
         $contentTypes = $this->Content->ContentTypes->find('list', ['limit' => 200]);
         $this->set(compact('content', 'contentTypes'));
         $this->set('_serialize', ['content']);
+        
+        if (isset($this->TaxonomiesData)) {
+            $this->TaxonomiesData->prepareCommonData($type);
+        }
     }
 
     /**

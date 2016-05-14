@@ -1,6 +1,8 @@
  <?php
+        debug($content);
+        
         echo $this->Html->script('tinymce/tinymce.min', ['block' => true]);
-         echo $this->Html->script('tinymce.init', ['block' => true]);
+        echo $this->Html->script('tinymce.init', ['block' => true]);
   ?>
 
     <?php $this->Form->templates($form_templates['default']); ?>
