@@ -204,7 +204,7 @@ class ContentTable extends Table
 
         $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
         EventManager::instance()->dispatch($event);
-        
+        debug($event->data['data']);die;
         $content = $this->newEntity();
         $content = $this->patchEntity($content, $event->data['data']);
         $result = $this->save($content);

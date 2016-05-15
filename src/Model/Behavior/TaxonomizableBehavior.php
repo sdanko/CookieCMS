@@ -25,12 +25,27 @@ class TaxonomizableBehavior extends Behavior {
    public function initialize(array $config)
     {
         $this->_setupEvents();
+        $this->_setupRelationships();
     }
     
     protected function _setupEvents()
     {
         $callback = array($this, 'onBeforeSaveNode');
         EventManager::instance()->on("Model.Node.beforeSaveNode", $callback);
+    }
+    
+    protected function _setupRelationships()
+    {
+	$this->_table->belongsToMany('Taxonomies', [
+            'className' => 'Taxonomies',
+            'foreignKey' => 'foreign_key',
+            'targetForeignKey' => 'taxonomy_id',
+            'joinTable' => 'model_taxonomies',
+            'through' => 'ModelTaxonomies',
+            'conditions' => array(
+                    'model' => $this->_table->alias(),
+            )
+        ]);	
     }
     
  /**
@@ -45,7 +60,16 @@ class TaxonomizableBehavior extends Behavior {
         $this->formatTaxonomyData($event->subject, $data, $typeAlias);
         $event->data['data'] = $data;
     }
-        
+    
+    protected function _getSelectedTerms($data) 
+    {
+        if (isset($data['Taxonomies'])) {
+            return Hash::extract($data['Taxonomies'], '{n}.taxonomy_id');
+        } else {
+            return array();
+        }
+    }
+
     /**
      * Transform TaxonomyData array to a format that can be used for save operation
      *
@@ -67,14 +91,23 @@ class TaxonomizableBehavior extends Behavior {
         }
 
         if (array_key_exists('TaxonomyData', $data)) {
+            $foreignKey = 2;
+            if (isset($data['id'])) {
+                    $foreignKey = $data['id'];
+            }
 
-            $data['Taxonomy'] = array();
+            $data['Taxonomies'] = array();
             foreach ($data['TaxonomyData'] as $vocabularyId => $taxonomyIds) {
                 if (empty($taxonomyIds)) {
                     continue;
                 }
                 foreach ((array) $taxonomyIds as $taxonomyId) {
-                    $data['Taxonomy'][] = $taxonomyId;
+                    $join = array(
+                        'model' => $table->alias(),
+                        'foreign_key' => $foreignKey,
+                        'taxonomy_id' => $taxonomyId,
+                    );
+                    $data['Taxonomies'][] = $join;
                 }
             }
             unset($data['TaxonomyData']);
@@ -92,16 +125,18 @@ class TaxonomizableBehavior extends Behavior {
      */
     public function cacheTerms(Table $table, &$data = null) 
     {	
+        $taxonomyIds = $this->_getSelectedTerms($data);
+                
         $taxonomies = $table->ContentTypes->ContentTypesVocabularies->Vocabularies->Taxonomies->find('all', array(
             'conditions' => array(
-                    'Taxonomies.id IN ' => $data['Taxonomy'],
+                    'Taxonomies.id IN ' => $taxonomyIds,
             )
         ))->contain(['Terms'])->hydrate(false)->toArray();
-
+        
         $terms = Hash::combine($taxonomies, '{n}.term.id', '{n}.term.slug');        
         $data['terms'] = $table->encodeData($terms, array(
                 'trim' => false,
-                'json' => true,
+                'json' => true
         ));
     }
 

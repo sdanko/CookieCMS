@@ -95,7 +95,7 @@ class ContentController extends AppController
     public function edit($id = null)
     {
         $content = $this->Content->get($id, [
-            'contain' => []
+            'contain' => ['Taxonomies']
         ]);
 
         $type = $this->Content->ContentTypes->get($content->content_type_id, [
