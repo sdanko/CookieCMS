@@ -35,15 +35,23 @@ class TaxonomiesDataComponent extends Component {
      * @access public
      */
     public $vocabulariesForLayout = array();
-
-    public function startup(Event $event) {
+    
+    /**
+     * initialize
+     *
+     */
+    public function initialize(array $config)
+    {
         $this->controller = $this->_registry->getController();
         if (isset($this->controller->Taxonomy)) {
             $this->Taxonomy = $this->controller->Taxonomy;
         } else {
             $this->Taxonomy = TableRegistry::get('Taxonomy');
         }
+    }
 
+    public function startup(Event $event)
+    {       
         if (isset($this->request->params['prefix'])) {
             if ($this->request->params['prefix'] == 'admin') {
                 return;
@@ -53,21 +61,29 @@ class TaxonomiesDataComponent extends Component {
         $this->vocabularies();
     }
 
-    public function beforeRender(Event $event) {
+    public function beforeRender(Event $event)
+    {
         $this->controller = $this->_registry->getController();
         $this->controller->set('types_for_layout', $this->typesForLayout);
         $this->controller->set('vocabularies_for_layout', $this->vocabulariesForLayout);
     }
     
-    public function types() {
-        
+    public function types() 
+    {
+        $types = $this->Taxonomies->Vocabularies->ContentTypes->find('all')->cache('cookie_types')->toArray();
+        foreach ($types as $type) {
+                $alias = $type['alias'];
+                $this->typesForLayout[$alias] = $type;
+        }
     }
     
-    public function vocabularies() {
+    public function vocabularies()
+    {
         
     }
 
-    public function prepareCommonData($type, $options = array()) {
+    public function prepareCommonData($type, $options = array())
+    {
         $options = Hash::merge(array(
             'modelClass' => $this->controller->modelClass,
         ), $options);
