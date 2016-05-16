@@ -37,7 +37,7 @@ class TaxonomizableBehavior extends Behavior {
     protected function _setupRelationships()
     {
 	$this->_table->belongsToMany('Taxonomies', [
-            'className' => 'Taxonomies',
+            //'className' => 'Taxonomies',
             'foreignKey' => 'foreign_key',
             'targetForeignKey' => 'taxonomy_id',
             'joinTable' => 'model_taxonomies',
@@ -63,8 +63,8 @@ class TaxonomizableBehavior extends Behavior {
     
     protected function _getSelectedTerms($data) 
     {
-        if (isset($data['Taxonomies'])) {
-            return Hash::extract($data['Taxonomies'], '{n}.taxonomy_id');
+        if (isset($data['taxonomies'])) {
+            return Hash::extract($data['taxonomies'], '{n}.id');
         } else {
             return array();
         }
@@ -95,19 +95,20 @@ class TaxonomizableBehavior extends Behavior {
             if (isset($data['id'])) {
                     $foreignKey = $data['id'];
             }
-
-            $data['Taxonomies'] = array();
+            
+            $data['taxonomies'] = array();
             foreach ($data['TaxonomyData'] as $vocabularyId => $taxonomyIds) {
                 if (empty($taxonomyIds)) {
                     continue;
                 }
                 foreach ((array) $taxonomyIds as $taxonomyId) {
                     $join = array(
-                        'model' => $table->alias(),
-                        'foreign_key' => $foreignKey,
-                        'taxonomy_id' => $taxonomyId,
+                        'id' => $taxonomyId,
+                        '_joinData' => array(
+                            'model' => $table->alias(),
+                        )
                     );
-                    $data['Taxonomies'][] = $join;
+                    $data['taxonomies'][] = $join;
                 }
             }
             unset($data['TaxonomyData']);
