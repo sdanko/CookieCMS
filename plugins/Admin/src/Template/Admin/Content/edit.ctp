@@ -1,8 +1,11 @@
  <?php
-        debug($content);
-        
-        echo $this->Html->script('tinymce/tinymce.min', ['block' => true]);
-        echo $this->Html->script('tinymce.init', ['block' => true]);
+    use Cake\Utility\Hash;
+    if (count($taxonomy) > 0):
+        $taxonomyIds = Hash::extract($content, 'taxonomies.{n}.id');
+    endif;
+    
+    echo $this->Html->script('tinymce/tinymce.min', ['block' => true]);
+    echo $this->Html->script('tinymce.init', ['block' => true]);
   ?>
 
     <?php $this->Form->templates($form_templates['default']); ?>
@@ -27,6 +30,23 @@
                 'disabled'=>'disabled',
                 'type'=>'text'
              ));
+        ?>
+        <?php
+            if (count($taxonomy) > 0):
+
+                foreach ($taxonomy as $vocabularyId => $taxonomyTree):           
+                    $hasEmpty = !$vocabularies[$vocabularyId]['multiple'];
+                    echo $this->Form->input('TaxonomyData.' . $vocabularyId, array(
+                        'label' => $vocabularies[$vocabularyId]['title'],
+                        'type' => 'select',
+                        'class'=>'form-control',
+                        'multiple' => $vocabularies[$vocabularyId]['multiple'],
+                        'options' => $taxonomyTree,
+                        'empty' => $hasEmpty,
+                        'value' => $taxonomyIds,
+                    ));
+                endforeach;
+            endif;
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

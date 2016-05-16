@@ -69,7 +69,7 @@ class ContentController extends AppController
         if ($this->request->is('post')) {
             //$content = $this->Content->patchEntity($content, $this->request->data);
             //if ($this->Content->save($content)) {
-            if ($this->Content->saveContent($this->request->data, $typeAlias)) {
+            if ($this->Content->addContent($this->request->data, $typeAlias)) {
                 $this->Flash->success(__('The content has been saved.'));
                 return $this->redirect(['action' => 'index', "typeAlias" => $typeAlias]);
             } else {
@@ -103,10 +103,10 @@ class ContentController extends AppController
         ]);
         
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $content = $this->Content->patchEntity($content, $this->request->data);
-            if ($this->Content->save($content)) {
+            //$content = $this->Content->patchEntity($content, $this->request->data);
+            if ($this->Content->editContent($content, $this->request->data, $type->alias)) {
                 $this->Flash->success(__('The content has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index',  "typeAlias" => $type->alias]);
             } else {
                 $this->Flash->error(__('The content could not be saved. Please, try again.'));
             }

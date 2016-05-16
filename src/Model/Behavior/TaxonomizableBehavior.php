@@ -9,6 +9,7 @@ use Cake\ORM\Entity;
 use Cake\Event\EventManager;
 use Cake\ORM\Table;
 use Cake\Utility\Hash;
+use Cake\Core\Exception\Exception;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -83,7 +84,7 @@ class TaxonomizableBehavior extends Behavior {
         $type = $table->ContentTypes->find('byAlias',['alias' => $typeAlias])->first();
         
         if (empty($type)) {
-            throw new InvalidArgumentException(__d('croogo', 'Invalid Content Type'));
+            throw new Exception(__d('admin', 'Invalid Content Type'));
         }
 
         if (empty($data['content_type_id'])) {
@@ -91,10 +92,6 @@ class TaxonomizableBehavior extends Behavior {
         }
 
         if (array_key_exists('TaxonomyData', $data)) {
-            $foreignKey = 2;
-            if (isset($data['id'])) {
-                    $foreignKey = $data['id'];
-            }
             
             $data['taxonomies'] = array();
             foreach ($data['TaxonomyData'] as $vocabularyId => $taxonomyIds) {

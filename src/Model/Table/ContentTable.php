@@ -198,14 +198,28 @@ class ContentTable extends Table
         return $query;
     }
     
-    public function saveContent($data, $typeAlias = self::DEFAULT_TYPE)
+    public function addContent($data, $typeAlias = self::DEFAULT_TYPE)
     {
         $result = false;
-
+        
+        $content = $this->newEntity();
+        
         $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
         EventManager::instance()->dispatch($event);
 
-        $content = $this->newEntity();
+        $content = $this->patchEntity($content, $event->data['data'], ['associated' => ['Taxonomies']]);
+        $result = $this->save($content);
+
+        return $result;
+    }
+    
+    public function editContent($content, $data, $typeAlias = self::DEFAULT_TYPE)
+    {
+        $result = false;
+        
+        $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
+        EventManager::instance()->dispatch($event);
+
         $content = $this->patchEntity($content, $event->data['data'], ['associated' => ['Taxonomies']]);
         $result = $this->save($content);
 
