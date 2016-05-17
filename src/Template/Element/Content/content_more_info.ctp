@@ -12,6 +12,7 @@
                                     'action' => 'term',
                                     'type' => '',
                                     'slug' => $contentSlug,
+                                    'type' => $content->content_type->alias
                             ));
                     }
                     echo __d('cookie', 'Posted in') . ' ' . implode(', ', $contentTermLinks);
