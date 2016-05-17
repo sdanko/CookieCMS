@@ -1,21 +1,20 @@
 <div class="node-more-info">
 <?php
-    $type = $types_for_layout[$this->Nodes->field('type')];
+    use Cake\Utility\Hash;
 
-    if (is_array($this->Nodes->node['Taxonomy']) && count($this->Nodes->node['Taxonomy']) > 0) {
-            $nodeTerms = Hash::combine($this->Nodes->node, 'Taxonomy.{n}.Term.slug', 'Taxonomy.{n}.Term.title');
-            $nodeTermLinks = array();
-            if (count($nodeTerms) > 0) {
-                    foreach ($nodeTerms as $termSlug => $termTitle) {
-                            $nodeTermLinks[] = $this->Html->link($termTitle, array(
-                                    'plugin' => 'nodes',
-                                    'controller' => 'nodes',
+    if (is_array($content->taxonomies) && count($content->taxonomies) > 0) {
+            $contentTerms = Hash::combine($content->taxonomies, '{n}.term.slug', '{n}.term.title');
+            $contentTermLinks = array();
+            if (count($contentTerms) > 0) {
+                    foreach ($contentTerms as $contentSlug => $contentTitle) {
+                            $contentTermLinks[] = $this->Html->link($contentTitle, array(
+                                    'controller' => 'Content',
                                     'action' => 'term',
-                                    'type' => $this->Nodes->field('type'),
-                                    'slug' => $termSlug,
+                                    'type' => '',
+                                    'slug' => $contentSlug,
                             ));
                     }
-                    echo __d('cookie', 'Posted in') . ' ' . implode(', ', $nodeTermLinks);
+                    echo __d('cookie', 'Posted in') . ' ' . implode(', ', $contentTermLinks);
             }
     }
 ?>

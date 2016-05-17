@@ -74,7 +74,7 @@ class ContentController extends AppController {
             
              $this->paginate = [
                 'limit' => $limit,
-                'contain' => ['ContentTypes']
+                'contain' => ['ContentTypes','Taxonomies'=>['Terms']]
             ];
              
             $content = $this->paginate($query);
@@ -84,7 +84,7 @@ class ContentController extends AppController {
             
            $this->paginate = [
                 'limit' => $limit,
-                'contain' => ['ContentTypes']
+                'contain' => ['ContentTypes', 'Taxonomies'=>['Terms']]
             ];
             
             $query = $this->Content->find('published');
@@ -95,7 +95,7 @@ class ContentController extends AppController {
                         'controller' => 'content',
                         'action' => 'view',
                         'slug' => $row['slug'],
-                       'type' => $row['content_type']['alias']
+                        'type' => $row['content_type']['alias']
                         
                     );
                     return $row;

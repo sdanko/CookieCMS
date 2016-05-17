@@ -44,9 +44,9 @@ class TaxonomiesDataComponent extends Component {
     {
         $this->controller = $this->_registry->getController();
         if (isset($this->controller->Taxonomy)) {
-            $this->Taxonomy = $this->controller->Taxonomy;
+            $this->Taxonomies = $this->controller->Taxonomies;
         } else {
-            $this->Taxonomy = TableRegistry::get('Taxonomy');
+            $this->Taxonomies = TableRegistry::get('Taxonomies');
         }
     }
 

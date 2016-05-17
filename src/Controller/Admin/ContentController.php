@@ -27,7 +27,7 @@ class ContentController extends AppController
         $type = $this->Content->ContentTypes->find('byAlias',array(
             'alias' => $typeAlias
         ))->first();
-        //debug($type);
+
         $this->paginate = [
             'contain' => ['ContentTypes']
         ];
@@ -144,11 +144,18 @@ class ContentController extends AppController
         $content = $this->Content->get($id, [
             'contain' => []
         ]);
+        
+        $type = $this->Content->ContentTypes->get($content->content_type_id);
+        
+        if (empty($type)) {
+            throw new Exception(__d('admin', 'Invalid Content Type'));
+        }
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $content = $this->Content->patchEntity($content, $this->request->data);
             if ($this->Content->save($content)) {
                 $this->Flash->success(__('The content has been published.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', "typeAlias" => $type->alias]);
             } else {
                 $this->Flash->error(__('The content could not be published. Please, try again.'));
             }
@@ -161,11 +168,18 @@ class ContentController extends AppController
     {
         $this->request->allowMethod(['post', 'promote']);
         $content = $this->Content->get($id);
+        
+        $type = $this->Content->ContentTypes->get($content->content_type_id);
+        
+        if (empty($type)) {
+            throw new Exception(__d('admin', 'Invalid Content Type'));
+        }
+        
         $content->promote = true;
         
         if ($this->Content->save($content)) {
             $this->Flash->success(__('Content has been promoted.'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index', "typeAlias" => $type->alias]);
         } else {
             $this->Flash->error(__('Content not be promoted. Please, try again.'));
         }
@@ -176,6 +190,13 @@ class ContentController extends AppController
     {
         $this->request->allowMethod(['post', 'unpromote']);
         $content = $this->Content->get($id);
+        
+        $type = $this->Content->ContentTypes->get($content->content_type_id);
+        
+        if (empty($type)) {
+            throw new Exception(__d('admin', 'Invalid Content Type'));
+        }
+        
         $content->promote = false;
         
         if ($this->Content->save($content)) {
