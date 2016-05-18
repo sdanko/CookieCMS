@@ -116,6 +116,8 @@ class ContentController extends AppController {
     
     public function term() 
     {
+        $limit = Configure::read('Reading.items_per_page');
+        
         $term = $Node->Taxonomies->Terms->find('all', array(
             'conditions' => array(
                 'Terms.slug' => $this->request->query('slug')
@@ -126,6 +128,17 @@ class ContentController extends AppController {
             $this->Flash->error(__d('cookie', 'Invalid Term.'));
             return $this->redirect('/');
         }
+        
+        $this->set('title_for_layout', $term->title);
+        
+        $this->paginate = [
+                'limit' => $limit
+        ];
+        
+        $query = $this->Content->find('byTypeAndTerm', array(
+                    'type' => $type,
+                    'term' => $term->slug
+        ));
     }
 
 }

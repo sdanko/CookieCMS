@@ -150,15 +150,12 @@ class ContentTable extends Table
         }
     }
     
-    public function findByType(Query $query, array $options)
+    public function beforeFind(Event $event, Query $query, ArrayObject $options)
     {
-        $type = isset($options["type"]) ? $options["type"] : null;
-
-        $query->contain(['ContentTypes'])->where([
-            'ContentTypes.alias' => $type
-        ]);
+        $generateUrl = isset($options['generateUrl']) ? isset($options['generateUrl']) : false;
         
-        $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
+        if ($generateUrl){
+             $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
                return $results->map(function ($row) {
                    $row['url'] = array(
                        'controller' => 'content',
@@ -169,6 +166,18 @@ class ContentTable extends Table
                    return $row;
                });
            });
+        }       
+    }
+    
+    public function findByType(Query $query, array $options)
+    {
+        $type = isset($options["type"]) ? $options["type"] : null;
+
+        $query->contain(['ContentTypes'])->where([
+            'ContentTypes.alias' => $type
+        ]);
+        
+        $query->applyOptions(['generateUrl' => true]);
         
         return $query;
     }
@@ -182,6 +191,28 @@ class ContentTable extends Table
             'slug' => $slug,
             'ContentTypes.alias' => $type
         ]);
+        
+        return $query;
+    }
+    
+    public function findByTypeAndTerm(Query $query, array $options)
+    {
+        $type = isset($options["type"]) ? $options["type"] : null;
+        $term = isset($options["term"]) ? $options["term"] : null;
+
+        if($type) {
+            $query->contain(['ContentTypes'])->where([
+                'ContentTypes.alias' => $type
+            ]);
+        }
+        
+        if($erm) {
+            $query->contain(['Taxonomies'=>['Terms']])->where([
+                'Taxonomies.Terms.slug' => $term
+            ]);
+        }
+        
+        $query->applyOptions(['generateUrl' => true]);
         
         return $query;
     }
