@@ -21,8 +21,8 @@ class ContentController extends AppController {
     {
         if ($this->request->query('type')!=null && $this->request->query('slug')!=null) {
             $content = $this->Content->find('bySlug', array(
-                    'type' => $this->request->query('type'),
-                    'slug' => $this->request->query('slug')
+                'type' => $this->request->query('type'),
+                'slug' => $this->request->query('slug')
             ))->first();
         } elseif ($id == null) {
              $this->Flash->error(__d('cookie', 'Invalid content'));
@@ -70,8 +70,11 @@ class ContentController extends AppController {
             
             $query = $this->Content->find('byType', array(
                     'type' => $type
-            ));
-            
+            ))->where([
+               'promote' => true
+            ]);
+             $query->applyOptions(['published' => true]);
+             
              $this->paginate = [
                 'limit' => $limit,
                 'contain' => ['ContentTypes','Taxonomies'=>['Terms']]
@@ -87,8 +90,11 @@ class ContentController extends AppController {
                 'contain' => ['ContentTypes', 'Taxonomies'=>['Terms']]
             ];
             
-            $query = $this->Content->find('published');
-
+            $query = $this->Content->find('all')->where([
+               'promote' => true
+            ]);
+            $query->applyOptions(['published' => true]);
+                    
             $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
                 return $results->map(function ($row) {
                     $row['url'] = array(
@@ -106,6 +112,20 @@ class ContentController extends AppController {
             $this->set(compact('content'));  
         }
         
+    }
+    
+    public function term() 
+    {
+        $term = $Node->Taxonomies->Terms->find('all', array(
+            'conditions' => array(
+                'Terms.slug' => $this->request->query('slug')
+            )
+        ))->first();
+        
+        if (!isset($term->id)) {
+            $this->Flash->error(__d('cookie', 'Invalid Term.'));
+            return $this->redirect('/');
+        }
     }
 
 }

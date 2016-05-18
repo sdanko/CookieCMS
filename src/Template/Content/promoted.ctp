@@ -26,5 +26,14 @@
     endforeach;
     ?>
 
-    <div class="paging"><?php echo $this->Paginator->numbers(); ?></div>
+     <div class="col-md-12 text-center">
+        <div class="paginator">
+            <ul class="pagination">
+                <?= $this->Paginator->prev('< ' . __d('cookie','previous')) ?>
+                <?= $this->Paginator->numbers() ?>
+                <?= $this->Paginator->next(__d('cookie','next') . ' >') ?>
+            </ul>
+            <p><?= $this->Paginator->counter() ?></p>
+        </div>
+    </div>
 </div>
