@@ -40,18 +40,8 @@ class MenusHelper extends Helper {
                 EventManager::instance()->on("Helper.Layout.beforeFilter", $callable);
         }
     }
-    
-//    public function implementedEvents()
-//    {
-//        $mapping = parent::implementedEvents();
-//
-//        $mapping += [
-//            'Helper.Layout.beforeFilter' => 'filter',
-//        ];
-//
-//        return $mapping;
-//    }
-    /**
+
+  /**
  * Filter content for Menus
  *
  * Replaces [menu:menu_alias] or [m:menu_alias] with Menu list

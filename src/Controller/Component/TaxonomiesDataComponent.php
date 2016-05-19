@@ -45,7 +45,7 @@ class TaxonomiesDataComponent extends Component {
     public function initialize(array $config)
     {
         $this->controller = $this->_registry->getController();
-        if (isset($this->controller->Taxonomy)) {
+        if (isset($this->controller->Taxonomies)) {
             $this->Taxonomies = $this->controller->Taxonomies;
         } else {
             $this->Taxonomies = TableRegistry::get('Taxonomies');
@@ -90,7 +90,7 @@ class TaxonomiesDataComponent extends Component {
 
         $vocabularies = array_unique($vocabularies);
         foreach ($vocabularies as $vocabularyAlias) {
-            $query = $this->Taxonomies->Vocabularies-->find('all', [
+            $query = $this->Taxonomies->Vocabularies->find('all', [
                   'conditions' => ['Vocabularies.alias' => $vocabularyAlias]
               ]);
             $vocabulary = $query->first();
@@ -102,8 +102,8 @@ class TaxonomiesDataComponent extends Component {
                                 'vocabulary_id' => $vocabulary['id']
                         )
                 );
-                $taxonomies = $this->Taxonomies->find('threaded', $findOptions)->toArray();
-                $this->vocabulariesForLayout[$vocabularyAlias]['threaded'] = $taxonomies;debug($this->vocabulariesForLayout[$vocabularyAlias]);
+                $taxonomies = $this->Taxonomies->find('threaded', $findOptions)->contain(['Terms'])->toArray();
+                $this->vocabulariesForLayout[$vocabularyAlias]['threaded'] = $taxonomies;
             }
         }
     }

@@ -35,10 +35,10 @@ class MenusDataComponent extends Component {
     
     public function initialize(array $config) {
             $this->controller = $this->_registry->getController();
-            if (isset($this->controller ->Link)) {
-                    $this->Link = $this->controller->Link;
+            if (isset($this->controller ->Links)) {
+                    $this->Links = $this->controller->Links;
             } else {
-                    $this->Link = TableRegistry::get('Links');
+                    $this->Links = TableRegistry::get('Links');
             }
     }
     
@@ -84,7 +84,7 @@ class MenusDataComponent extends Component {
 
         //$status = $this->Link->status();
         foreach ($menus as $menuAlias) {
-            $query = $this->Link->Menus->find('all', [
+            $query = $this->Links->Menus->find('all', [
                   'conditions' => ['Menus.alias' => $menuAlias]
               ]);
             $menu = $query->first();
@@ -96,7 +96,7 @@ class MenusDataComponent extends Component {
                                     'menu_id' => $menu['id']
                             )
                     );
-                    $links = $this->Link->find('threaded', $findOptions)->toArray();
+                    $links = $this->Links->find('threaded', $findOptions)->toArray();
                     $this->menusForLayout[$menuAlias]['threaded'] = $links;
             }
         }

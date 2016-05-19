@@ -31,9 +31,8 @@ class BlocksDataComponent extends Component {
      * @access public
      */
     public $blocksData = array(
-        'menus' => array()
-//		'vocabularies' => array(),
-//		'nodes' => array(),
+        'menus' => array(),
+        'vocabularies' => array()
     );
 
     /**
@@ -122,15 +121,11 @@ class BlocksDataComponent extends Component {
             $this->blocksData['menus'] = Hash::merge(
                             $this->blocksData['menus'], $converter->parseString('menu|m', $block['body'])
             );
-//			$this->blocksData['vocabularies'] = Hash::merge(
-//				$this->blocksData['vocabularies'],
-//				$converter->parseString('vocabulary|v', $block['Block']['body'])
-//			);
-//			$this->blocksData['nodes'] = Hash::merge(
-//				$this->blocksData['nodes'],
-//				$converter->parseString('node|n', $block['Block']['body'],
-//				array('convertOptionsToArray' => true)
-//			));
+            
+            $this->blocksData['vocabularies'] = Hash::merge(
+                    $this->blocksData['vocabularies'],
+                    $converter->parseString('vocabulary|v', $block['body'])
+            );
         }
     }
 
