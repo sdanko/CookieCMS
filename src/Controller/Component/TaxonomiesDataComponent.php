@@ -13,6 +13,7 @@ use Cake\Utility\Hash;
 use Cake\Core\Exception\Exception;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
+use Cake\Core\Configure;
 
 /**
  * CakePHP TaxonomiesComponent
@@ -20,6 +21,7 @@ use Cake\Event\Event;
  */
 class TaxonomiesDataComponent extends Component {
 
+    public $components = ['Cookie'];
     /**
      * Types for layout
      *
@@ -93,15 +95,15 @@ class TaxonomiesDataComponent extends Component {
               ]);
             $vocabulary = $query->first();
 
-            if (isset($menu['id'])) {
-                $this->menusForLayout[$menuAlias] = $menu;
+            if (isset($vocabulary['id'])) {
+                $this->vocabulariesForLayout[$vocabularyAlias] = $vocabulary;
                 $findOptions = array(
                         'conditions' => array(
-                                'menu_id' => $menu['id']
+                                'vocabulary_id' => $vocabulary['id']
                         )
                 );
-                $links = $this->Link->find('threaded', $findOptions)->toArray();
-                $this->menusForLayout[$menuAlias]['threaded'] = $links;
+                $taxonomies = $this->Taxonomies->find('threaded', $findOptions)->toArray();
+                $this->vocabulariesForLayout[$vocabularyAlias]['threaded'] = $taxonomies;debug($this->vocabulariesForLayout[$vocabularyAlias]);
             }
         }
     }
