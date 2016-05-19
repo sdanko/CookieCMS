@@ -79,7 +79,31 @@ class TaxonomiesDataComponent extends Component {
     
     public function vocabularies()
     {
-        
+        $vocabularies = array();
+        $themeData = $this->Cookie->getThemeData(Configure::read('Site.theme'));
+        if (isset($themeData['vocabularies']) && is_array($themeData['vocabularies'])) {
+            $vocabularies = Hash::merge($vocabularies, $themeData['vocabularies']);
+        }
+        $vocabularies = Hash::merge($vocabularies, array_keys($this->controller->BlocksData->blocksData['vocabularies']));
+
+        $vocabularies = array_unique($vocabularies);
+        foreach ($vocabularies as $vocabularyAlias) {
+            $query = $this->Taxonomies->Vocabularies-->find('all', [
+                  'conditions' => ['Vocabularies.alias' => $vocabularyAlias]
+              ]);
+            $vocabulary = $query->first();
+
+            if (isset($menu['id'])) {
+                $this->menusForLayout[$menuAlias] = $menu;
+                $findOptions = array(
+                        'conditions' => array(
+                                'menu_id' => $menu['id']
+                        )
+                );
+                $links = $this->Link->find('threaded', $findOptions)->toArray();
+                $this->menusForLayout[$menuAlias]['threaded'] = $links;
+            }
+        }
     }
 
     public function prepareCommonData($type, $options = array())
