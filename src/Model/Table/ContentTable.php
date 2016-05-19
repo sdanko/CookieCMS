@@ -172,11 +172,13 @@ class ContentTable extends Table
     public function findByType(Query $query, array $options)
     {
         $type = isset($options["type"]) ? $options["type"] : null;
-
-        $query->contain(['ContentTypes'])->where([
-            'ContentTypes.alias' => $type
-        ]);
         
+        if($type!=null) {
+            $query->contain(['ContentTypes'])->where([
+                'ContentTypes.alias' => $type
+            ]);
+        }
+              
         $query->applyOptions(['generateUrl' => true]);
         
         return $query;
@@ -206,30 +208,20 @@ class ContentTable extends Table
             ]);
         }
         
-        if($erm) {
-            $query->contain(['Taxonomies'=>['Terms']])->where([
-                'Taxonomies.Terms.slug' => $term
-            ]);
+        if($term) {        
+            $query
+                ->matching('Taxonomies.Terms', function(\Cake\ORM\Query $q) use ($term) {
+                    return $q->where([
+                        'Terms.slug' => $term
+                ]);
+            });
         }
         
         $query->applyOptions(['generateUrl' => true]);
         
         return $query;
     }
-    
-    public function findPublished(Query $query, array $options)
-    {
-        $date = Time::now();
-
-        $query->contain(['ContentTypes'])->where([
-            'publish' => true,
-            'publish_start <= ' => $date,
-            'publish_end >= ' => $date,
-        ]);
         
-        return $query;
-    }
-    
     public function addContent($data, $typeAlias = self::DEFAULT_TYPE)
     {
         $result = false;

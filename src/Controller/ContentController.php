@@ -17,28 +17,27 @@ use Cake\Routing\Router;
  */
 class ContentController extends AppController {
 
-    public function view($id = null)
-    {
-        if ($this->request->query('type')!=null && $this->request->query('slug')!=null) {
+    public function view($id = null) {
+        if ($this->request->query('type') != null && $this->request->query('slug') != null) {
             $content = $this->Content->find('bySlug', array(
-                'type' => $this->request->query('type'),
-                'slug' => $this->request->query('slug')
-            ))->first();
+                        'type' => $this->request->query('type'),
+                        'slug' => $this->request->query('slug')
+                    ))->first();
         } elseif ($id == null) {
-             $this->Flash->error(__d('cookie', 'Invalid content'));
+            $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         } else {
 //             $content = $this->Content->find('byId', array(
 //                    'id' => $id,
 //            ))->first();
-               $content = $this->Content->findById($id)->contain(['ContentTypes'])->first();
+            $content = $this->Content->findById($id)->contain(['ContentTypes'])->first();
         }
 
         if (!isset($content->id)) {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         }
-        
+
         if (empty($content->publish)) {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
@@ -48,97 +47,73 @@ class ContentController extends AppController {
         $this->set(compact('content'));
     }
 
-    public function promoted($type = null)
-    {
+    public function promoted($type = null) {
         //$Content = $this->{$this->modelClass};
         $this->set('title_for_layout', __d('cookie', 'Home'));
 
         $limit = Configure::read('Reading.items_per_page');
-        
-        if ($type!=null) {
-            $type = $this->Content->ContentTypes->find('byAlias', array(
+
+        $type = $this->Content->ContentTypes->find('byAlias', array(
                     'alias' => $type
-            ))->first();
-            
+                ))->first();
+
+        $query = $this->Content->find('byType', array(
+                    'type' => $type
+                ))->where([
+            'promote' => true
+        ]);
+        $query->applyOptions(['published' => true]);
+
+        $this->paginate = [
+            'limit' => $limit,
+            'contain' => ['ContentTypes', 'Taxonomies' => ['Terms']]
+        ];
+
+        $content = $this->paginate($query);
+
+        if ($type != null) {
             if (!isset($type->id)) {
                 $this->Flash->error(__d('cookie', 'Invalid content type.'));
                 return $this->redirect('/');
             }
-            
-                
-            $this->set('title_for_layout', $type->title);
-            
-            $query = $this->Content->find('byType', array(
-                    'type' => $type
-            ))->where([
-               'promote' => true
-            ]);
-             $query->applyOptions(['published' => true]);
-             
-             $this->paginate = [
-                'limit' => $limit,
-                'contain' => ['ContentTypes','Taxonomies'=>['Terms']]
-            ];
-             
-            $content = $this->paginate($query);
-            $this->set(compact('type', 'content'));
-        }
-        else {
-            
-           $this->paginate = [
-                'limit' => $limit,
-                'contain' => ['ContentTypes', 'Taxonomies'=>['Terms']]
-            ];
-            
-            $query = $this->Content->find('all')->where([
-               'promote' => true
-            ]);
-            $query->applyOptions(['published' => true]);
-                    
-            $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
-                return $results->map(function ($row) {
-                    $row['url'] = array(
-                        'controller' => 'content',
-                        'action' => 'view',
-                        'slug' => $row['slug'],
-                        'type' => $row['content_type']['alias']
-                        
-                    );
-                    return $row;
-                });
-            });
-            $content = $this->paginate($query);
 
-            $this->set(compact('content'));  
+            $this->set('title_for_layout', $type->title);
+
+            $this->set(compact('type', 'content'));
+        } else {
+            $this->set(compact('content'));
         }
-        
     }
-    
-    public function term() 
-    {
+
+    public function term() {
         $limit = Configure::read('Reading.items_per_page');
-        
-        $term = $Node->Taxonomies->Terms->find('all', array(
-            'conditions' => array(
-                'Terms.slug' => $this->request->query('slug')
-            )
-        ))->first();
-        
+
+        $term = $this->Content->Taxonomies->Terms->find('all', array(
+                    'conditions' => array(
+                        'Terms.slug' => $this->request->query('slug')
+                    )
+                ))->first();
+
         if (!isset($term->id)) {
             $this->Flash->error(__d('cookie', 'Invalid Term.'));
             return $this->redirect('/');
         }
-        
+
         $this->set('title_for_layout', $term->title);
-        
+
         $this->paginate = [
-                'limit' => $limit
+            'limit' => $limit,
+            'contain' => ['ContentTypes', 'Taxonomies' => ['Terms']]
         ];
         
         $query = $this->Content->find('byTypeAndTerm', array(
-                    'type' => $type,
-                    'term' => $term->slug
+            'type' => $this->request->query('type'),
+            'term' => $this->request->query('slug')
         ));
+        $query->applyOptions(['published' => true]);
+        
+        $content = $this->paginate($query);
+        $this->set(compact('term', 'content'));
     }
 
 }
