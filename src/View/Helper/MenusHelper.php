@@ -30,7 +30,7 @@ class MenusHelper extends Helper {
         $this->_setupEvents();
     }
     
-     protected function _setupEvents()
+    protected function _setupEvents()
     {
         $events = [
             'filter' => [$this, 'filter']

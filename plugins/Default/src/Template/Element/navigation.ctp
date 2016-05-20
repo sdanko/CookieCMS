@@ -29,10 +29,9 @@
         </ol>
     </div>
     <div class="sidebar-module">
-        <h4>Menu</h4>
-        <?php echo $this->Menus->menu('main'); ?>
+          <?php echo $this->Regions->blocks('right'); ?>  
     </div>
-  <?php echo $this->Regions->blocks('right'); ?>  
+
 </div><!-- /.blog-sidebar -->
 
 

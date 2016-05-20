@@ -106,28 +106,28 @@ class TaxonomiesHelper extends Helper {
      * @param array   $options
      * @param integer $depth
      */
-    public function nestedTerms($terms, $options, $depth = 1)
+    public function nestedTerms($taxonomies, $options, $depth = 1)
     {
         $_options = array();
         $options = array_merge($_options, $options);
 
         $output = '';
-        foreach ($terms as $term) {
+        foreach ($taxonomies as $taxonomy) {
             if ($options['link']) {
                 $termAttr = array(
-                    'id' => 'term-' . $term['Term']['id'],
+                    'id' => 'term-' . $taxonomy->term->id,
                 );
-                $termOutput = $this->Html->link($term['Term']['title'], array(
+                $termOutput = $this->Html->link($taxonomy->term->title, array(
                     'controller' => $options['controller'],
                     'action' => $options['action'],
                     'type' => $options['type'],
-                    'slug' => $term['Term']['slug'],
+                    'slug' => $taxonomy->term->slug,
                         ), $termAttr);
             } else {
-                $termOutput = $term['Term']['title'];
+                $termOutput = $taxonomy->term->title;
             }
-            if (isset($term['children']) && count($term['children']) > 0) {
-                $termOutput .= $this->nestedTerms($term['children'], $options, $depth + 1);
+            if (isset($taxonomy->children) && count($taxonomy->children) > 0) {
+                $termOutput .= $this->nestedTerms($taxonomy->children, $options, $depth + 1);
             }
             $termOutput = $this->Html->tag('li', $termOutput);
             $output .= $termOutput;

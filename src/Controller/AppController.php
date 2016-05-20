@@ -54,10 +54,10 @@ class AppController extends Controller
                     'controller' => 'Users',
                     'action' => 'login'
                 ],
-				'loginRedirect' => [
+                'loginRedirect' => [
                    'controller' => 'Home',
                    'action' => 'index'
-				],
+                ],
                 'authError' => 'Did you really think you are allowed to see that?',
                 'authenticate' => [
                     'Form' => [
@@ -96,8 +96,7 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
         
-        if ((isset( $this->request->params['prefix']) && ( $this->request->params['prefix'] == 'admin'))) 
-        {
+        if ((isset( $this->request->params['prefix']) && ( $this->request->params['prefix'] == 'admin'))) {
             //I18n::locale('bs');
             Time::setToStringFormat(Configure::read('Writing.date_time_format'));
             $this->viewBuilder()->theme('Admin');
@@ -113,8 +112,13 @@ class AppController extends Controller
         else {
             $this->Auth->allow();
             $this->viewBuilder()->theme(Configure::read('Site.theme'));
-            //$this->theme  = Configure::read('Site.theme');
         }
+    }
+    
+    public function beforeRender(Event $event)
+    {
+        parent::beforeRender($event);
+        $this->viewBuilder()->helpers(['Cookie', 'Layout', 'Menus', 'Regions', 'Taxonomies'  ]);
     }
     
  /*    public function isAuthorized($user)
