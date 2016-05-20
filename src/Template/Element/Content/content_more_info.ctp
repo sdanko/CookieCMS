@@ -1,4 +1,4 @@
-<div class="node-more-info">
+<p class="blog-post-meta content-more-info">
 <?php
     use Cake\Utility\Hash;
 
@@ -19,4 +19,4 @@
             }
     }
 ?>
-</div>
+</p>
