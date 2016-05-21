@@ -6,8 +6,6 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\ORM\Entity;
-use ArrayObject;
 
 /**
  * ContentTypes Model
@@ -35,7 +33,7 @@ class ContentTypesTable extends Table
         $this->hasMany('Content', [
             'foreignKey' => 'content_type_id'
         ]);
-        $this->belongsToMany('Vocabularies', [
+         $this->belongsToMany('Vocabularies', [
             'foreignKey' => 'content_type_id',
             'targetForeignKey' => 'vocabulary_id',
             'joinTable' => 'content_types_vocabularies',
@@ -63,6 +61,14 @@ class ContentTypesTable extends Table
 
         $validator
             ->allowEmpty('alias');
+
+        $validator
+            ->boolean('format_show_author')
+            ->allowEmpty('format_show_author');
+
+        $validator
+            ->boolean('format_show_date')
+            ->allowEmpty('format_show_date');
 
         return $validator;
     }

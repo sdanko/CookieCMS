@@ -10,7 +10,10 @@ use Cake\ORM\Entity;
  * @property string $title
  * @property string $description
  * @property string $alias
+ * @property bool $format_show_author
+ * @property bool $format_show_date
  * @property \App\Model\Entity\Content[] $content
+ * @property \App\Model\Entity\Vocabulary[] $vocabularies
  */
 class ContentType extends Entity
 {

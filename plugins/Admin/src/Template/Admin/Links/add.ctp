@@ -10,6 +10,7 @@
             echo $this->Form->input('link');
             echo $this->Form->input('title');
         ?>
+        
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

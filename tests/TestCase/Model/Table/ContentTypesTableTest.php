@@ -25,7 +25,12 @@ class ContentTypesTableTest extends TestCase
      */
     public $fixtures = [
         'app.content_types',
-        'app.content'
+        'app.content',
+        'app.taxonomies',
+        'app.terms',
+        'app.vocabularies',
+        'app.content_types_vocabularies',
+        'app.model_taxonomies'
     ];
 
     /**
