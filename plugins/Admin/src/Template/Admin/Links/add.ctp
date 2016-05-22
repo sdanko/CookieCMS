@@ -1,4 +1,8 @@
-    <?php $this->Form->templates($form_templates['default']); ?>
+<?php
+    echo $this->Html->script('link-filter', ['block' => true]);
+    $this->assign('script', "<script>$(document).ready(function(){ link-filter('link-type', 'term') });</script>");
+?>    
+<?php $this->Form->templates($form_templates['default']); ?>
 
     <?= $this->Form->create($link) ?>
     <fieldset>
@@ -11,9 +15,15 @@
             echo $this->Form->input('title');
         ?>
         <div class="form-group">
-      <div class="col-sm-3"><label>First name</label><input class="form-control" placeholder="First" type="text"></div>
-      <div class="col-sm-3"><label>Last name</label><input class="form-control" placeholder="Last" type="text"></div>
-    </div>
+            <div class="row">
+                <div class="col-sm-3"><label>Link</label><input class="form-control" type="text"></div>
+                <div class="col-sm-3">
+                    <label>Type</label>
+                    <select name="link_type" id="link-type" class="form-control"></select>
+                </div>
+                <div class="col-sm-3"><label>Search</label><input class="form-control" name="term" id="term" type="text"></div>
+            </div>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
