@@ -10,7 +10,10 @@
             echo $this->Form->input('link');
             echo $this->Form->input('title');
         ?>
-        
+        <div class="form-group">
+      <div class="col-sm-3"><label>First name</label><input class="form-control" placeholder="First" type="text"></div>
+      <div class="col-sm-3"><label>Last name</label><input class="form-control" placeholder="Last" type="text"></div>
+    </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
