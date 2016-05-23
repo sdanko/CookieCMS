@@ -20,8 +20,8 @@
 
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
-                    url: url,
-                    data: { type: $('#' + types).val(), term: $('#' + search).val() },
+                    url: url + '?type=' + $('#' + types).val() + '&term=' + $('#' + search).val(),
+                    //data: { type: $('#' + types).val(), term: $('#' + search).val() },
                     dataType: "json",
                     success: function (data) {
                         response($.map(data, function (item) {

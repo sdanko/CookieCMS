@@ -126,7 +126,10 @@ class LinksController extends AppController
     
     public function searchLinks()
     {
-        $this->set('text', $this->request->input);
-        $this->set('_serialize', ['text']);
+         if( $this->request->is('ajax') ) {
+            $this->set('text', $this->request->query('type'));
+            $this->set('_serialize', ['text']);
+        }
+        
     }
 }
