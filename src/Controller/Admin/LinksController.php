@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Links Controller
@@ -126,10 +127,32 @@ class LinksController extends AppController
     
     public function searchLinks()
     {
-         if( $this->request->is('ajax') ) {
-            $this->set('text', $this->request->query('type'));
-            $this->set('_serialize', ['text']);
-        }
+         //if( $this->request->is('ajax') ) {
+            $type = $this->request->query('type');
+            $term = $this->request->query('term');
+            
+            if($type=="term") {
+                $terms = TableRegistry::get('Terms');
+                $data = $terms->find('all', ['limit' => 5, 'conditions' => array(
+
+                        'OR' => array(
+                            'Terms.slug LIKE ' => "%" . $term . "%",
+                            'Terms.title LIKE' => "%" . $term . "%"
+                        )
+                )]);
+            } else {
+                $content = TableRegistry::get('Content');
+                $data = $content->find('all', ['limit' => 5,  'conditions' => array(
+                        'OR' => array(
+                            'slug' => $term,
+                            'title' => $term,
+                        )
+                )]);
+            }
+            
+            $this->set('data', $data);
+            $this->set('_serialize', ['data']);
+        //}
         
     }
 }

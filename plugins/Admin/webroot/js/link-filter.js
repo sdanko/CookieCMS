@@ -23,9 +23,9 @@
                     url: url + '?type=' + $('#' + types).val() + '&term=' + $('#' + search).val(),
                     //data: { type: $('#' + types).val(), term: $('#' + search).val() },
                     dataType: "json",
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return { label: item.label, value: item.label, id: item.id };
+                    success: function (json) {
+                        response($.map(json.data, function (item) {
+                            return { label: item.title, value: item.slug };
                         }));
 
                     },
