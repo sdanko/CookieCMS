@@ -1,6 +1,10 @@
 <?php
+    use Cake\Routing\Router;
+    
+    $url = Router::url(array('controller'=>'Links','action'=>'searchLinks'));
+    
     echo $this->Html->script('link-filter', ['block' => true]);
-    $this->assign('script', "<script>$(document).ready(function(){ link-filter('link-type', 'term') });</script>");
+    $this->append("script","<script>$(document).ready(function(){ filterLinks('link-type', 'term', '" . $url .  "') });</script>");
 ?>    
 <?php $this->Form->templates($form_templates['default']); ?>
 
@@ -27,4 +31,3 @@
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
-

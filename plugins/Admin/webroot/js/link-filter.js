@@ -6,7 +6,7 @@
 
 
 
-   function filterContent(types, search) {
+   function filterLinks(types, search, url) {
        
         $('#' + types).append('<option value="content">Content</option>');
         $('#' + types).append('<option value="term">Term</option>');
@@ -20,8 +20,8 @@
 
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
-                    url: "SearchLinks",
-                    data: { type: $('#' + types), term: $('#' + search).val() },
+                    url: url,
+                    data: { type: $('#' + types).val(), term: $('#' + search).val() },
                     dataType: "json",
                     success: function (data) {
                         response($.map(data, function (item) {

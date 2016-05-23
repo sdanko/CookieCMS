@@ -81,6 +81,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 });
 
 Router::prefix('admin', function ($routes) {
+	 $routes->extensions(['json']);
     // All routes here will be prefixed with `/admin`
     // And have the prefix => admin route element added.
     $routes->fallbacks('InflectedRoute'); 
@@ -99,6 +100,11 @@ Router::prefix('admin', function ($routes) {
         [
             'pass' => ['menuId',]
         ]
+    );
+	
+	$routes->connect(
+        '/links/searchLinks/', 
+        ['controller' => 'Links', 'action' => 'searchLinks', '_ext' => 'json']
     );
 	
 	$routes->connect(
@@ -158,3 +164,4 @@ Router::prefix('admin', function ($routes) {
  * how to customize the loading of plugin routes.
  */
 Plugin::routes();
+

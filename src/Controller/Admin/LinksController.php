@@ -123,4 +123,10 @@ class LinksController extends AppController
         }
         return $this->redirect(['action' => 'index', "menuId" => $link->menu_id]);
     }
+    
+    public function searchLinks()
+    {
+        $this->set('text', $this->request->input);
+        $this->set('_serialize', ['text']);
+    }
 }
