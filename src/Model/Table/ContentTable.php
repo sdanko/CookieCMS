@@ -239,11 +239,9 @@ class ContentTable extends Table
         return $query;
     }
         
-    public function addContent($data, $typeAlias = self::DEFAULT_TYPE)
+    public function addContent($data, $content, $typeAlias = self::DEFAULT_TYPE)
     {
         $result = false;
-        
-        $content = $this->newEntity();
         
         $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
         EventManager::instance()->dispatch($event);
