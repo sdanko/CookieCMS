@@ -124,7 +124,11 @@ class TaxonomizableBehavior extends Behavior {
     public function cacheTerms(Table $table, &$data = null) 
     {	
         $taxonomyIds = $this->_getSelectedTerms($data);
-                
+        
+        if(empty($taxonomyIds)) {
+            return;
+        }
+        
         $taxonomies = $table->ContentTypes->ContentTypesVocabularies->Vocabularies->Taxonomies->find('all', array(
             'conditions' => array(
                     'Taxonomies.id IN ' => $taxonomyIds,

@@ -67,6 +67,11 @@ class ContentTable extends Table
 
         $validator
             ->allowEmpty('slug');
+        
+        $validator->add('slug', 'custom', [
+            'rule' => [$this, 'isUniquePerType'],
+            'message' => 'This slug has already been taken.'
+        ]);
 
         $validator
             ->allowEmpty('body');
@@ -105,8 +110,20 @@ class ContentTable extends Table
 
         $validator
             ->allowEmpty('terms');
-
+        
         return $validator;
+    }
+    
+    public function isUniquePerType($check, array $context)
+    {
+        if(!$context['newRecord']) {
+            $existing = $this->findById($context['data']['id'])->first()->toArray();
+            
+            if($existing[$context['field']]==$check)
+                return true;
+        }
+ 
+       return($this->find()->where([$context['field'] => $check, 'content_type_id' => $context['data']['content_type_id']])->count()==0);
     }
 
     /**

@@ -86,7 +86,7 @@ class TermsTable extends Table
         if ($this->hasSlugChanged($id, $slug) && $this->slugExists($slug)) {
             $edited = false;
         } else {
-            $taxonomyId = !empty($data['Taxonomy']['id']) ? $data['Taxonomy']['id'] : null;        debug($data);
+            $taxonomyId = !empty($data['Taxonomy']['id']) ? $data['Taxonomy']['id'] : null;        
             $edited = $this->_save($data, $vocabularyId, $taxonomyId);
         }
         return $edited;
