@@ -25,7 +25,7 @@
                     dataType: "json",
                     success: function (json) {
                         response($.map(json.data, function (item) {
-                            return { label: item.title, value: item.slug };
+                            return { label: item.title, value: item.title, url: item.url };
                         }));
 
                     },
@@ -41,7 +41,7 @@
             },
 
             select: function (event, ui) {
-                $("#zaposlenikId").val(ui.item.id);
+                $("#link").val(ui.item.url);
             }
 
         });

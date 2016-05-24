@@ -13,14 +13,16 @@
         <legend><?= __('Add Link') ?></legend>
         <?php
             echo $this->Form->input('parent_id', ['options' => $parentLinks, 'empty' => true]);
-            //echo $this->Form->input('menu_id', ['options' => $menus, 'empty' => true]);
             echo $this->Form->input('menu_id', array('type' => 'hidden', 'value' => $menuId));
-            echo $this->Form->input('link');
+//            echo $this->Form->input('link');
             echo $this->Form->input('title');
         ?>
         <div class="form-group">
             <div class="row">
-                <div class="col-sm-3"><label>Link</label><input class="form-control" type="text"></div>
+                <div class="col-sm-4">
+                    <label>Link</label>
+                    <input style="float:left;" name="link" id="link" class="form-control" type="text">
+                </div>
                 <div class="col-sm-3">
                     <label>Type</label>
                     <select name="link_type" id="link-type" class="form-control"></select>

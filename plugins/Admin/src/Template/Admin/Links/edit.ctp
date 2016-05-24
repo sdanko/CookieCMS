@@ -1,15 +1,36 @@
-    <?php $this->Form->templates($form_templates['default']); ?>
+<?php
+    use Cake\Routing\Router;
+    
+    $url = Router::url(array('controller'=>'Links','action'=>'searchLinks'));
+    
+    echo $this->Html->script('link-filter', ['block' => true]);
+    $this->append("script","<script>$(document).ready(function(){ filterLinks('link-type', 'term', '" . $url .  "') });</script>");
+?>  
+
+<?php $this->Form->templates($form_templates['default']); ?>
 
     <?= $this->Form->create($link) ?>
     <fieldset>
         <legend><?= __('Edit Link') ?></legend>
         <?php
             echo $this->Form->input('parent_id', ['options' => $parentLinks, 'empty' => true]);
-            //echo $this->Form->input('menu_id', ['options' => $menus, 'empty' => true]);
             echo $this->Form->input('menu_id', array('type' => 'hidden'));
-            echo $this->Form->input('link');
+            //echo $this->Form->input('link');
             echo $this->Form->input('title');
         ?>
+         <div class="form-group">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Link</label>
+                    <input  name="link" id="link" class="form-control" type="text" value="<?= $link->link; ?>">
+                </div>
+                <div class="col-sm-3">
+                    <label>Type</label>
+                    <select name="link_type" id="link-type" class="form-control"></select>
+                </div>
+                <div class="col-sm-3"><label>Search</label><input class="form-control" name="term" id="term" type="text"></div>
+            </div>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

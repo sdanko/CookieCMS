@@ -1,8 +1,12 @@
 <?php
 namespace App\Controller\Admin;
 
+require_once(ROOT . DS . "Vendor" . DS . "cookie" . DS . "StringConverter.php");
+
+use StringConverter;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 
 /**
  * Links Controller
@@ -134,25 +138,62 @@ class LinksController extends AppController
             if($type=="term") {
                 $terms = TableRegistry::get('Terms');
                 $data = $terms->find('all', ['limit' => 5, 'conditions' => array(
-
                         'OR' => array(
                             'Terms.slug LIKE ' => "%" . $term . "%",
                             'Terms.title LIKE' => "%" . $term . "%"
                         )
                 )]);
+                
+                $data->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
+                   return $results->map(function ($row) {                     
+                       $row['url'] = $this->urlToLinkString([
+                            'controller' => 'content',
+                            'action' => 'term',
+                            'slug' => $row['slug']
+                        ]);
+                       return $row;
+                   });
+               });
+                
             } else {
                 $content = TableRegistry::get('Content');
                 $data = $content->find('all', ['limit' => 5,  'conditions' => array(
                         'OR' => array(
-                            'slug' => $term,
-                            'title' => $term,
+                            'Content.slug LIKE ' => "%" . $term . "%",
+                            'Content.title LIKE ' => "%" . $term . "%",
                         )
-                )]);
+                )])->contain(['ContentTypes']);
+                
+                $data->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
+                   return $results->map(function ($row) {                     
+                       $row['url'] = $this->urlToLinkString([
+                            'controller' => 'content',
+                            'action' => 'view',
+                            'slug' => $row['slug'],
+                            'type' => $row['content_type']['alias']
+                        ]);
+                       return $row;
+                   });
+               });
             }
             
             $this->set('data', $data);
             $this->set('_serialize', ['data']);
         //}
         
+    }
+    
+     /**
+     * Converts array into string controller:abc/action:xyz/value1/value2
+     *
+     * @param array $url link
+     * @return array
+     * @see StringConverter::urlToLinkString()
+     */
+    public function urlToLinkString($url)
+    {
+        $this->converter = new StringConverter();
+        
+        return $this->converter->urlToLinkString($url);
     }
 }

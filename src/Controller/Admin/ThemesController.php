@@ -21,7 +21,9 @@ use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 
 class ThemesController extends AppController {
-    public function getThemes() {
+    
+    public function getThemes()
+    {
          $themes = array(
              array(
                 'name' => 'Default',
@@ -60,7 +62,8 @@ class ThemesController extends AppController {
         return $themes;
     }
     
-    public function index() {
+    public function index()
+    {
         $this->set('title_for_layout', __d('admin', 'Themes'));
 
         $themes = $this->getThemes();
@@ -70,7 +73,8 @@ class ThemesController extends AppController {
         $this->set(compact('themes', 'currentTheme'));
     }
     
-    public function activate($alias = null) {
+    public function activate($alias = null) 
+    {
         $Setting = TableRegistry::get('Settings');
         if ($Setting->write('Site.theme', $alias)) {
             $this->Flash->success(__d('admin', 'Theme activated.'));
