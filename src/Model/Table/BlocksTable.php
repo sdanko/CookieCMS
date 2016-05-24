@@ -77,6 +77,7 @@ class BlocksTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['region_id'], 'Regions'));
+        $rules->add($rules->isUnique(['alias']));
         return $rules;
     }
     
