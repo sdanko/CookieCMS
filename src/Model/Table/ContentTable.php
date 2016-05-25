@@ -239,7 +239,7 @@ class ContentTable extends Table
         return $query;
     }
         
-    public function addContent($data, $content, $typeAlias = self::DEFAULT_TYPE)
+    public function addContent($content, $data, $typeAlias = self::DEFAULT_TYPE)
     {
         $result = false;
         

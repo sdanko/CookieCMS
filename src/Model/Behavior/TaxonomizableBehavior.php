@@ -43,9 +43,9 @@ class TaxonomizableBehavior extends Behavior {
             'targetForeignKey' => 'taxonomy_id',
             'joinTable' => 'model_taxonomies',
             'through' => 'ModelTaxonomies',
-            'conditions' => array(
-                    'model' => $this->_table->alias(),
-            )
+            'conditions' => [
+                    'model' => $this->_table->alias()
+            ]
         ]);	
     }
     
