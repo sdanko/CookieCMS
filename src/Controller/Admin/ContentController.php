@@ -215,4 +215,15 @@ class ContentController extends AppController
               
         $this->set(compact('types'));
     }
+    
+    public function getComments()
+    {
+          if( $this->request->is('ajax') ) {
+               $content_id = $this->request->query('content_id');
+               
+               $content = $this->Content->get($id, [
+                    'contain' => ['Comments']
+                ])->toArray();
+          }
+    }
 }

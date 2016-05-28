@@ -131,7 +131,7 @@ class LinksController extends AppController
     
     public function searchLinks()
     {
-         //if( $this->request->is('ajax') ) {
+         if( $this->request->is('ajax') ) {
             $type = $this->request->query('type');
             $term = $this->request->query('term');
             
@@ -179,7 +179,7 @@ class LinksController extends AppController
             
             $this->set('data', $data);
             $this->set('_serialize', ['data']);
-        //}
+        }
         
     }
     

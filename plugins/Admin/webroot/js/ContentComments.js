@@ -1,15 +1,21 @@
 var urlComment = "/Content";
-var contentId = window.location.search;
+var contentId = window.location.search;console.log(contentId);
 
 
 $(function () {
     var Comment = function (comment) {
         var self = this;
 
-        self.ContentId = comment ? comment.ContentId : contentId;
-        self.Body = comment ? comment.Body : '';
-        self.Created = comment ? comment.Created : '';
-        self.CreatedBy = comment ? comment.CreatedBy : '';
+        self.id = comment ? comment.id : 0;
+        self.model = comment ? comment.model : '';
+        self.foreign_key = comment ? comment.foreign_key : 0;
+        self.title = comment ? comment.title : '';
+        self.body = comment ? comment.body : '';
+        self.status = comment ? comment.status : 0;
+        self.created = comment ? comment.created : '';
+        self.created_by = comment ? comment.created_by : 0;
+        self.created = comment ? comment.modified : '';
+        self.modified_by = comment ? comment.modified_by : 0;
     };
 
 
@@ -19,7 +25,7 @@ $(function () {
         self.comment = ko.observable(new Comment());
 
         $.ajax({
-            url: urlComment + '/GetComments' + '?contentId=' + contentId,
+            url: url + '?contentId=' + contentId,
             async: false,
             dataType: 'json',
             success: function (json) {

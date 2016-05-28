@@ -1,11 +1,18 @@
  <?php
     use Cake\Utility\Hash;
+    use Cake\Routing\Router;
+      
     if (count($taxonomy) > 0):
         $taxonomyIds = Hash::extract($content, 'taxonomies.{n}.id');
     endif;
     
+    $url = Router::url(array('controller'=>'Content','action'=>'getComments'));
+    
     echo $this->Html->script('tinymce/tinymce.min', ['block' => true]);
     echo $this->Html->script('tinymce.init', ['block' => true]);
+    echo $this->Html->script('knockout-3.3.0', ['block' => true]);
+    $this->append("script","<script>var url='" . $url .  "';</script>");
+    echo $this->Html->script('ContentComments', ['block' => true]);
   ?>
 
     <?php $this->Form->templates($form_templates['default']); ?>
