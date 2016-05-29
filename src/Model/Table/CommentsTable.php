@@ -81,4 +81,13 @@ class CommentsTable extends Table
 
         return $validator;
     }
+    
+    public function add($data, $model, $options = array())
+    {
+        $comment = $this->Comments->newEntity();
+        $comment = $this->Comments->pathEntity($comment, $data);
+        $comment->model=$model;
+        
+        return $this->Comments->save($comment);
+    }
 }

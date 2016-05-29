@@ -14,7 +14,9 @@ echo $this->Html->script('tinymce.init', ['block' => true]);
     echo $this->Form->input('menu_id', array('type' => 'hidden', 'value' => $type->id));
     echo $this->Form->input('active');
     echo $this->Form->input('slug');
-    echo $this->Form->input('body');
+    echo $this->Form->input('body', array(
+        'class'=>'editor',
+     ));
     ?>
     <?php
     if (count($taxonomy) > 0):

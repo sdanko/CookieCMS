@@ -26,7 +26,9 @@
             echo $this->Form->input('content_type_id');
             echo $this->Form->input('active');
             echo $this->Form->input('slug');
-            echo $this->Form->input('body');
+            echo $this->Form->input('body', array(
+                'class'=>'editor',
+             ));
             echo $this->Form->input('promote', ['disabled'=>'disabled']);
             echo $this->Form->input('publish', ['disabled'=>'disabled']);
             echo $this->Form->input('publish_start',  array(

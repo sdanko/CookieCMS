@@ -233,7 +233,8 @@ class ContentController extends AppController
     public function submitComment()
     {
         $request_data = $this->request->input('json_decode');
-          $this->set('data', $request_data);
+        
+        $this->set('data', $request_data);
         $this->set('_serialize', ['data']);
     }
 }

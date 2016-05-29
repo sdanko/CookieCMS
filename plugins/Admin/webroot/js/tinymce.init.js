@@ -1,5 +1,5 @@
  tinymce.init({
-    selector: 'textarea',
+    selector: 'textarea.editor',
       // ===========================================
   // INCLUDE THE PLUGIN
   // ===========================================

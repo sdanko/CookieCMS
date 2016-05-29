@@ -1,4 +1,4 @@
-var contentId = window.location.pathname.split("/").slice(-1)[0];;
+var contentId = window.location.pathname.split("/").slice(-1)[0];
 
 
 $(function () {
@@ -7,7 +7,7 @@ $(function () {
 
         self.id = comment ? comment.id : 0;
         self.model = comment ? comment.model : '';
-        self.foreign_key = comment ? comment.foreign_key : 0;
+        self.foreign_key = comment ? comment.foreign_key : contentId;
         self.title = ko.observable(comment ? comment.title : '');
         self.body = ko.observable(comment ? comment.body : '');
         self.status = comment ? comment.status : 0;
