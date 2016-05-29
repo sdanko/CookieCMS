@@ -6,12 +6,14 @@
         $taxonomyIds = Hash::extract($content, 'taxonomies.{n}.id');
     endif;
     
-    $url = Router::url(array('controller'=>'Content','action'=>'getComments'));
+    $urlGet = Router::url(array('controller'=>'Content','action'=>'getComments'));
+    $urlSubmit = Router::url(array('controller'=>'Content','action'=>'submitComment'));
     
     echo $this->Html->script('tinymce/tinymce.min', ['block' => true]);
     echo $this->Html->script('tinymce.init', ['block' => true]);
     echo $this->Html->script('knockout-3.3.0', ['block' => true]);
-    $this->append("script","<script>var url='" . $url .  "';</script>");
+    $this->append("script","<script>var urlGet='" . $urlGet .  "';</script>");
+    $this->append("script","<script>var urlSubmit='" . $urlSubmit .  "';</script>");
     echo $this->Html->script('ContentComments', ['block' => true]);
   ?>
 

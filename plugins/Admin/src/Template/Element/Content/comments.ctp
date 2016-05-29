@@ -17,9 +17,9 @@
                         <h4><i class="fa fa-paper-plane-o"></i> <?=  __d('admin','Leave a Comment')?>:</h4>
                         <form role="form">
                             <div class="form-group" data-bind='with: comment'>
-                                <textarea class="form-control" rows="3" data-bind='value: Body'></textarea>
+                                <textarea class="form-control" rows="3" data-bind='value: body'></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-reply"></i> <?=  __d('admin','Submit')?></button>
+                            <button type="submit" class="btn btn-primary" data-bind='click: submitComment'><i class="fa fa-reply"></i> <?=  __d('admin','Submit')?></button>
                         </form>
                     </div>
 
@@ -27,21 +27,13 @@
 
                     <!-- the comments -->
                     <div id="accordion" data-bind="foreach: comments">
-                            <h3><i class="fa fa-comment"></i> <span data-bind="text:CreatedBy"></span>
-                                <small data-bind="text:Created"></small>
+                            <h3><i class="fa fa-comment"></i> 
+                                <span data-bind="text:first_name"></span>
+                                <span data-bind="text:last_name"></span>:
+                                <small data-bind="text:created"></small>
                             </h3>
-                          <p data-bind="text:Body"></p>
+                          <p data-bind="text:body"></p>
                     </div>
-                    
-                    <h3><i class="fa fa-comment"></i> User One says:
-                        <small> 9:41 PM on August 24, 2014</small>
-                    </h3>
-                    <p>Excellent post! Thank You the great article, it was useful!</p>
-
-                    <h3><i class="fa fa-comment"></i> User Two says:
-                        <small> 9:47 PM on August 24, 2014</small>
-                    </h3>
-                    <p>Excellent post! Thank You the great article, it was useful!</p>
                     
                 </div>
             </div>

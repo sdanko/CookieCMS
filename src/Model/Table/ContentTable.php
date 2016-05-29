@@ -40,6 +40,7 @@ class ContentTable extends Table
         $this->addBehavior('Taxonomizable');
         $this->addBehavior('Encoder');
         $this->addBehavior('Publishable');
+        $this->addBehavior('Commentable');
 
         $this->belongsTo('ContentTypes', [
             'foreignKey' => 'content_type_id'

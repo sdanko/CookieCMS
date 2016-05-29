@@ -30,6 +30,16 @@ class CommentsTable extends Table
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Ceeram/Blame.Blame');
+        
+        $this->belongsTo('Creator', [
+            'className' => 'Users',
+            'foreignKey' => 'created_by'
+        ]);
+        
+        $this->belongsTo('Modifier', [
+            'className' => 'Users',
+            'foreignKey' => 'modified_by'
+        ]);
     }
 
     /**

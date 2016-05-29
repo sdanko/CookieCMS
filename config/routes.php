@@ -124,6 +124,16 @@ Router::prefix('admin', function ($routes) {
     );
 	
 	$routes->connect(
+        '/content/getComments/', 
+        ['controller' => 'Content', 'action' => 'getComments', '_ext' => 'json']
+    );
+	
+	$routes->connect(
+        '/content/submitComment/', 
+        ['controller' => 'Content', 'action' => 'submitComment', '_ext' => 'json']
+    );
+	
+	$routes->connect(
         '/terms/:vocabularyId', 
         ['controller' => 'Terms', 'action' => 'index'],
         [

@@ -218,12 +218,22 @@ class ContentController extends AppController
     
     public function getComments()
     {
-          if( $this->request->is('ajax') ) {
-               $content_id = $this->request->query('content_id');
-               
-               $content = $this->Content->get($id, [
-                    'contain' => ['Comments']
-                ])->toArray();
-          }
+        if( $this->request->is('ajax') ) {
+             $content_id = $this->request->query('contentId');
+
+             $content = $this->Content->get($content_id, [
+                  'contain' => ['Comments', 'Comments.Creator']
+              ])->toArray();
+
+              $this->set('data', $content['comments']);
+              $this->set('_serialize', ['data']);
+        }
+    }
+    
+    public function submitComment()
+    {
+        $request_data = $this->request->input('json_decode');
+          $this->set('data', $request_data);
+        $this->set('_serialize', ['data']);
     }
 }

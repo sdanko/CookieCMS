@@ -1,5 +1,4 @@
-var urlComment = "/Content";
-var contentId = window.location.search;console.log(contentId);
+var contentId = window.location.pathname.split("/").slice(-1)[0];;
 
 
 $(function () {
@@ -16,6 +15,9 @@ $(function () {
         self.created_by = comment ? comment.created_by : 0;
         self.created = comment ? comment.modified : '';
         self.modified_by = comment ? comment.modified_by : 0;
+        self.first_name = comment ? comment.creator.first_name : 0;
+        self.middle_name = comment ? comment.creator.middle_name : 0;
+        self.last_name = comment ? comment.creator.last_name : 0;
     };
 
 
@@ -25,11 +27,11 @@ $(function () {
         self.comment = ko.observable(new Comment());
 
         $.ajax({
-            url: url + '?contentId=' + contentId,
+            url: urlGet + '?contentId=' + contentId,
             async: false,
             dataType: 'json',
             success: function (json) {
-                self.comments = ko.observableArray(ko.utils.arrayMap(json, function (comment) {
+                self.comments = ko.observableArray(ko.utils.arrayMap(json.data, function (comment) {
                     return new Comment(comment);
                 }));
             }
@@ -37,11 +39,11 @@ $(function () {
 
 
         self.submitComment = function () {
-
+            console.log(self.comment());
             $.ajax({
                 type: 'POST',
                 cache: false,
-                url: urlContact + '/SubmitComment',
+                url: urlSubmit,
                 data: JSON.stringify(ko.toJS(self.comment())),
                 contentType: 'application/json; charset=utf-8',
                 async: false,
