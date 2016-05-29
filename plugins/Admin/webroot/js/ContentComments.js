@@ -8,8 +8,8 @@ $(function () {
         self.id = comment ? comment.id : 0;
         self.model = comment ? comment.model : '';
         self.foreign_key = comment ? comment.foreign_key : 0;
-        self.title = comment ? comment.title : '';
-        self.body = comment ? comment.body : '';
+        self.title = ko.observable(comment ? comment.title : '');
+        self.body = ko.observable(comment ? comment.body : '');
         self.status = comment ? comment.status : 0;
         self.created = comment ? comment.created : '';
         self.created_by = comment ? comment.created_by : 0;
@@ -39,7 +39,7 @@ $(function () {
 
 
         self.submitComment = function () {
-            console.log(self.comment());
+            console.log(self.comment().body());
             $.ajax({
                 type: 'POST',
                 cache: false,

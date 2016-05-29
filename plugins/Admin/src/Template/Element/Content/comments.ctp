@@ -17,9 +17,10 @@
                         <h4><i class="fa fa-paper-plane-o"></i> <?=  __d('admin','Leave a Comment')?>:</h4>
                         <form role="form">
                             <div class="form-group" data-bind='with: comment'>
-                                <textarea class="form-control" rows="3" data-bind='value: body'></textarea>
+<!--                                <textarea class="form-control" rows="3" data-bind='value: body'></textarea>-->
+                                <input class="form-control" data-bind='wysiwyg : body' />
                             </div>
-                            <button type="submit" class="btn btn-primary" data-bind='click: submitComment'><i class="fa fa-reply"></i> <?=  __d('admin','Submit')?></button>
+                            <button type="button" class="btn btn-primary" data-bind='click: submitComment'><i class="fa fa-reply"></i> <?=  __d('admin','Submit')?></button>
                         </form>
                     </div>
 
