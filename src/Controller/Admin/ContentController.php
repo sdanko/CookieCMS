@@ -231,10 +231,21 @@ class ContentController extends AppController
     }
     
     public function submitComment()
-    {
-        $request_data = $this->request->input('json_decode');
+    {$this->response->statusCode(200);
+//        if( $this->request->is('ajax') ) {
+//            $request_data = $this->request->input('json_decode'); 
+            
+//            if($this->Content->Comments->addComment($request_data)) {
+//                $this->response->statusCode(200);
+//            }else {
+//                $this->response->statusCode(500);
+//            }
+            
+              $this->set('content', '$this->Content->Comments->addComment($request_data' );
+            $this->set('_serialize', ['content']);
+            
+        //}
         
-        $this->set('data', $request_data);
-        $this->set('_serialize', ['data']);
+
     }
 }

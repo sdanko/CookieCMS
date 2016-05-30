@@ -85,7 +85,7 @@ class CommentsTable extends Table
     public function add($data, $model, $options = array())
     {
         $comment = $this->Comments->newEntity();
-        $comment = $this->Comments->pathEntity($comment, $data);
+        $comment = $this->Comments->pathEntity($comment, $data);debug($comment);
         $comment->model=$model;
         
         return $this->Comments->save($comment);

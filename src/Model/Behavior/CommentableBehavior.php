@@ -35,9 +35,6 @@ class CommentableBehavior extends Behavior {
     
     public function addComment($data, $options = array())
     {
-        if (!isset($Model->id)) {
-                throw new UnexpectedValueException('Id is not set');
-        }
         return $this->_table->Comments->add($data, $this->_table->alias(), $options);
     }
 
