@@ -83,10 +83,11 @@ class CommentsTable extends Table
     }
     
     public function add($data, $model, $options = array())
-    {debug($data);die;
+    {
         $comment = $this->newEntity();
         $comment = $this->patchEntity($comment, $data);
         $comment->model=$model;
+        $comment->status = 1;
         
         return $this->save($comment);
     }

@@ -3,6 +3,8 @@ namespace App\Controller\Admin;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
+
 
 /**
  * Content Controller
@@ -232,24 +234,20 @@ class ContentController extends AppController
     
     public function submitComment()
     {
-//        $dataToPersist = array(
-//             'foreign_key' => 2,
-//             'body' => 'aadfafd'
-//         );
-
-        if( $this->request->is('ajax') ) {
-            $request_data = $this->request->input('json_decode'); 
-            
-            if($this->Content->addComment($request_data)) {
-                $this->response->statusCode(200);
-            }else {
-                $this->response->statusCode(500);
-            }
-
-            $this->set('_serialize', []);
-
-        }
+        $table = TableRegistry::get('Comments');
+         $comment = $table->newEntity();
+        $comment = $table->patchEntity($comment, []);
+        $table->save($comment);
         
-
+//        if( $this->request->is('ajax') ) {
+//            $request_data = json_decode($this->request->input()); 
+//            if($this->Content->addComment((array)$request_data)) {
+//                $this->response->statusCode(200);
+//            }else {
+//                $this->response->statusCode(500);
+//            }
+//
+//            $this->set('_serialize', []);
+//        }
     }
 }

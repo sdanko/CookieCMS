@@ -24,6 +24,7 @@ class CommentableBehavior extends Behavior {
     protected function _setupRelationships()
     {
 	  $this->_table->hasMany('Comments', [
+            //'className' => 'Comments',
             'foreignKey' => 'foreign_key',
             'dependent' => true,
             'conditions' => [

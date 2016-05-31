@@ -12,9 +12,9 @@ $(function () {
         self.body = ko.observable(comment ? comment.body : '');
         self.status = comment ? comment.status : 0;
         self.created = comment ? comment.created : '';
-        self.created_by = comment ? comment.created_by : 0;
+//        self.created_by = comment ? comment.created_by : 0;
         self.created = comment ? comment.modified : '';
-        self.modified_by = comment ? comment.modified_by : 0;
+//        self.modified_by = comment ? comment.modified_by : 0;
         self.first_name = comment ? comment.creator.first_name : 0;
         self.middle_name = comment ? comment.creator.middle_name : 0;
         self.last_name = comment ? comment.creator.last_name : 0;
