@@ -83,11 +83,11 @@ class CommentsTable extends Table
     }
     
     public function add($data, $model, $options = array())
-    {
-        $comment = $this->Comments->newEntity();
-        $comment = $this->Comments->pathEntity($comment, $data);debug($comment);
+    {debug($data);die;
+        $comment = $this->newEntity();
+        $comment = $this->patchEntity($comment, $data);
         $comment->model=$model;
         
-        return $this->Comments->save($comment);
+        return $this->save($comment);
     }
 }

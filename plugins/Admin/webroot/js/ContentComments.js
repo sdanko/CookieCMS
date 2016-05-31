@@ -39,7 +39,6 @@ $(function () {
 
 
         self.submitComment = function () {
-            console.log(self.comment().body());
             $.ajax({
                 type: 'POST',
                 cache: false,
