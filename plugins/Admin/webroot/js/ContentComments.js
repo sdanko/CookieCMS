@@ -25,14 +25,14 @@ $(function () {
         var self = this;
         
         self.comment = ko.observable(new Comment());
-        
+        self.comments = ko.observableArray();
         
         $.ajax({
             url: urlGet + '?contentId=' + contentId,
             async: false,
             dataType: 'json',
             success: function (json) {
-                self.comments = ko.observableArray(ko.utils.arrayMap(json.data, function (comment) {
+                self.comments(ko.utils.arrayMap(json.data, function (comment) {
                     return new Comment(comment);
                 }));
             }
@@ -52,24 +52,20 @@ $(function () {
                     var err = JSON.parse(err.responseText);
                     $("<div></div>").html(errors).dialog({ modal: true, title: JSON.parse(err.responseText).Message, buttons: { "Ok": function () { $(this).dialog("close"); } } }).show();
                 },
-                complete: self.getComments()
-            });
-        };
-        
-        self.getComments = function () {
-
-            $.ajax({
-                url: urlGet + '?contentId=' + contentId,
-                async: false,
-                dataType: 'json',
-                success: function (json) {
-                    self.comments = ko.observableArray(ko.utils.arrayMap(json.data, function (comment) {
-                        return new Comment(comment);
-                    }));
+                success: function () {
+                    $.ajax({
+                        url: urlGet + '?contentId=' + contentId,
+                        async: false,
+                        dataType: 'json',
+                        success: function (json) {
+                             self.comments(ko.utils.arrayMap(json.data, function (comment) {
+                                return new Comment(comment);
+                            }));
+                        }
+                    });
                 }
             });
-
-        }
+        };
     };
 
     ko.applyBindings(new CommentCollection());
