@@ -234,20 +234,20 @@ class ContentController extends AppController
     
     public function submitComment()
     {
-        $table = TableRegistry::get('Comments');
-         $comment = $table->newEntity();
-        $comment = $table->patchEntity($comment, []);
-        $table->save($comment);
+//        $table = TableRegistry::get('Comments');
+//         $comment = $table->newEntity();
+//        $comment = $table->patchEntity($comment, []);
+//        $table->save($comment);
         
-//        if( $this->request->is('ajax') ) {
-//            $request_data = json_decode($this->request->input()); 
-//            if($this->Content->addComment((array)$request_data)) {
-//                $this->response->statusCode(200);
-//            }else {
-//                $this->response->statusCode(500);
-//            }
-//
-//            $this->set('_serialize', []);
-//        }
+        if( $this->request->is('ajax') ) {
+            $request_data = json_decode($this->request->input()); 
+            if($this->Content->addComment((array)$request_data,  ['Auth' => $this->Auth])) {
+                $this->response->statusCode(200);
+            }else {
+                $this->response->statusCode(500);
+            }
+
+            $this->set('_serialize', []);
+        }
     }
 }

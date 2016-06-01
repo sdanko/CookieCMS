@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Ceeram\Blame\Event\LoggedInUserListener;
 
 /**
  * Comments Model
@@ -84,6 +85,9 @@ class CommentsTable extends Table
     
     public function add($data, $model, $options = array())
     {
+        $listener = new LoggedInUserListener($options['Auth']);
+        $this->eventManager()->attach($listener);
+        
         $comment = $this->newEntity();
         $comment = $this->patchEntity($comment, $data);
         $comment->model=$model;

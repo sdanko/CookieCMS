@@ -130,7 +130,7 @@ Router::prefix('admin', function ($routes) {
 	
 	$routes->connect(
         '/content/submitComment/', 
-        ['controller' => 'Content', 'action' => 'submitComment']
+        ['controller' => 'Content', 'action' => 'submitComment', '_ext' => 'json']
     );
 	
 	$routes->connect(
