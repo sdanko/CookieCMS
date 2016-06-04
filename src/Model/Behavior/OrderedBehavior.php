@@ -132,7 +132,7 @@ class OrderedBehavior extends Behavior {
     }
     
 
-    public function beforedelete(Model $Model, $settings = array()) {
+    public function beforedelete($settings = array()) {
         $Model->read();
         $highest = $this->_highest($Model);
         if (!empty($Model->data) && ($Model->data[$Model->alias][$Model->primaryKey] == $highest[$Model->alias][$Model->primaryKey])) {
@@ -140,7 +140,7 @@ class OrderedBehavior extends Behavior {
         }
     }
 
-    public function afterdelete(Model $Model, $settings = array()) {
+    public function afterdelete($settings = array()) {
         if ($Model->data) {
             // What was the weight of the deleted model?		
             $old_weight = $Model->data[$Model->alias][$this->settings['field']];
