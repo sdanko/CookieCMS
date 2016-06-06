@@ -40,6 +40,7 @@
                         $this->Form->postLink(__('<i class="fa fa-unlock fa-lg"></i>'), ['action' => 'promote', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Promote')])
    
                 ?>
+                <?= $this->Html->link('<i class="fa fa-sitemap fa-lg"></i>', ['action' => 'nodes', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Workflow')]) ?>
                
             </td>
         </tr>

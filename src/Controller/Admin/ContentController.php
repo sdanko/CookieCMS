@@ -210,12 +210,18 @@ class ContentController extends AppController
         return $this->redirect(['action' => 'index']);
     }
     
-    public function types() {
+    public function types() 
+    {
         $this->set('title_for_layout', __d('admin', 'Choose content type'));
 
         $types = $this->Content->ContentTypes->find();
               
         $this->set(compact('types'));
+    }
+    
+    public function nodes($id = null)
+    {
+        
     }
     
     public function getComments()
