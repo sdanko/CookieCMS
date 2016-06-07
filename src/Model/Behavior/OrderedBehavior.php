@@ -121,17 +121,8 @@ class OrderedBehavior extends Behavior {
      * 				 Each set has their own order (ie they start at 1).
      *               Set to FALSE to not use this feature (and use only 1 set)
      */
-    public $_defaults = array('field' => 'weight', 'foreign_key' => false);
-
-    public function initialize(array $config)
-    {
-        if (!is_array($config)) {
-            $settings = array();
-        }
-        $this->settings = array_merge($this->_defaults, $settings);
-    }
+    protected $_defaultConfig = array('field' => 'weight', 'foreign_key' => false);
     
-
     public function beforedelete($settings = array()) {
         $Model->read();
         $highest = $this->_highest($Model);
