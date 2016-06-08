@@ -130,6 +130,11 @@ class OrderedBehavior extends Behavior {
             $Model->data = null;
         }
     }
+    
+    public function beforeDelete(Event $event, Entity $entity, ArrayObject $options)
+    {
+   
+    }
 
     public function afterdelete($settings = array()) {
         if ($Model->data) {
