@@ -25,9 +25,12 @@ class LinksTable extends Table
      */
     public function initialize(array $config)
     {
+        parent::initialize($config);
+
         $this->table('cms.links');
         $this->displayField('title');
         $this->primaryKey('id');
+
         $this->belongsTo('ParentLinks', [
             'className' => 'Links',
             'foreignKey' => 'parent_id'
@@ -50,13 +53,18 @@ class LinksTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
+            ->integer('id')
             ->allowEmpty('id', 'create');
-            
+
         $validator
             ->allowEmpty('link');
+
         $validator
             ->allowEmpty('title');
+
+        $validator
+            ->integer('position')
+            ->allowEmpty('position');
 
         return $validator;
     }

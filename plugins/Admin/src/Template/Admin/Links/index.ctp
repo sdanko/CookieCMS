@@ -12,11 +12,12 @@
             <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('parent_id', __d('admin', 'Parent')) ?></th>
             <th><?= $this->Paginator->sort('menu_id', __d('admin', 'Menu')) ?></th>
+            <th class="actions"><?= __d('admin','Order') ?></th>
             <th class="actions"><?= __d('admin','Actions') ?></th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($links as $link): ?>
+    <?php foreach ($links as $key=>$link): ?>
         <tr>
             <td><?= $this->Number->format($link->id) ?></td>
             <td><?= h($link->link) ?></td>
@@ -26,6 +27,10 @@
             </td>
             <td>
                 <?= $link->has('menu') ? $this->Html->link($link->menu->title, ['controller' => 'Menus', 'action' => 'view', $link->menu->id]) : '' ?>
+            </td>
+            <td class="actions">
+                <?= $key!=0 ? $this->Form->postLink(__('<i class="fa fa-angle-up fa-lg"></i>'), ['action' => 'moveUp', $link->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Move up')]) : '' ?>
+                <?= $key!=count($links)-1 ? $this->Form->postLink(__('<i class="fa fa-angle-down fa-lg"></i>'), ['action' => 'moveDown', $link->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Move down')]) : '' ?>
             </td>
             <td class="actions">
                 <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $link->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>

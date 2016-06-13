@@ -60,6 +60,7 @@ class LinksController extends AppController
     {
         $link = $this->Links->newEntity();
         if ($this->request->is('post')) {
+            $this->_setScopeForMenu($menuId);
             $link = $this->Links->patchEntity($link, $this->request->data);
             if ($this->Links->save($link)) {
                 $this->Flash->success(__('The link has been saved.'));
@@ -93,6 +94,7 @@ class LinksController extends AppController
         $menuId = $link->menu_id;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->_setScopeForMenu($menuId);
             $link = $this->Links->patchEntity($link, $this->request->data);
             if ($this->Links->save($link)) {
                 $this->Flash->success(__('The link has been saved.'));
@@ -121,6 +123,7 @@ class LinksController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $link = $this->Links->get($id);
+        $this->_setScopeForMenu($link->menu_id);
         if ($this->Links->delete($link)) {
             $this->Flash->success(__('The link has been deleted.'));
         } else {
@@ -195,5 +198,18 @@ class LinksController extends AppController
         $this->converter = new StringConverter();
         
         return $this->converter->urlToLinkString($url);
+    }
+    
+    protected function _setScopeForMenu($menuId)
+    {
+        $scopeSettings = ['scope' => [
+                'menu_id' => $menuId,
+        ]];
+
+        if ($this->Links->behaviors()->has('Sequence')) {
+            $this->Links->behaviors()->get('Sequence')->config($scopeSettings);
+        } else {
+            $this->Links->addBehavior('Sequence', $scopeSettings);
+        }
     }
 }

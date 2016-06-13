@@ -286,7 +286,7 @@ class SequenceBehavior extends Behavior
                 return true;
             }
         );
-        $table->addBehavior('ADmad/Sequence.Sequence', $config);
+        $table->addBehavior('Sequence', $config);
         return $return;
     }
     /**
