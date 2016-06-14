@@ -86,13 +86,6 @@ class CookieComponent extends Component {
             'title' => '<span class="glyphicon glyphicon-edit"></span>' . __d('admin', 'Layout'),
             'url' => '#dropdown-layout',
             'children' => array(
-                'blocks' => array(
-                    'title' =>  __d('admin', 'Blocks'),
-                    'url' => array(
-                        'controller' => 'Blocks',
-                        'action' => 'index'
-                    ),
-                ),
                 'regions' => array(
                     'title' => __d('admin', 'Regions'),
                     'url' => array(
