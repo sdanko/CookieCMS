@@ -15,7 +15,11 @@ use Cake\Routing\Router;
  */
 class LinksController extends AppController
 {
-
+    protected $_redirectUrl = array(
+        'controller' => 'Menus',
+        'action' => 'index'
+    );
+    
     /**
      * Index method
      *
@@ -23,6 +27,11 @@ class LinksController extends AppController
      */
     public function index($menuId = null)
     {
+        $this->__ensureMenuIdExists($menuId);
+        
+        $menu = $this->Links->Menus->findById($menuId)->first();
+        $this->set('title_for_layout', __d('admin', 'Menu: {0}', $menu->title));
+        
         $query = $this->Links->find()->where(['Links.menu_id' => $menuId]);
         
         $this->paginate = [
@@ -58,6 +67,8 @@ class LinksController extends AppController
      */
     public function add($menuId = null)
     {
+        $this->__ensureMenuIdExists($menuId);
+         
         $link = $this->Links->newEntity();
         if ($this->request->is('post')) {
             $link = $this->Links->patchEntity($link, $this->request->data);
@@ -90,7 +101,7 @@ class LinksController extends AppController
         $link = $this->Links->get($id, [
             'contain' => []
         ]);
-        $menuId = $link->menu_id;
+        //$menuId = $link->menu_id;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             $link = $this->Links->patchEntity($link, $this->request->data);
@@ -101,11 +112,11 @@ class LinksController extends AppController
                 $this->Flash->error(__('The link could not be saved. Please, try again.'));
             }
         }
-        $this->set('menuId', $menuId);
+        //$this->set('menuId', $menuId);
         $parentLinks = $this->Links->ParentLinks->find('list', ['limit' => 200,  'conditions' => array(
                                   'menu_id' => $menuId
                           )]);
-        //$menus = $this->Links->Menus->find('list', ['limit' => 200]);
+
         $this->set(compact('link', 'parentLinks', 'menus'));
         $this->set('_serialize', ['link']);
     }
@@ -232,16 +243,17 @@ class LinksController extends AppController
         return $this->converter->urlToLinkString($url);
     }
     
-//    protected function _setScopeForMenu($menuId)
-//    {
-//        $scopeSettings = ['scope' => [
-//                'menu_id' 
-//        ]];
-//
-//        if ($this->Links->behaviors()->has('Sequence')) {
-//            $this->Links->behaviors()->get('Sequence')->config($scopeSettings);
-//        } else {
-//            $this->Links->addBehavior('Sequence', $scopeSettings);
-//        }
-//    }
+    private function __ensureMenuIdExists($menuId, $url = null) 
+    {
+        $redirectUrl = is_null($url) ? $this->_redirectUrl : $url;
+        if (!$menuId) {
+                return $this->redirect($redirectUrl);
+        }
+        
+        if (!$this->Links->Menus->exists(['id' => $menuId])) {
+            $this->Flash->error(__d('cookie', 'Invalid Menu ID.'));
+            return $this->redirect($redirectUrl);
+        }
+    }
+    
 }

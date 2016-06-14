@@ -10,19 +10,32 @@ use App\Controller\AppController;
  */
 class BlocksController extends AppController
 {
+    protected $_redirectUrl = array(
+        'controller' => 'Regions',
+        'action' => 'index'
+    );
 
     /**
      * Index method
      *
      * @return void
      */
-    public function index()
+    public function index($regionId = null)
     {
+        $this->__ensureRegionIdExists($regionId);
+        
+        $region = $this->Blocks->Regions->findById($regionId)->first();
+        $this->set('title_for_layout', __d('admin', 'Region: {0}', $region->title));
+        
+        $query = $this->Blocks->find()->where(['Blocks.region_id' => $regionId]);
+        
         $this->paginate = [
             'contain' => ['Regions']
         ];
         
-        $this->set('blocks', $this->paginate($this->Blocks));
+        $this->set('regionId', $regionId);
+        
+        $this->set('blocks', $this->paginate($query));
         $this->set('_serialize', ['blocks']);
     }
 
@@ -47,19 +60,22 @@ class BlocksController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($regionId = null)
     {
+        $this->__ensureRegionIdExists($regionId);
+        
         $block = $this->Blocks->newEntity();
         if ($this->request->is('post')) {
             $block = $this->Blocks->patchEntity($block, $this->request->data);
             if ($this->Blocks->save($block)) {
                 $this->Flash->success(__('The block has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index', "regionId" => $regionId]);
             } else {
                 $this->Flash->error(__('The block could not be saved. Please, try again.'));
             }
         }
-        $regions = $this->Blocks->Regions->find('list', ['limit' => 200]);
+        $this->set('regionId', $regionId);
+        //$regions = $this->Blocks->Regions->find('list', ['limit' => 200]);
         $this->set(compact('block', 'regions'));
         $this->set('_serialize', ['block']);
     }
@@ -107,5 +123,54 @@ class BlocksController extends AppController
             $this->Flash->error(__('The block could not be deleted. Please, try again.'));
         }
         return $this->redirect(['action' => 'index']);
+    }
+    
+    public function moveUp($id = null)
+    {
+        $block = $this->Blocks->get($id, [
+            'contain' => []
+        ]);
+        $block->position--;
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if ($this->Links->save($block)) {
+                $this->Flash->success(__('The block has been moved.'));
+            } else {
+                $this->Flash->error(__('The block could not be moved. Please, try again.'));
+            }
+        }
+        
+        return $this->redirect(['action' => 'index', "regionId" => $block->region_id]);
+    }
+    
+    public function moveDown($id = null)
+    {
+        $block = $this->Blocks->get($id, [
+            'contain' => []
+        ]);
+        $block->position++;
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if ($this->Links->save($block)) {
+                $this->Flash->success(__('The blocks has been moved.'));
+            } else {
+                $this->Flash->error(__('The block could not be moved. Please, try again.'));
+            }
+        }
+        
+        return $this->redirect(['action' => 'index', "regionId" => $block->region_id]);
+    }
+    
+    private function __ensureRegionIdExists($regionId, $url = null) 
+    {
+        $redirectUrl = is_null($url) ? $this->_redirectUrl : $url;
+        if (!$regionId) {
+                return $this->redirect($redirectUrl);
+        }
+        
+        if (!$this->Blocks->Regions->exists(['id' => $regionId])) {
+            $this->Flash->error(__d('admin', 'Invalid Region ID.'));
+            return $this->redirect($redirectUrl);
+        }
     }
 }

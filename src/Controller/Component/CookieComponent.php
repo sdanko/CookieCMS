@@ -35,11 +35,9 @@ class CookieComponent extends Component {
         ));
 
         $user = $this->Auth->user();
-        $gravatarUrl = '<img src="//www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=23" class="img-rounded"></img>';
         CookieNav::add('top-right', 'user', array(
             'icon' => false,
             'title' => $user['email'],
-            'before' => $gravatarUrl,
             'url' => '#',
             'children' => array(
                 'profile' => array(

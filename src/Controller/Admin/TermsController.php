@@ -10,6 +10,10 @@ use App\Controller\AppController;
  */
 class TermsController extends AppController
 {
+    protected $_redirectUrl = array(
+        'controller' => 'Vocabularies',
+        'action' => 'index'
+    );
 
     /**
      * Index method

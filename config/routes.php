@@ -103,6 +103,22 @@ Router::prefix('admin', function ($routes) {
     );
 	
 	$routes->connect(
+        '/blocks/:regionId', 
+        ['controller' => 'Blocks', 'action' => 'index'],
+        [
+            'pass' => ['regionId',]
+        ]
+    );
+
+	$routes->connect(
+        '/blocks/add/:regionId', 
+        ['controller' => 'Blocks', 'action' => 'add'],
+        [
+            'pass' => ['regionId',]
+        ]
+    );
+	
+	$routes->connect(
         '/links/searchLinks/', 
         ['controller' => 'Links', 'action' => 'searchLinks', '_ext' => 'json']
     );

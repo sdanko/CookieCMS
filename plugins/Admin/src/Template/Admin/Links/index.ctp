@@ -3,6 +3,7 @@
          <?= $this->Html->link(__d('admin','New Link'), ['action' => 'add', $menuId], ['class'=> 'btn btn-success']) ?>
     </div>
 </div>
+<h3><?=  $title_for_layout ?></h3>
 <div class="table-responsive">
     <table class="table table-stripped">
     <thead>

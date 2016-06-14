@@ -9,7 +9,7 @@
             echo $this->Form->input('body');
             echo $this->Form->input('class');
             echo $this->Form->input('element');
-            echo $this->Form->input('region_id', ['options' => $regions, 'empty' => true]);
+            echo $this->Form->input('region_id', array('type' => 'hidden'));
             echo $this->Form->input('show_title');
             echo $this->Form->input('active');
         ?>
