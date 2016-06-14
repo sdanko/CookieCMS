@@ -30,16 +30,16 @@ require_once(ROOT .DS. "Vendor" . DS . "cookie" . DS . "CookieNav.php");
                         <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                          <?php
-                    echo $this->Cookie->adminMenus(CookieNav::items('top-right'), array(
-                            'type' => 'dropdown',
-                            'htmlAttributes' => array(
-                                    'id' => 'test-menu',
-                                    'class' => 'nav',
-                            ),
-                    ));
-            ?>
-                        </ul>
+                    <?php
+                        echo $this->Cookie->adminMenus(CookieNav::items('top-right'), array(
+                                'type' => 'dropdown',
+                                'htmlAttributes' => array(
+                                        'id' => 'manage-menu',
+                                        'class' => 'nav',
+                                ),
+                        ));
+                    ?>
+                </ul>
                 </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
 </nav> 

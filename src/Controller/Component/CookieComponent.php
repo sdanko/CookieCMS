@@ -25,15 +25,39 @@ class CookieComponent extends Component {
     }
 
     protected function _adminMenus() {
-        CookieNav::add('top-left', 'site', array(
-            'title' => 'Visit website',
+        CookieNav::add('top-right', 'site', array(
+            'title' => __d('admin', 'Visit website' ),
             'url' => '/',
             'weight' => 0,
             'htmlAttributes' => array(
                 'target' => '_blank',
             ),
         ));
-
+        
+        CookieNav::add('top-right', 'language', array(
+            'icon' => false,
+            'title' => __d('admin', 'Language'),
+            'url' => '#',
+            'children' => array(
+                'english' => array(
+                    'title' => 'English',
+                    'icon' => 'user',
+                    'url' => '/'
+                ),
+                'separator-1' => array(
+                    'separator' => true,
+                ),
+                'bih' => array(
+                    'icon' => 'off',
+                    'title' => 'BiH',
+                    'url' => array(
+                        'controller' => 'Users',
+                        'action' => 'logout'
+                    ),
+                ),
+            ),
+        ));
+                
         $user = $this->Auth->user();
         CookieNav::add('top-right', 'user', array(
             'icon' => false,
