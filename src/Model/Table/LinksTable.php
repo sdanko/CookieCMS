@@ -30,6 +30,10 @@ class LinksTable extends Table
         $this->table('cms.links');
         $this->displayField('title');
         $this->primaryKey('id');
+        
+        $this->addBehavior('Sequence', ['scope' => [
+                'menu_id' 
+        ]]);
 
         $this->belongsTo('ParentLinks', [
             'className' => 'Links',

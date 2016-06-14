@@ -60,7 +60,6 @@ class LinksController extends AppController
     {
         $link = $this->Links->newEntity();
         if ($this->request->is('post')) {
-            $this->_setScopeForMenu($menuId);
             $link = $this->Links->patchEntity($link, $this->request->data);
             if ($this->Links->save($link)) {
                 $this->Flash->success(__('The link has been saved.'));
@@ -94,7 +93,6 @@ class LinksController extends AppController
         $menuId = $link->menu_id;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $this->_setScopeForMenu($menuId);
             $link = $this->Links->patchEntity($link, $this->request->data);
             if ($this->Links->save($link)) {
                 $this->Flash->success(__('The link has been saved.'));
@@ -123,7 +121,6 @@ class LinksController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $link = $this->Links->get($id);
-        $this->_setScopeForMenu($link->menu_id);
         if ($this->Links->delete($link)) {
             $this->Flash->success(__('The link has been deleted.'));
         } else {
@@ -149,7 +146,7 @@ class LinksController extends AppController
                 
                 $data->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
                    return $results->map(function ($row) {                     
-                       $row['url'] = $this->urlToLinkString([
+                       $row['url'] = $this->_urlToLinkString([
                             'controller' => 'content',
                             'action' => 'term',
                             'slug' => $row['slug']
@@ -169,7 +166,7 @@ class LinksController extends AppController
                 
                 $data->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
                    return $results->map(function ($row) {                     
-                       $row['url'] = $this->urlToLinkString([
+                       $row['url'] = $this->_urlToLinkString([
                             'controller' => 'content',
                             'action' => 'view',
                             'slug' => $row['slug'],
@@ -186,6 +183,41 @@ class LinksController extends AppController
         
     }
     
+    public function moveUp($id = null)
+    {
+        $link = $this->Links->get($id, [
+            'contain' => []
+        ]);
+        $link->position--;
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if ($this->Links->save($link)) {
+                $this->Flash->success(__('The link has been moved.'));
+            } else {
+                $this->Flash->error(__('The link could not be moved. Please, try again.'));
+            }
+        }
+        
+        return $this->redirect(['action' => 'index', "menuId" => $link->menu_id]);
+    }
+    
+    public function moveDown($id = null)
+    {
+        $link = $this->Links->get($id, [
+            'contain' => []
+        ]);
+        $link->position++;
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if ($this->Links->save($link)) {
+                $this->Flash->success(__('The link has been moved.'));
+            } else {
+                $this->Flash->error(__('The link could not be moved. Please, try again.'));
+            }
+        }
+        
+        return $this->redirect(['action' => 'index', "menuId" => $link->menu_id]);
+    }
      /**
      * Converts array into string controller:abc/action:xyz/value1/value2
      *
@@ -193,23 +225,23 @@ class LinksController extends AppController
      * @return array
      * @see StringConverter::urlToLinkString()
      */
-    public function urlToLinkString($url)
+    protected function _urlToLinkString($url)
     {
         $this->converter = new StringConverter();
         
         return $this->converter->urlToLinkString($url);
     }
     
-    protected function _setScopeForMenu($menuId)
-    {
-        $scopeSettings = ['scope' => [
-                'menu_id' => $menuId,
-        ]];
-
-        if ($this->Links->behaviors()->has('Sequence')) {
-            $this->Links->behaviors()->get('Sequence')->config($scopeSettings);
-        } else {
-            $this->Links->addBehavior('Sequence', $scopeSettings);
-        }
-    }
+//    protected function _setScopeForMenu($menuId)
+//    {
+//        $scopeSettings = ['scope' => [
+//                'menu_id' 
+//        ]];
+//
+//        if ($this->Links->behaviors()->has('Sequence')) {
+//            $this->Links->behaviors()->get('Sequence')->config($scopeSettings);
+//        } else {
+//            $this->Links->addBehavior('Sequence', $scopeSettings);
+//        }
+//    }
 }
