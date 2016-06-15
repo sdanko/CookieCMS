@@ -18,7 +18,7 @@
         echo $this->fetch('meta');
 
         //Bootstrap core CSS 
-        echo $this->Html->css(array('bootstrap', 'cookie', 'font-awesome', 'featherlight'));
+        echo $this->Html->css(array('bootstrap', 'cookie', 'font-awesome', 'featherlight', 'flag-icon'));
         echo $this->Html->css('/jquery-ui-1.11.4.custom/jquery-ui');
         echo $this->fetch('css');
         ?>

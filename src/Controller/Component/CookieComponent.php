@@ -40,19 +40,22 @@ class CookieComponent extends Component {
             'url' => '#',
             'children' => array(
                 'english' => array(
-                    'title' => 'English',
-                    'icon' => 'user',
-                    'url' => '/'
+                    'title' => '<span class="flag-icon flag-icon-gb"></span>' . ' English',
+                    'url' => array(
+                        'controller' => 'Home',
+                        'action' => 'setLocale',
+                        'locale' => 'en_US'
+                    ),
                 ),
                 'separator-1' => array(
                     'separator' => true,
                 ),
                 'bih' => array(
-                    'icon' => 'off',
-                    'title' => 'BiH',
+                    'title' => '<span class="flag-icon flag-icon-ba"></span>' . ' BiH',
                     'url' => array(
-                        'controller' => 'Users',
-                        'action' => 'logout'
+                        'controller' => 'Home',
+                        'action' => 'setLocale',
+                        'locale' => 'bs'
                     ),
                 ),
             ),
@@ -61,7 +64,7 @@ class CookieComponent extends Component {
         $user = $this->Auth->user();
         CookieNav::add('top-right', 'user', array(
             'icon' => false,
-            'title' => $user['email'],
+            'title' => '<span class="glyphicon glyphicon-user"></span>  ' . $user['email'],
             'url' => '#',
             'children' => array(
                 'profile' => array(

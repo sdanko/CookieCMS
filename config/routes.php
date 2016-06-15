@@ -86,6 +86,15 @@ Router::prefix('admin', function ($routes) {
     // And have the prefix => admin route element added.
     $routes->fallbacks('InflectedRoute'); 
     $routes->connect('/', ['controller' => 'Home', 'action' => 'index'], ['routeClass' => 'InflectedRoute']);
+	
+	$routes->connect(
+        '/home/setLocale/:locale', 
+        ['controller' => 'Home', 'action' => 'setLocale'],
+        [
+            'pass' => ['locale',]
+        ]
+    );
+	
 	$routes->connect(
         '/links/:menuId', 
         ['controller' => 'Links', 'action' => 'index'],

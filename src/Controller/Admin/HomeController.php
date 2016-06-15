@@ -9,6 +9,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * CakePHP HomeController
@@ -16,8 +17,17 @@ use App\Controller\AppController;
  */
 class HomeController extends AppController {
 
-    public function index() {
+    public function index() 
+    {
 
+    }
+    
+    public function setLocale($locale = 'en_US') 
+    {
+        $Setting = TableRegistry::get('Settings');
+        $Setting->write('Site.language', $locale);
+
+        return $this->redirect($this->request->referer());
     }
 
 }

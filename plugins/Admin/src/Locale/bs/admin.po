@@ -1,8 +1,8 @@
 # LANGUAGE translation of CakePHP Application
-# Copyright 2015 DANKO <EMAIL@ADDRESS>
+# Copyright 2015 DANKO <danko.simunovic@edu.fit.ba>
 
 
-"Language: bs\n"
+#"Language: bs\n"
 
 
 # CRUD
