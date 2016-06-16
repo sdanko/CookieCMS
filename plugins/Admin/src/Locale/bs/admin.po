@@ -9,6 +9,9 @@
 msgid "Edit"
 msgstr "Izmjeni"
 
+msgid "Add"
+msgstr "Dodaj"
+
 msgid "Delete"
 msgstr "Obriši"
 
@@ -16,6 +19,17 @@ msgid "Actions"
 msgstr "Akcije"
 
 # Menu
+msgid "Visit website"
+msgstr "Posjeti stranicu"
+
+msgid "Language"
+msgstr "Jezik"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Logout"
+msgstr "Odjava"
 
 #Login
 msgid "Username"
@@ -35,11 +49,7 @@ msgstr "nazad"
 msgid "next"
 msgstr "naprijed"
 
-
-# Template/Admin/ContentTypes/index.ctp
-
-msgid "Content Types"
-msgstr "Tipovi sadržaja"
+#Common
 
 msgid "Title"
 msgstr "Naziv"
@@ -47,14 +57,69 @@ msgstr "Naziv"
 msgid "Description"
 msgstr "Opis"
 
-msgid "New Content Type"
-msgstr "Novi tip sadržaja"
+msgid "Active"
+msgstr "Aktivan"
 
+msgid "Actions"
+msgstr "Akcije"
 
-# Template/Admin/Home/index.ctp
+msgid "Slug"
+msgstr "Oznaka"
+
+msgid "Comments"
+msgstr "Komentari"
+
+msgid "Leave a Comment"
+msgstr "Komentiraj"
+
+msgid "Submit"
+msgstr "Spasi"
+
+# Content
 
 msgid "Content"
 msgstr "Sadržaj"
 
-msgid "Settings"
-msgstr "Postavke"
+msgid "Choose content type"
+msgstr "Izaberi tip sadržaja"
+
+msgid "New Content"
+msgstr "Novi sadržaj"
+
+msgid "Content type"
+msgstr "Tip sadržaja"
+
+msgid "Create date"
+msgstr "Datum kreiranja"
+
+msgid "Modified date"
+msgstr "Datum izmjene"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Promote"
+msgstr "Promkani"
+
+msgid "Unpromote"
+msgstr "Vrati promicanje"
+
+msgid "Add Content"
+msgstr "Dodaj sadržaj"
+
+msgid "Edit Content"
+msgstr "Izmjeni sadržaj"
+
+# ContentTypes
+
+msgid "Content Types"
+msgstr "Tipovi sadržaja"
+
+msgid "New Content Type"
+msgstr "Novi tip sadržaja"
+
+msgid "Add Content Type"
+msgstr "Dodaj tip sadržaja"
+
+msgid "Edit Content Type"
+msgstr "Izmjeni tip sadržaja"

@@ -68,7 +68,7 @@ class CookieComponent extends Component {
             'url' => '#',
             'children' => array(
                 'profile' => array(
-                    'title' => 'Profile',
+                    'title' =>  __d('admin', 'Profile'),
                     'icon' => 'user',
                     'url' => '/'
                 ),
@@ -77,7 +77,7 @@ class CookieComponent extends Component {
                 ),
                 'logout' => array(
                     'icon' => 'off',
-                    'title' => 'Logout',
+                    'title' =>  __d('admin', 'Logout'),
                     'url' => array(
                         'controller' => 'Users',
                         'action' => 'logout'

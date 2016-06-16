@@ -133,9 +133,8 @@ class TaxonomiesDataComponent extends Component {
                     $vocabularyId, array('taxonomyId' => true)
             );
         }
-        $this->controller->set(compact(
-            'type', 'taxonomy', 'vocabularies'
-        ));
+        
+        $this->controller->set(compact('taxonomy', 'vocabularies'));
     }
 
 }

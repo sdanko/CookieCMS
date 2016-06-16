@@ -15,7 +15,7 @@
             <th><?= $this->Paginator->sort('created',  __d('admin', 'Create date')) ?></th>
             <th><?= $this->Paginator->sort('modified',  __d('admin', 'Modified date')) ?></th>
             <th><?= $this->Paginator->sort('slug', __d('admin', 'Slug')) ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
+            <th class="actions"><?= __d('admin','Actions') ?></th>
         </tr>
     </thead>
     <tbody>

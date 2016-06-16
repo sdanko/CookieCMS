@@ -19,19 +19,21 @@ echo $this->Html->script('tinymce.init', ['block' => true]);
      ));
     ?>
     <?php
-    if (count($taxonomy) > 0):
+    if(isset($taxonomy)):
+        if (count($taxonomy) > 0):
 
-        foreach ($taxonomy as $vocabularyId => $taxonomyTree):           
-            $hasEmpty = !$vocabularies[$vocabularyId]['multiple'];
-            echo $this->Form->input('TaxonomyData.' . $vocabularyId, array(
-                'label' => $vocabularies[$vocabularyId]['title'],
-                'type' => 'select',
-                'class'=>'form-control',
-                'multiple' => $vocabularies[$vocabularyId]['multiple'],
-                'options' => $taxonomyTree,
-                'empty' => $hasEmpty
-            ));
-        endforeach;
+            foreach ($taxonomy as $vocabularyId => $taxonomyTree):           
+                $hasEmpty = !$vocabularies[$vocabularyId]['multiple'];
+                echo $this->Form->input('TaxonomyData.' . $vocabularyId, array(
+                    'label' => $vocabularies[$vocabularyId]['title'],
+                    'type' => 'select',
+                    'class'=>'form-control',
+                    'multiple' => $vocabularies[$vocabularyId]['multiple'],
+                    'options' => $taxonomyTree,
+                    'empty' => $hasEmpty
+                ));
+            endforeach;
+        endif;
     endif;
     ?>
 </fieldset>

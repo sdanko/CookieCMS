@@ -7,7 +7,7 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse-comments">Comments</a>
+                <a data-toggle="collapse" href="#collapse-comments"><?= __d('admin','Comments')?></a>
               </h4>
             </div>
             <div id="collapse-comments" class="panel-collapse collapse">

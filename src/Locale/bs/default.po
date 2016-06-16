@@ -1,0 +1,59 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright 2015 DANKO <danko.simunovic@edu.fit.ba>
+
+
+#"Language: bs\n"
+
+# Common
+
+msgid "Title"
+msgstr "Naziv"
+
+msgid "Description"
+msgstr "Opis"
+
+msgid "Submit"
+msgstr "Spasi"
+
+msgid "Active"
+msgstr "Aktivan"
+
+msgid "Slug"
+msgstr "Oznaka"
+
+# ContentTypes
+
+msgid "Content Types"
+msgstr "Tipovi sadržaja"
+
+msgid "Show author"
+msgstr "Prikaži autora"
+
+msgid "Show date"
+msgstr "Prikaži datum"
+
+msgid "Vocabularies"
+msgstr "Vokabular"
+
+# Content
+
+msgid "Content"
+msgstr "Sadržaj"
+
+msgid "Content Type"
+msgstr "Tip sadržaja"
+
+msgid "Body"
+msgstr "Sadržaj"
+
+msgid "Publish"
+msgstr "Objavi"
+
+msgid "Promote"
+msgstr "Promkani"
+
+msgid "Publish Start"
+msgstr "Početak objave"
+
+msgid "Publish End"
+msgstr "Kraj objave"

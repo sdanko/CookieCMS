@@ -138,7 +138,7 @@ class AppController extends Controller
         $controller = $this->request->controller;
              
         $crumbs = array();
-        $crumbs [0] ['text'] = preg_replace('/(?<!\ )[A-Z]/', ' $0', $controller);
+        $crumbs [0] ['text'] = _(trim(preg_replace('/(?<!\ )[A-Z]/', ' $0', $controller)));
         $crumbs [0] ['link'] = ['controller' => $controller, 'action' => 'index'];
         
         if($action!='index')
