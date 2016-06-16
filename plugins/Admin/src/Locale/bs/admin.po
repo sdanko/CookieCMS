@@ -15,8 +15,6 @@ msgstr "Dodaj"
 msgid "Delete"
 msgstr "Obriši"
 
-msgid "Actions"
-msgstr "Akcije"
 
 # Menu
 msgid "Visit website"
@@ -54,14 +52,26 @@ msgstr "naprijed"
 msgid "Title"
 msgstr "Naziv"
 
+msgid "Name"
+msgstr "Naziv"
+
 msgid "Description"
 msgstr "Opis"
 
 msgid "Active"
 msgstr "Aktivan"
 
+msgid "Activate"
+msgstr "Aktiviraj"
+
+msgid "Deactivate"
+msgstr "Deaktiviraj"
+
 msgid "Actions"
 msgstr "Akcije"
+
+msgid "Order"
+msgstr "Redoslijed"
 
 msgid "Slug"
 msgstr "Oznaka"
@@ -74,6 +84,24 @@ msgstr "Komentiraj"
 
 msgid "Submit"
 msgstr "Spasi"
+
+msgid "Layout"
+msgstr "Izgled"
+
+msgid "Class"
+msgstr "Klasa"
+
+msgid "Move up"
+msgstr "Pomakni gore"
+
+msgid "Move down"
+msgstr "Pomakni dole"
+
+msgid "Type"
+msgstr "Tip"
+
+msgid "Search"
+msgstr "Traži"
 
 # Content
 
@@ -123,3 +151,178 @@ msgstr "Dodaj tip sadržaja"
 
 msgid "Edit Content Type"
 msgstr "Izmjeni tip sadržaja"
+
+# Regions
+
+msgid "Regions"
+msgstr "Regije"
+
+msgid "New Region"
+msgstr "Novi region"
+
+msgid "Add Region"
+msgstr "Dodaj region"
+
+msgid "Edit Region"
+msgstr "Izmjeni region"
+
+# Themes
+
+msgid "Themes"
+msgstr "Teme"
+
+# Blocks
+
+msgid "Blocks"
+msgstr "Blokovi"
+
+msgid "New Block"
+msgstr "Novi blok"
+
+msgid "Add Block"
+msgstr "Dodaj blok"
+
+msgid "Edit Block"
+msgstr "Izmjeni blok"
+
+msgid "Show title"
+msgstr "Prikaži naziv"
+
+# Menus
+
+msgid "Menu"
+msgstr "Izbornik"
+
+msgid "Menus"
+msgstr "Izbornici"
+
+msgid "New Menu"
+msgstr "Novi izbornik"
+
+msgid "Add Menu"
+msgstr "Dodaj izbornik"
+
+msgid "Edit Menu"
+msgstr "Izmjeni izbornik"
+
+# Links
+
+msgid "Links"
+msgstr "Linkovi"
+
+msgid "New Link"
+msgstr "Novi link"
+
+msgid "Add Link"
+msgstr "Dodaj link"
+
+msgid "Edit Link"
+msgstr "Izmjeni link"
+
+msgid "Parent"
+msgstr "Nadređeni"
+
+# Settings
+
+msgid "Settings"
+msgstr "Postavke"
+
+msgid "New Setting"
+msgstr "Nova postavka"
+
+msgid "Add Setting"
+msgstr "Dodaj postavku"
+
+msgid "Edit Setting"
+msgstr "Izmjeni postavku"
+
+msgid "Key"
+msgstr "Ključ"
+
+# Users
+
+msgid "Users"
+msgstr "Korisnici"
+
+msgid "New User"
+msgstr "Novi korisnik"
+
+msgid "Add User"
+msgstr "Dodaj korisnika"
+
+msgid "Edit User"
+msgstr "Izmjeni korisnika"
+
+msgid "First name"
+msgstr "Ime"
+
+msgid "Middle name"
+msgstr "Srednje ime"
+
+msgid "Last name"
+msgstr "Prezime"
+
+msgid "User roles"
+msgstr "Korisničke role"
+
+# Rolesusers
+
+msgid "Roles Users"
+msgstr "Korisničke role"
+
+# Roles
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "New Role"
+msgstr "Nova rola"
+
+msgid "Add Role"
+msgstr "Dodaj rolu"
+
+msgid "Edit Role"
+msgstr "Izmjeni rolu"
+
+msgid "Key"
+msgstr "Ključ"
+
+# Vocabularies
+
+msgid "Taxonomy"
+msgstr "Taksonomija"
+
+msgid "Vocabulary"
+msgstr "Vokabular"
+
+msgid "New Vocabulary"
+msgstr "Novi vokabular"
+
+msgid "Add Vocabulary"
+msgstr "Dodaj vokabular"
+
+msgid "Edit Vocabulary"
+msgstr "Izmjeni vokabular"
+
+msgid "Required"
+msgstr "Obavezan"
+
+msgid "Multiple"
+msgstr "Višestruk"
+
+msgid "Tags"
+msgstr "Tagovi"
+
+# Terms
+
+msgid "Terms"
+msgstr "Termini"
+
+msgid "New Term"
+msgstr "Novi termin"
+
+msgid "Add Term"
+msgstr "Dodaj termin"
+
+msgid "Edit Term"
+msgstr "Izmjeni termin"

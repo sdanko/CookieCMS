@@ -9,6 +9,9 @@
 msgid "Title"
 msgstr "Naziv"
 
+msgid "Name"
+msgstr "Naziv"
+
 msgid "Description"
 msgstr "Opis"
 
@@ -20,6 +23,9 @@ msgstr "Aktivan"
 
 msgid "Slug"
 msgstr "Oznaka"
+
+msgid "Class"
+msgstr "Klasa"
 
 # ContentTypes
 
@@ -57,3 +63,46 @@ msgstr "Početak objave"
 
 msgid "Publish End"
 msgstr "Kraj objave"
+
+#Blocks
+
+msgid "Show Title"
+msgstr "Prikaži naziv"
+
+# Links
+
+msgid "Parent"
+msgstr "Nadređeni"
+
+# Settings
+
+msgid "Key"
+msgstr "Ključ"
+
+msgid "Value"
+msgstr "Vrijednost"
+
+# Users
+
+msgid "First Name"
+msgstr "Ime"
+
+msgid "Middle Name"
+msgstr "Srednje ime"
+
+msgid "Last Name"
+msgstr "Prezime"
+
+msgid "Password"
+msgstr "Šifra"
+
+#Vocabularies
+
+msgid "Required"
+msgstr "Obavezan"
+
+msgid "Multiple"
+msgstr "Višestruk"
+
+msgid "Tags"
+msgstr "Tagovi"

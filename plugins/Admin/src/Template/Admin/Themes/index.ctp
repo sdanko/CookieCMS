@@ -10,7 +10,7 @@
         endif;
         if ($theme['name'] !== $currentTheme):
             $button = $this->Form->postLink(
-                    "Activate", ['action' => 'activate', $theme['name']], ['class' => 'btn btn-info btn-xs', 'role' => 'button']
+                    __d('admin','Activate'), ['action' => 'activate', $theme['name']], ['class' => 'btn btn-info btn-xs', 'role' => 'button']
             );
         else:
             $style = "border: 1px solid red";

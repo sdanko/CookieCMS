@@ -14,7 +14,7 @@
             <th><?= $this->Paginator->sort('middle_name', __d('admin', 'Middle name')) ?></th>
             <th><?= $this->Paginator->sort('last_name', __d('admin', 'Last name')) ?></th>
             <th><?= $this->Paginator->sort('email', __d('admin', 'Email')) ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
+            <th class="actions"><?= __d('admin', 'Actions') ?></th>
         </tr>
     </thead>
     <tbody>

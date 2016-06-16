@@ -25,7 +25,7 @@ require_once(ROOT .DS. "Vendor" . DS . "cookie" . DS . "CookieNav.php");
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
                 <form class="navbar-form navbar-left" method="GET" role="search">
                         <div class="form-group">
-                                <input type="text" name="q" class="form-control" placeholder="Search">
+                                <input type="text" name="q" class="form-control" placeholder="<?=  __d('admin','Search') ?>">
                         </div>
                         <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                 </form>

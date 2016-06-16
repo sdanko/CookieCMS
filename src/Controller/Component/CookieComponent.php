@@ -70,7 +70,10 @@ class CookieComponent extends Component {
                 'profile' => array(
                     'title' =>  __d('admin', 'Profile'),
                     'icon' => 'user',
-                    'url' => '/'
+                    'url' => array(
+                        'controller' => 'Users',
+                        'action' => 'profile'
+                    ),
                 ),
                 'separator-1' => array(
                     'separator' => true,

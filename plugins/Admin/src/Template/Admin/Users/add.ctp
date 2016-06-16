@@ -2,7 +2,7 @@
     <?php $this->Form->templates($form_templates['default']); ?>
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('Add User') ?></legend>
+        <legend><?= __d('admin', 'Add User')?></legend>
         <?php
             echo $this->Form->input('active');
             echo $this->Form->input('first_name');

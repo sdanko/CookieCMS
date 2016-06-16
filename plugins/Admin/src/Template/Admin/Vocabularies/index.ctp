@@ -13,7 +13,7 @@
                 <th><?= $this->Paginator->sort('required', __d('admin', 'Required')) ?></th>
                 <th><?= $this->Paginator->sort('multiple', __d('admin', 'Multiple')) ?></th>
                 <th><?= $this->Paginator->sort('tags', __d('admin', 'Tags')) ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
+                <th class="actions"><?= __d('admin', 'Actions') ?></th>
             </tr>
         </thead>
         <tbody>

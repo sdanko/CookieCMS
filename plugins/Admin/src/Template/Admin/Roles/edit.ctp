@@ -2,7 +2,7 @@
     <?php $this->Form->templates($form_templates['default']); ?>
     <?= $this->Form->create($role) ?>
     <fieldset>
-        <legend><?= __('Edit Role') ?></legend>
+        <legend><?= __d('admin', 'Edit Role') ?></legend>
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('alias');

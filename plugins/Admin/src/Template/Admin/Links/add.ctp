@@ -10,7 +10,7 @@
 
     <?= $this->Form->create($link) ?>
     <fieldset>
-        <legend><?= __('Add Link') ?></legend>
+        <legend><?= __d('admin','Add Link') ?></legend>
         <?php
             echo $this->Form->input('parent_id', ['options' => $parentLinks, 'empty' => true]);
             echo $this->Form->input('menu_id', array('type' => 'hidden', 'value' => $menuId));
@@ -20,14 +20,14 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-4">
-                    <label>Link</label>
+                    <label><?= __d('admin','Link') ?></label>
                     <input style="float:left;" name="link" id="link" class="form-control" type="text">
                 </div>
                 <div class="col-sm-3">
-                    <label>Type</label>
+                    <label><?= __d('admin','Type') ?></label>
                     <select name="link_type" id="link-type" class="form-control"></select>
                 </div>
-                <div class="col-sm-3"><label>Search</label><input class="form-control" name="term" id="term" type="text"></div>
+                <div class="col-sm-3"><label><?= __d('admin','Search') ?></label><input class="form-control" name="term" id="term" type="text"></div>
             </div>
         </div>
     </fieldset>

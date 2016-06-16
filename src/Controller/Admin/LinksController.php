@@ -114,7 +114,7 @@ class LinksController extends AppController
         }
         //$this->set('menuId', $menuId);
         $parentLinks = $this->Links->ParentLinks->find('list', ['limit' => 200,  'conditions' => array(
-                                  'menu_id' => $menuId
+                                  'menu_id' => $link->menu_id
                           )]);
 
         $this->set(compact('link', 'parentLinks', 'menus'));
