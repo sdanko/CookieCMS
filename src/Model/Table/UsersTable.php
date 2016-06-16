@@ -89,7 +89,6 @@ class UsersTable extends Table
     
     public function validationPassword(Validator $validator )
     {
- 
         $validator
             ->add('old_password','custom',[
                 'rule'=>  function($value, $context){
@@ -119,6 +118,7 @@ class UsersTable extends Table
                 ]
             ])
             ->notEmpty('password1');
+        
         $validator
             ->add('password2', [
                 'length' => [
