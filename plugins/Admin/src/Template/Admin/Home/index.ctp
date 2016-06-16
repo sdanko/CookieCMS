@@ -1,7 +1,7 @@
  
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <?=   __d('admin','Content') ?>
+                    <?=   __d('admin','Content') . ' & ' . __d('admin','Layout') ?>
                 </div>
                 <div class="panel-body">
                     <div class="row text-center">
@@ -24,7 +24,7 @@
           
          <div class="panel panel-default">
                 <div class="panel-heading">
-                    <?= __d('admin','Settings') ?>
+                    <?= __d('admin','Settings') . ' & ' . __d('admin','Users') ?>
                 </div>
                 <div class="panel-body">
                     <div class="row text-center">
