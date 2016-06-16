@@ -61,15 +61,15 @@ class LinksTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('link');
+            ->notEmpty('link');
 
         $validator
-            ->allowEmpty('title');
+            ->notEmpty('title');
 
         $validator
             ->integer('position')
             ->allowEmpty('position');
-
+        
         return $validator;
     }
 

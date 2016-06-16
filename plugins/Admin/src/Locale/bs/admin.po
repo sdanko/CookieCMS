@@ -326,3 +326,14 @@ msgstr "Dodaj termin"
 
 msgid "Edit Term"
 msgstr "Izmjeni termin"
+
+# ChangePassword
+
+msgid "Change password"
+msgstr "Promjeni šifru"
+
+msgid "Old password"
+msgstr "Stara šifra"
+
+msgid "Repeat password"
+msgstr "Ponovi šifru"

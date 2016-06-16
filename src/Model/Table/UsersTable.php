@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * Users Model
@@ -76,6 +77,14 @@ class UsersTable extends Table
             ->requirePresence('password', 'create')
             ->notEmpty('password');
 
+        $validator
+         ->add('password', [
+             'length' => [
+                 'rule' => ['minLength', 6],
+                 'message' => 'The password have to be at least 6 characters!',
+             ]
+         ]);
+        
         $validator
             ->integer('created_by')
             ->allowEmpty('created_by');

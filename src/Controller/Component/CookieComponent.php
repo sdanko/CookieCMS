@@ -69,7 +69,7 @@ class CookieComponent extends Component {
             'children' => array(
                 'profile' => array(
                     'title' =>  __d('admin', 'Profile'),
-                    'icon' => 'user',
+                    'icon' => 'fa fa-user fa-lg',
                     'url' => array(
                         'controller' => 'Users',
                         'action' => 'profile'
@@ -79,7 +79,7 @@ class CookieComponent extends Component {
                     'separator' => true,
                 ),
                 'logout' => array(
-                    'icon' => 'off',
+                    'icon' => 'fa fa-power-off fa-lg',
                     'title' =>  __d('admin', 'Logout'),
                     'url' => array(
                         'controller' => 'Users',

@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <label><?= __d('admin','Link') ?></label>
-                    <input style="float:left;" name="link" id="link" class="form-control" type="text">
+                    <input style="float:left;" name="link" id="link" class="form-control" type="text" required>
                 </div>
                 <div class="col-sm-3">
                     <label><?= __d('admin','Type') ?></label>

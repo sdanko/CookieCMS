@@ -38,7 +38,7 @@ class CookieHelper extends Helper {
             if ($menu['icon'] === false) {
                 
             } else {
-                $title .= '<i class="'. $menu['icon'] . '"></i>';
+                $title .= '<i class="'. $menu['icon'] . '"></i> ';
             }
 
             $title .= $menu['title'];

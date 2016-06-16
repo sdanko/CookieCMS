@@ -159,11 +159,12 @@ class UsersController extends AppController
             );
             if ($this->Users->save($user)) {
                 $this->Flash->success('The password is successfully changed');
-                $this->redirect('/index');
+                $this->redirect(['action' => 'profile']);
             } else {
                 $this->Flash->error('There was an error during the save!');
             }
         }
-        $this->set('user',$user);
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
     }
 }

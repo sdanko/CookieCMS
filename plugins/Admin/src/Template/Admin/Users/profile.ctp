@@ -13,5 +13,5 @@
 
     </dl>
 
-       <?= $this->Html->link(__d('admin','Change Password'), ['controller' => 'users', 'action' => 'changePassword'], ['class'=> 'btn btn-danger']) ?>
+       <?= $this->Html->link(__d('admin','Change password'), ['controller' => 'users', 'action' => 'changePassword'], ['class'=> 'btn btn-danger']) ?>
 </div>
