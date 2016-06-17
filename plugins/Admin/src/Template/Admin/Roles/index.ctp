@@ -8,7 +8,6 @@
     <table class="table table-stripped">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('name', __d('admin', 'Name')) ?></th>
             <th><?= $this->Paginator->sort('alias', __d('admin', 'Alias')) ?></th>
             <th class="actions"><?= __d('admin', 'Actions') ?></th>
@@ -17,7 +16,6 @@
     <tbody>
     <?php foreach ($roles as $role): ?>
         <tr>
-            <td><?= $this->Number->format($role->id) ?></td>
             <td><?= h($role->name) ?></td>
             <td><?= h($role->alias) ?></td>
             <td class="actions">

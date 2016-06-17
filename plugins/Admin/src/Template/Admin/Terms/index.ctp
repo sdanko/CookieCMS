@@ -8,7 +8,6 @@
     <table class="table table-stripped">
         <thead>
             <tr>
-                <th>id</th>
                 <th><?=  __d('admin','Title') ?></th>
                 <th><?=  __d('admin','Slug') ?></th>
                 <th class="actions"><?= __d('admin','Actions') ?></th>
@@ -23,7 +22,6 @@
 		endif; 
             ?>
             <tr>
-                <td><?= $this->Number->format($term->id) ?></td>
                 <td><?= $titleCol ?></td>
                 <td><?= h($term->slug) ?></td>
                 <td class="actions">

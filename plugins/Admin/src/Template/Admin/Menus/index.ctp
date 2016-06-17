@@ -7,7 +7,6 @@
     <table class="table table-stripped">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('alias', __d('admin', 'Alias')) ?></th>
             <th><?= $this->Paginator->sort('active', __d('admin', 'Active')) ?></th>
@@ -17,10 +16,9 @@
     <tbody>
     <?php foreach ($menus as $menu): ?>
         <tr>
-            <td><?= $this->Number->format($menu->id) ?></td>
             <td><?= h($menu->title) ?></td>
             <td><?= h($menu->alias) ?></td>
-            <td><?= h($menu->active ?  __d('admin','Yes') : __d('admin','No')) ?></td>
+            <td><?= $this->element('checkbox_column', ["checked" => $menu->active]); ?></td>
             <td class="actions">
                 <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $menu->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
                 <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $menu->id], ['confirm' => __('Are you sure you want to delete # {0}?', $menu->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>

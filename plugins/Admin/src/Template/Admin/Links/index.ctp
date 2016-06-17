@@ -8,7 +8,6 @@
     <table class="table table-stripped">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('link', __d('admin', 'Link')) ?></th>
             <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('parent_id', __d('admin', 'Parent')) ?></th>
@@ -20,7 +19,6 @@
     <tbody>
     <?php foreach ($links as $key=>$link): ?>
         <tr>
-            <td><?= $this->Number->format($link->id) ?></td>
             <td><?= h($link->link) ?></td>
             <td><?= h($link->title) ?></td>
             <td>

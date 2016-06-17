@@ -7,7 +7,6 @@
     <table class="table table-stripped">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
                 <th><?= $this->Paginator->sort('alias', __d('admin', 'Alias')) ?></th>
                 <th><?= $this->Paginator->sort('required', __d('admin', 'Required')) ?></th>
@@ -19,12 +18,11 @@
         <tbody>
             <?php foreach ($vocabularies as $vocabulary): ?>
             <tr>
-                <td><?= $this->Number->format($vocabulary->id) ?></td>
                 <td><?= h($vocabulary->title) ?></td>
                 <td><?= h($vocabulary->alias) ?></td>
-                <td><?= h($vocabulary->required ?  __d('admin','Yes') : __d('admin','No'))  ?></td>
-                <td><?= h($vocabulary->multiple ?  __d('admin','Yes') : __d('admin','No')) ?></td>
-                <td><?= h($vocabulary->tags ?  __d('admin','Yes') : __d('admin','No')) ?></td>
+                <td><?= $this->element('checkbox_column', ["checked" => $vocabulary->required]); ?></td>
+                <td><?= $this->element('checkbox_column', ["checked" => $vocabulary->multiple]); ?></td>
+                <td><?= $this->element('checkbox_column', ["checked" => $vocabulary->tags]); ?></td>
                 <td class="actions">
                     <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $vocabulary->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
                     <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $vocabulary->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vocabulary->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>

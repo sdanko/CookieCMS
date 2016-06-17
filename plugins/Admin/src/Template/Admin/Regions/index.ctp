@@ -8,7 +8,6 @@
     <table class="table table-stripped">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('alias', __d('admin', 'Alias')) ?></th>
             <th><?= $this->Paginator->sort('active', __d('admin', 'Active')) ?></th>
@@ -18,10 +17,9 @@
     <tbody>
     <?php foreach ($regions as $region): ?>
         <tr>
-            <td><?= $this->Number->format($region->id) ?></td>
             <td><?= h($region->title) ?></td>
             <td><?= h($region->alias) ?></td>
-            <td><?= h($region->active ?  __d('admin','Yes') : __d('admin','No')) ?></td>
+            <td><?= $this->element('checkbox_column', ["checked" => $region->active]); ?></td>
             <td class="actions">
                 <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $region->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
                 <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $region->id], ['confirm' => __('Are you sure you want to delete # {0}?', $region->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>

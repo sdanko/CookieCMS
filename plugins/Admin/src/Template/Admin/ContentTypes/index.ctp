@@ -7,7 +7,6 @@
     <table class="table table-stripped">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('description', __d('admin', 'Description')) ?></th>
              <th><?= $this->Paginator->sort('alias', __d('admin', 'Alias')) ?></th>
@@ -17,7 +16,6 @@
     <tbody>
     <?php foreach ($contentTypes as $contentType): ?>
         <tr>
-            <td><?= $this->Number->format($contentType->id) ?></td>
             <td><?= h($contentType->title) ?></td>
             <td><?= h($contentType->description) ?></td>
             <td><?= h($contentType->alias) ?></td>
