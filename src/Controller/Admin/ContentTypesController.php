@@ -99,8 +99,7 @@ class ContentTypesController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $contentType = $this->ContentTypes->get($id);
-        if($this->ContentTypes->Content->find()->where(['content_type_id' => $id])->count()!=0) {
+        if($this->ContentTypes->Content->findByContentTypeId($id)->count()!=0) {
              $this->Flash->error(__('There is content related to this type.'));
              return $this->redirect(['action' => 'index']);
         }

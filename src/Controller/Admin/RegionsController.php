@@ -94,6 +94,10 @@ class RegionsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
+        if($this->Regions->Blocks->findByRegionId($id)->count()!=0) {
+             $this->Flash->error(__('There are blocks related to this region.'));
+             return $this->redirect(['action' => 'index']);
+        }
         $region = $this->Regions->get($id);
         if ($this->Regions->delete($region)) {
             $this->Flash->success(__('The region has been deleted.'));

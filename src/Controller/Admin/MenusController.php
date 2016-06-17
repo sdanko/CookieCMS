@@ -94,6 +94,10 @@ class MenusController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
+        if($this->Menus->Links->findByMenuId($id)->count()!=0) {
+             $this->Flash->error(__('There are links related to this menu.'));
+             return $this->redirect(['action' => 'index']);
+        }
         $menu = $this->Menus->get($id);
         if ($this->Menus->delete($menu)) {
             $this->Flash->success(__('The menu has been deleted.'));
