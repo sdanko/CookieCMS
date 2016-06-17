@@ -479,4 +479,7 @@ h1.page-header {
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+.error-message {
+    color:red;
+}
 

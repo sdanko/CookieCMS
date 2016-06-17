@@ -100,6 +100,10 @@ class ContentTypesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $contentType = $this->ContentTypes->get($id);
+        if($this->ContentTypes->Content->find()->where(['content_type_id' => $id])->count()!=0) {
+             $this->Flash->error(__('There is content related to this type.'));
+             return $this->redirect(['action' => 'index']);
+        }
         if ($this->ContentTypes->delete($contentType)) {
             $this->Flash->success(__('The content type has been deleted.'));
         } else {
