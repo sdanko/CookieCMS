@@ -58,7 +58,7 @@ class AppController extends Controller
                    'controller' => 'Home',
                    'action' => 'index'
                 ],
-                'authError' => 'Did you really think you are allowed to see that?',
+                'authError' => 'You dont have permissions for that action',
                 'authenticate' => [
                     'Form' => [
                         'fields' => [

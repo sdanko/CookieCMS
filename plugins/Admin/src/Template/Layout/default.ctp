@@ -44,6 +44,7 @@
             <div class="col-md-10 content">
                 <?php echo $this->element('breadcrumb'); ?>
                 <?= $this->Flash->render() ?>
+                <?= $this->Flash->render('auth') ?>
                 <?php echo $this->fetch('content'); ?>
             </div>
             <?php echo $this->element('footer'); ?>  	

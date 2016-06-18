@@ -39,6 +39,7 @@
                <div class="row">
                    <div class="col-sm-6 col-md-4 col-md-offset-4">
                        <h2><?= $this->Flash->render() ?></h2>
+                        <h2><?= $this->Flash->render('auth') ?></h2>
                        <div class="account-wall">
                            <?= $this->Html->image('icons/key.png', ['class' => 'profile-img']) ?>
                            <?php $this->Form->templates($form_templates['login']); ?>
