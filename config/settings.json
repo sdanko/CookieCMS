@@ -1,1 +1,20 @@
-{"Site":{"theme":"Default","title":"Novinska agencija","tagline":"Stranica novinske agencije","timezone":"UTC","language":"en_US"},"Reading":{"date_time_format":"dd\/MM\/yyyy"},"Writing":{"date_time_format":"dd\/MM\/yyyy","validation_date_time_format":"dmy"}}
+{
+    "Site": {
+        "theme": "Default",
+        "title": "Novinska agencija",
+        "tagline": "Stranica novinske agencije",
+        "timezone": "UTC",
+        "language": "en_US"
+    },
+    "Reading": {
+        "date_time_format": "dd\/MM\/yyyy"
+    },
+    "Writing": {
+        "date_time_format": "dd\/MM\/yyyy",
+        "validation_date_time_format": "dmy"
+    },
+    "Menus": {
+        "administrator": "content,layout,menus,settings,users,taxonomy",
+        "editor": "content,layout,menus,taxonomy"
+    }
+}

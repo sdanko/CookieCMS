@@ -11,7 +11,8 @@
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*",
         "dereuromark/cakephp-tinyauth": "dev-master",
-        "ceeram/cakephp-blame": "^1.0"
+        "ceeram/cakephp-blame": "^1.0",
+		"dereuromark/cakephp-tools": "dev-master"
     },
     "require-dev": {
         "psy/psysh": "@stable",

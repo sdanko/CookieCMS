@@ -226,7 +226,10 @@ Type::build('datetime')
     ->useImmutable()
     ->useLocaleParser();
 
+define('USER_ROLE_KEY', 'roles');//key needed for AuthTools roles check
+
 Plugin::load('TinyAuth');
+Plugin::load('Tools', array('bootstrap' => true));
 Plugin::load('Ceeram/Blame');
 Plugin::load('Admin', ['bootstrap' => false, 'routes' => true]);
 Plugin::load('Default', ['bootstrap' => false, 'routes' => true]);
