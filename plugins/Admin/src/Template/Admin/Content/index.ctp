@@ -9,7 +9,6 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('title',  __d('admin', 'Title')) ?></th>
-            <th><?= $this->Paginator->sort('content_type_id',  __d('admin', 'Content type')) ?></th>
             <th><?= $this->Paginator->sort('created',  __d('admin', 'Create date')) ?></th>
             <th><?= $this->Paginator->sort('modified',  __d('admin', 'Modified date')) ?></th>
             <th><?= $this->Paginator->sort('slug', __d('admin', 'Slug')) ?></th>
@@ -21,9 +20,6 @@
     <?php foreach ($content as $content): ?>
         <tr>
             <td><?= h($content->title) ?></td>
-            <td>
-                <?= $content->has('content_type') ? $this->Html->link($content->content_type->title, ['controller' => 'ContentTypes', 'action' => 'view', $content->content_type->id]) : '' ?>
-            </td>
             <td><?= h($content->created) ?></td>
             <td><?= h($content->modified) ?></td>
             <td><?= h($content->slug) ?></td>

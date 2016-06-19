@@ -59,6 +59,7 @@
         echo $this->Html->script('jquery/jquery');
         echo $this->Html->script('bootstrap/bootstrap');
         echo $this->Html->script('featherlight');
+        echo $this->Html->script('treed');
         echo $this->element('initializers');
         ?>
     </body>
