@@ -126,16 +126,11 @@ class TaxonomiesTable extends Table
                  
         $termsIds = array_keys($tree);
 
-        $termsList = $this->Terms->find('list', array(
-            'conditions' => array(
+        $termsList = $this->Terms->find('all', array(
+            'conditions' => [
                     'Terms.id IN' => $termsIds
-            ),
-            'fields' => array(
-                 'id',
-                 'slug'
- 
-            )
-        ))->toArray();
+            ]
+        ))->combine('id', 'slug')->toArray();
 
         $termsTree = array();
         foreach ($tree as $termId => $tvId) {
@@ -155,7 +150,7 @@ class TaxonomiesTable extends Table
                 }
             }
         }
-
+        
         return $termsTree;
     }
 }
