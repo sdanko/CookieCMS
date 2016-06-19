@@ -143,6 +143,9 @@ class ContentTable extends Table
     public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
     {
         foreach (['publish_start', 'publish_end'] as $key) {
+            if(empty($data[$key])) {
+                unset($data[$key]);
+            }
             if (isset($data[$key]) && is_string($data[$key])) {
                 $data[$key] = Time::parseDateTime($data[$key], Configure::read('Writing.date_time_format'));
             }
@@ -155,10 +158,8 @@ class ContentTable extends Table
                 return;
         }
         
-        if(!empty($entity->publish)) {
-            if($entity->publish==true) {
-                $entity->set('published_by', $options['loggedInUser']);
-            }
+        if(!empty($entity->publish_start)) {
+             $entity->set('published_by', $options['loggedInUser']);
         }
         
         if(!empty($entity->promote)) {

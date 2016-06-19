@@ -33,9 +33,11 @@ class PublishableBehavior extends Behavior {
             $date = Time::now();
 
            $query->where([
-               'publish' => true,
                'publish_start <= ' => $date,
-               'publish_end >= ' => $date,
+               'OR' => [
+                'publish_end >= ' => $date,
+                'publish_end is NULL'
+                ]
            ]);
         }       
     }

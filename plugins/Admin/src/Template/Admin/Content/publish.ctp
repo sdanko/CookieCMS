@@ -4,7 +4,7 @@
     <fieldset>
         <legend><?=  __d('admin','Publish content')?></legend>
         <?php
-            echo $this->Form->input('publish');
+//            echo $this->Form->input('publish');
             echo $this->Form->input('publish_start',  array(
                 'class'=>'form-control datefield',
                 'type'=>'text'
