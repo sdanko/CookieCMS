@@ -76,4 +76,10 @@ class VocabulariesTable extends Table
 
         return $validator;
     }
+    
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->isUnique(['alias']));
+        return $rules;
+    }
 }

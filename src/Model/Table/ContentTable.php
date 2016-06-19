@@ -143,10 +143,7 @@ class ContentTable extends Table
     public function beforeMarshal(Event $event, \ArrayObject $data, \ArrayObject $options)
     {
         foreach (['publish_start', 'publish_end'] as $key) {
-            if(empty($data[$key])) {
-                unset($data[$key]);
-            }
-            if (isset($data[$key]) && is_string($data[$key])) {
+            if (!empty($data[$key]) && is_string($data[$key])) {
                 $data[$key] = Time::parseDateTime($data[$key], Configure::read('Writing.date_time_format'));
             }
         }
