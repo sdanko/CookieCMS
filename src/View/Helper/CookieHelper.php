@@ -2,16 +2,29 @@
 
 namespace App\View\Helper;
 
+require_once(ROOT . DS . "Vendor" . DS . "cookie" . DS . "StringConverter.php");
+
+use StringConverter;
 use Cake\View\Helper;
+use Cake\View\View;
 use Cake\Utility\Hash;
 use Cake\Utility\Inflector;
 use Cake\View\UrlHelper;
 
 class CookieHelper extends Helper {
 
+    protected $_converter = null;
+    
     var $helpers = array('Html', 'Url');
 
-    public function adminMenus($menus, $options = array(), $depth = 0) {
+    public function __construct(View $view, array $config = [])
+    {
+        parent::__construct($view, $config);
+        $this->_converter = new StringConverter();
+    }
+    
+    public function adminMenus($menus, $options = array(), $depth = 0)
+    {
         $options = Hash::merge(array(
                     'type' => 'sidebar',
                     'children' => true,
@@ -137,7 +150,8 @@ class CookieHelper extends Helper {
         return $this->Html->tag('ul', $out, $htmlAttributes);
     }
 
-    public function adminSidebarChildren($menus, $href, $options = array(), $depth = 0) {
+    public function adminSidebarChildren($menus, $href, $options = array(), $depth = 0)
+    {
         $htmlAttributes = $options['htmlAttributes'];
         $out = null;
         $sorted = Hash::sort($menus, '{s}.weight', 'ASC');
@@ -179,6 +193,13 @@ class CookieHelper extends Helper {
         $div = $this->Html->tag('div', $ul, ['class' => 'panel-body']);
 
         return $this->Html->tag('div', $div, ['class' => 'panel-collapse collapse', 'id' => str_replace('#', '', $href)]);
+    }
+    
+    public function firstPara($body)
+    {
+        return $this->_converter->firstPara($body,
+				array('tag' => true)
+			);
     }
 
 }

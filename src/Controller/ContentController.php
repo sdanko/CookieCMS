@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\Routing\Router;
+use Cake\I18n\Time;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,18 +28,26 @@ class ContentController extends AppController {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         } else {
-//             $content = $this->Content->find('byId', array(
-//                    'id' => $id,
-//            ))->first();
             $content = $this->Content->findById($id)->contain(['ContentTypes'])->first();
         }
-
+        
         if (!isset($content->id)) {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         }
 
-        if (empty($content->publish)) {
+        $published = false;
+        $date = Time::now();
+        $startDate = $content->publish_start;
+        $endDate = empty($content->publish_end) ?  $date : $content->publish_end;
+        
+        if(!empty($startDate)) {
+            if( ( $date >= $startDate ) && ( $date <= $endDate ) ) {
+                $published = true;
+            }
+        }
+        
+        if (!$published) {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         }

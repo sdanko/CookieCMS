@@ -14,7 +14,7 @@
             echo $this->element('Content/content_info', [
                 "content" => $item
             ]);
-            echo $this->element('Content/content_body', [
+            echo $this->element('Content/content_excerpt', [
                 "content" => $item
             ]);
             echo $this->element('Content/content_more_info', [
