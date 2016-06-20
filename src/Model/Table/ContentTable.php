@@ -77,6 +77,9 @@ class ContentTable extends Table
         $validator
             ->allowEmpty('body');
 
+           $validator
+            ->allowEmpty('excerpt');
+           
         $validator
             ->boolean('promote')
             ->allowEmpty('promote');
@@ -96,10 +99,6 @@ class ContentTable extends Table
         $validator
             ->integer('modified_by')
             ->allowEmpty('modified_by');
-
-        $validator
-            ->boolean('publish')
-            ->allowEmpty('publish');
 
         $validator
             ->integer('published_by')
