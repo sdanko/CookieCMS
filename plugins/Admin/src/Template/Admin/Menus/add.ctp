@@ -5,6 +5,7 @@
         <?php
             echo $this->Form->input('title');
             echo $this->Form->input('alias');
+            echo $this->Form->input('class');
             echo $this->Form->input('active');
         ?>
     </fieldset>

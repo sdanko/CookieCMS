@@ -1,10 +1,10 @@
 <?php
-$this->set(compact('block'));
-$b = $block;
-$class = 'block block-' . $b['alias'];
-if ($block['class'] != null) {
-	$class .= ' ' . $b['class'];
-}
+    $this->set(compact('block'));
+    $b = $block;
+    $class = 'block block-' . $b['alias'];
+    if ($block['class'] != null) {
+            $class .= ' ' . $b['class'];
+    }
 ?>
 <div id="block-<?php echo $b['id']; ?>" class="<?php echo $class; ?>">
 

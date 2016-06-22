@@ -15,9 +15,7 @@ class Menu extends Entity
      * @var array
      */
     protected $_accessible = [
-        'title' => true,
-        'alias' => true,
-        'active' => true,
-        'links' => true,
+        '*' => true,
+        'id' => false,
     ];
 }

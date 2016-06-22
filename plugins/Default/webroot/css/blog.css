@@ -81,6 +81,8 @@ h6, .h6 {
 .blog-header {
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px #333 inset;
 }
 .blog-title {
   margin-top: 30px;
@@ -231,4 +233,24 @@ h6, .h6 {
     margin:0px 0px 0px 0px;
     padding:0px 0px 0px 0px;
     outline: 0;
+}
+
+/* 
+   Custom bullet
+*/
+
+.custom-bullet li {
+    display: block;
+}
+
+.custom-bullet li:before
+{
+    /*Using a Bootstrap glyphicon as the bullet point*/
+    content: "\e080";
+    font-family: 'Glyphicons Halflings';
+    font-size: 9px;
+    float: left;
+    margin-top: 4px;
+    margin-left: -17px;
+    color: #CCCCCC;
 }

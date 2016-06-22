@@ -489,12 +489,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dereuromark/cakephp-tools.git",
-                "reference": "43e896c67bea6de9bdd98bbd6678bf1308ec7722"
+                "reference": "0df0e8db5103ca495d65c71b83d833a2fee02e67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/43e896c67bea6de9bdd98bbd6678bf1308ec7722",
-                "reference": "43e896c67bea6de9bdd98bbd6678bf1308ec7722",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/0df0e8db5103ca495d65c71b83d833a2fee02e67",
+                "reference": "0df0e8db5103ca495d65c71b83d833a2fee02e67",
                 "shasum": ""
             },
             "require": {
@@ -538,7 +538,7 @@
                 "tools",
                 "utils"
             ],
-            "time": "2016-05-14 12:02:00"
+            "time": "2016-06-18 13:53:16"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

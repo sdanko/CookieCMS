@@ -9,6 +9,7 @@
         <tr>
             <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('alias', __d('admin', 'Alias')) ?></th>
+            <th><?= $this->Paginator->sort('class', __d('admin', 'Class')) ?></th>
             <th><?= $this->Paginator->sort('active', __d('admin', 'Active')) ?></th>
             <th class="actions"><?= __d('admin','Actions')  ?></th>
         </tr>
@@ -18,6 +19,7 @@
         <tr>
             <td><?= h($menu->title) ?></td>
             <td><?= h($menu->alias) ?></td>
+            <td><?= h($menu->class) ?></td>
             <td><?= $this->element('checkbox_column', ["checked" => $menu->active]); ?></td>
             <td class="actions">
                 <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $menu->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>

@@ -12,7 +12,6 @@
             <th><?= $this->Paginator->sort('alias', __d('admin', 'Alias')) ?></th>
             <th><?= $this->Paginator->sort('class', __d('admin', 'Class')) ?></th>
             <th><?= $this->Paginator->sort('element', __d('admin', 'Element')) ?></th>
-            <th><?= $this->Paginator->sort('region_id', __d('admin', 'Region')) ?></th>
             <th><?= $this->Paginator->sort('show_title', __d('admin', 'Show title')) ?></th>
             <th><?= $this->Paginator->sort('active', __d('admin', 'Active')) ?></th>
             <th class="actions"><?= __d('admin','Order') ?></th>
@@ -26,9 +25,6 @@
             <td><?= h($block->alias) ?></td>
             <td><?= h($block->class) ?></td>
             <td><?= h($block->element) ?></td>
-            <td>
-                <?= $block->has('region') ? $this->Html->link($block->region->title, ['controller' => 'Regions', 'action' => 'view', $block->region->id]) : '' ?>
-            </td>
             <td><?= $this->element('checkbox_column', ["checked" => $block->show_title]); ?></td>
             <td><?= $this->element('checkbox_column', ["checked" => $block->active]); ?></td>
             <td class="actions">

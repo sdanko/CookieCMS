@@ -48,6 +48,9 @@ class MenusTable extends Table
             
         $validator
             ->allowEmpty('alias');
+        
+          $validator
+            ->allowEmpty('class');
             
         $validator
             ->add('active', 'valid', ['rule' => 'boolean'])
