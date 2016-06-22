@@ -14,6 +14,14 @@ use Cake\Log\Log;
 class ContentController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['lookup']
+        ]);
+    }
+
     /**
      * Index method
      *
@@ -222,6 +230,14 @@ class ContentController extends AppController
     public function nodes($id = null)
     {
         
+    }
+    
+    public function lookup()
+    {
+        $query = $this->Content
+            ->find('search', ['search' => $this->request->query]);
+
+        $this->set('content', $this->paginate($query));
     }
     
     public function getComments()

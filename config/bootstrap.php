@@ -228,6 +228,7 @@ Type::build('datetime')
 
 define('USER_ROLE_KEY', 'roles');//key needed for AuthTools roles check
 
+Plugin::load('Search');
 Plugin::load('TinyAuth');
 Plugin::load('Tools', array('bootstrap' => true));
 Plugin::load('Ceeram/Blame');

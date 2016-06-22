@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8668dd3c7a38301734cb14d494f5e4f6",
-    "content-hash": "7fbc3210210a15f38df4605740f41ec9",
+    "hash": "959a8d9c0a615d5d9c92393cc117672a",
+    "content-hash": "05e9d6ff6608e5afeef2edcc0cf5f29a",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -539,6 +539,51 @@
                 "utils"
             ],
             "time": "2016-06-18 13:53:16"
+        },
+        {
+            "name": "friendsofcake/search",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfCake/search.git",
+                "reference": "660892e4c3a6f2a820f177b6fc90cdcbf95babc3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfCake/search/zipball/660892e4c3a6f2a820f177b6fc90cdcbf95babc3",
+                "reference": "660892e4c3a6f2a820f177b6fc90cdcbf95babc3",
+                "shasum": ""
+            },
+            "require-dev": {
+                "cakephp/cakephp": "~3.0",
+                "friendsofcake/cakephp-test-utilities": "dev-master"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Search\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Winther",
+                    "homepage": "http://cakephp.nu/",
+                    "role": "Author"
+                }
+            ],
+            "description": "CakePHP 3.0 easy search framework",
+            "homepage": "https://github.com/FriendsOfCake/search",
+            "keywords": [
+                "cake3",
+                "cakephp",
+                "cakephp3",
+                "search"
+            ],
+            "time": "2016-06-08 07:21:17"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

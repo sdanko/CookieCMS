@@ -12,6 +12,7 @@ use Cake\Core\Configure;
 use Cake\ORM\Entity;
 use ArrayObject;
 use Cake\Event\EventManager;
+use Search\Manager;
 
 /**
  * Content Model
@@ -41,11 +42,23 @@ class ContentTable extends Table
         $this->addBehavior('Encoder');
         $this->addBehavior('Publishable');
         $this->addBehavior('Commentable');
+        $this->addBehavior('Search.Search');
 
         $this->belongsTo('ContentTypes', [
             'foreignKey' => 'content_type_id'
         ]);
-    }
+        
+         $this->searchManager()
+            ->add('q', 'Search.Like', [
+                'before' => true,
+                'after' => true,
+                'mode' => 'or',
+                'comparison' => 'LIKE',
+                'wildcardAny' => '*',
+                'wildcardOne' => '?',
+                'field' => [$this->aliasField('title'), $this->aliasField('body'), $this->aliasField('alias')]
+            ]);
+        }
 
     /**
      * Default validation rules.
@@ -204,7 +217,7 @@ class ContentTable extends Table
         $type = isset($options["type"]) ? $options["type"] : null;
         $slug = isset($options["slug"]) ? $options["slug"] : null;
 
-        $query->contain(['ContentTypes'])->where([
+        $query->contain(['ContentTypes', 'Taxonomies' => ['Terms']])->where([
             'slug' => $slug,
             'ContentTypes.alias' => $type
         ]);

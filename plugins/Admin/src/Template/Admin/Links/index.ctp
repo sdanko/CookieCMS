@@ -11,7 +11,6 @@
             <th><?= $this->Paginator->sort('link', __d('admin', 'Link')) ?></th>
             <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
             <th><?= $this->Paginator->sort('parent_id', __d('admin', 'Parent')) ?></th>
-            <th><?= $this->Paginator->sort('menu_id', __d('admin', 'Menu')) ?></th>
             <th class="actions"><?= __d('admin','Order') ?></th>
             <th class="actions"><?= __d('admin','Actions') ?></th>
         </tr>
@@ -23,9 +22,6 @@
             <td><?= h($link->title) ?></td>
             <td>
                 <?= $link->has('parent_link') ? $this->Html->link($link->parent_link->id, ['controller' => 'Links', 'action' => 'view', $link->parent_link->id]) : '' ?>
-            </td>
-            <td>
-                <?= $link->has('menu') ? $this->Html->link($link->menu->title, ['controller' => 'Menus', 'action' => 'view', $link->menu->id]) : '' ?>
             </td>
             <td class="actions">
                 <?= $key!=0 ? $this->Form->postLink(__('<i class="fa fa-angle-up fa-lg"></i>'), ['action' => 'moveUp', $link->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Move up')]) : '' ?>

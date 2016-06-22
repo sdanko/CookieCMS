@@ -28,7 +28,7 @@ class ContentController extends AppController {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         } else {
-            $content = $this->Content->findById($id)->contain(['ContentTypes'])->first();
+            $content = $this->Content->findById($id)->contain(['ContentTypes', 'Taxonomies' => ['Terms']])->first();
         }
         
         if (!isset($content->id)) {
