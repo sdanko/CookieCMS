@@ -1,0 +1,13 @@
+.form-group input, button, select {
+            margin-bottom: 3px;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .panel-heading span {
+            margin-top: -20px;
+            font-size: 15px;
+        }
+

@@ -1,7 +1,27 @@
-<h2><?= $type->title ?></h2>
-<div class="actions">
-    <div class="btn-group">
-        <?= $this->Html->link(__d('admin','New Content'), ['prefix' => 'admin', 'action' => 'add', $type->alias], ['class'=> 'btn btn-success']) ?>
+<?php
+    echo $this->Html->css('search-panel', ['block' => true]);
+    echo $this->Html->script('collapsible-panel', ['block' => true]);
+?>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Pretraga</h3>
+        <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+    </div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal" method="post" action="">
+            <div class="form-group">
+                <div class="col-xs-10 col-sm-8 col-md-3">
+                    @Html.TextBox("searchStringIme", ViewBag.searchStringIme as string, new { @class = "form-control", @placeholder = "Ime" })
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="button-group col-xs-10 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0">
+                    <input type="submit" class="btn btn-primary"  value="Traži" />
+                    <input type="button" class="btn btn-default" value="Poništi pretragu" onclick="window.location.href='@Url.Action("Index", "Lice")'" />
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="table-responsive">
