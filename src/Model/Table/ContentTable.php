@@ -56,7 +56,7 @@ class ContentTable extends Table
                 'comparison' => 'LIKE',
                 'wildcardAny' => '*',
                 'wildcardOne' => '?',
-                'field' => [$this->aliasField('title'), $this->aliasField('body'), $this->aliasField('alias')]
+                'field' => [$this->aliasField('title'), $this->aliasField('body'), $this->aliasField('slug')]
             ]);
         }
 

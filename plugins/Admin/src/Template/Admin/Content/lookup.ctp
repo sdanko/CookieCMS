@@ -1,27 +1,30 @@
 <?php
+    use Cake\Routing\Router;
+    
     echo $this->Html->css('search-panel', ['block' => true]);
     echo $this->Html->script('collapsible-panel', ['block' => true]);
 ?>
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Pretraga</h3>
+        <h3 class="panel-title">Search</h3>
         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
     </div>
-    <div class="panel-body">
-        <form role="form" class="form-horizontal" method="post" action="">
-            <div class="form-group">
-                <div class="col-xs-10 col-sm-8 col-md-3">
-                    @Html.TextBox("searchStringIme", ViewBag.searchStringIme as string, new { @class = "form-control", @placeholder = "Ime" })
-                </div>
+    <div class="panel-body">       
+        <?php  echo $this->Form->create(null, ['class' => 'form-horizontal']); ?>
+        <div class="form-group">
+            <div class="col-xs-10 col-sm-8 col-md-3">
+                   <?php echo $this->Form->input('q', ['class' => 'form-control', 'placeholder' => 'Search', 'label' => false]); ?>
             </div>
-            <div class="form-group">
+        </div>
+         
+        <div class="form-group">               
 
-                <div class="button-group col-xs-10 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0">
-                    <input type="submit" class="btn btn-primary"  value="Traži" />
-                    <input type="button" class="btn btn-default" value="Poništi pretragu" onclick="window.location.href='@Url.Action("Index", "Lice")'" />
-                </div>
+            <div class="button-group col-xs-10 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0">
+                 <input type="submit" class="btn btn-primary" value="Search" />
+                  <input type="button" class="btn btn-default" value="Reset" onclick="window.location.href='<?php echo Router::url(array('action'=>'lookup')) ?>'" />
             </div>
-        </form>
+        </div>
+        <?php  echo $this->Form->end(); ?>
     </div>
 </div>
 <div class="table-responsive">
