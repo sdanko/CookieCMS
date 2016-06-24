@@ -64,6 +64,9 @@ msgstr "Početak objave"
 msgid "Publish End"
 msgstr "Kraj objave"
 
+msgid "Excerpt"
+msgstr "Izvod"
+
 #Blocks
 
 msgid "Show Title"

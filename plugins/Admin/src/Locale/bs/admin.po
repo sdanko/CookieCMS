@@ -103,6 +103,12 @@ msgstr "Tip"
 msgid "Search"
 msgstr "Traži"
 
+msgid "Search Content"
+msgstr "Traži sadržaj"
+
+msgid "Reset"
+msgstr "Poništi"
+
 # Content
 
 msgid "Content"

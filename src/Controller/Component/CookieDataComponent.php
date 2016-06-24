@@ -14,7 +14,7 @@ use Cake\Filesystem\File;
 use Cake\Utility\Hash;
 use Cake\Core\Configure;
 
-class CookieComponent extends Component {
+class CookieDataComponent extends Component {
 
     public $components = ['Auth', 'Tools.AuthUser'];
 

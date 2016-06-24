@@ -21,7 +21,7 @@ use Cake\Core\Configure;
  */
 class TaxonomiesDataComponent extends Component {
 
-    public $components = ['Cookie'];
+    public $components = ['CookieData'];
     /**
      * Types for layout
      *
@@ -82,7 +82,7 @@ class TaxonomiesDataComponent extends Component {
     public function vocabularies()
     {
         $vocabularies = array();
-        $themeData = $this->Cookie->getThemeData(Configure::read('Site.theme'));
+        $themeData = $this->CookieData->getThemeData(Configure::read('Site.theme'));
         if (isset($themeData['vocabularies']) && is_array($themeData['vocabularies'])) {
             $vocabularies = Hash::merge($vocabularies, $themeData['vocabularies']);
         }

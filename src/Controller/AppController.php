@@ -86,7 +86,7 @@ class AppController extends Controller
             ]
         );
         
-        $this->loadComponent('Cookie');
+        $this->loadComponent('CookieData');
         $this->loadComponent('BlocksData');
         $this->loadComponent('TaxonomiesData');
         $this->loadComponent('MenusData');

@@ -23,7 +23,7 @@ use Cake\Core\Configure;
  */
 class MenusDataComponent extends Component {
     
-    public $components = ['Cookie'];
+    public $components = ['CookieData'];
 
     /**
  * Menus for layout
@@ -76,7 +76,7 @@ class MenusDataComponent extends Component {
  */
     public function menus() {
         $menus = array();
-        $themeData = $this->Cookie->getThemeData(Configure::read('Site.theme'));
+        $themeData = $this->CookieData->getThemeData(Configure::read('Site.theme'));
         if (isset($themeData['menus']) && is_array($themeData['menus'])) {
             $menus = Hash::merge($menus, $themeData['menus']);
         }
@@ -84,20 +84,20 @@ class MenusDataComponent extends Component {
 
         //$status = $this->Link->status();
         foreach ($menus as $menuAlias) {
-            $query = $this->Links->Menus->find('all', [
+            $menu = $this->Links->Menus->find('all', [
                   'conditions' => ['Menus.alias' => $menuAlias]
-              ]);
-            $menu = $query->first();
+              ])->first();
+ 
 
             if (isset($menu['id'])) {
-                    $this->menusForLayout[$menuAlias] = $menu;
-                    $findOptions = array(
-                            'conditions' => array(
-                                    'menu_id' => $menu['id']
-                            )
-                    );
-                    $links = $this->Links->find('threaded', $findOptions)->toArray();
-                    $this->menusForLayout[$menuAlias]['threaded'] = $links;
+                $this->menusForLayout[$menuAlias] = $menu;
+                $findOptions = array(
+                        'conditions' => array(
+                                'menu_id' => $menu['id']
+                        )
+                );
+                $links = $this->Links->find('threaded', $findOptions)->toArray();
+                $this->menusForLayout[$menuAlias]['threaded'] = $links;
             }
         }
     }

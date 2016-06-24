@@ -6,22 +6,22 @@
 ?>
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Search</h3>
+        <h3 class="panel-title"><?=  __d('admin','Search') ?></h3>
         <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
     </div>
     <div class="panel-body">       
         <?php  echo $this->Form->create(null, ['class' => 'form-horizontal']); ?>
         <div class="form-group">
             <div class="col-xs-10 col-sm-8 col-md-3">
-                   <?php echo $this->Form->input('q', ['class' => 'form-control', 'placeholder' => 'Search', 'label' => false]); ?>
+                   <?php echo $this->Form->input('q', ['class' => 'form-control', 'placeholder' =>  __d('admin', 'Search Content'), 'label' => false]); ?>
             </div>
         </div>
          
         <div class="form-group">               
 
             <div class="button-group col-xs-10 col-xs-offset-0 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0">
-                 <input type="submit" class="btn btn-primary" value="Search" />
-                  <input type="button" class="btn btn-default" value="Reset" onclick="window.location.href='<?php echo Router::url(array('action'=>'lookup')) ?>'" />
+                 <input type="submit" class="btn btn-primary" value="<?=  __d('admin','Search') ?>" />
+                  <input type="button" class="btn btn-default" value="<?=  __d('admin','Reset') ?>" onclick="window.location.href='<?php echo Router::url(array('action'=>'lookup')) ?>'" />
             </div>
         </div>
         <?php  echo $this->Form->end(); ?>

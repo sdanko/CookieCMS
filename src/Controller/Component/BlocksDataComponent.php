@@ -87,22 +87,17 @@ class BlocksDataComponent extends Component {
      * @return void
      */
     public function blocks() {
-        $regions = $this->Block->Regions->find('active')->combine('id', 'alias')->toArray();
-//        if ($regions) {
-//            $keyPath = '{n}.' . $this->alias . '.id';
-//            $valuePath = '{n}.' . $this->alias . '.alias';
-//            $regions = Hash::combine($regions, $keyPath, $valuePath);
-//        }
+        $regions = $this->Block->Regions->find('active')->combine('id', 'alias')->cache('cookie_regions')->toArray();
        
         foreach ($regions as $regionId => $regionAlias) {
             $this->blocksForLayout[$regionAlias] = array();
 
-            $blocks = Cache::read('cookie_blocks');
+            $blocks = Cache::read('cookie_blocks_' . $regionAlias);
             if ($blocks === false) {
                 $blocks = $this->Block->find('active', array(
                     'regionId' => $regionId
                 ))->toArray();
-                Cache::write('cookie_blocks', $blocks);
+                Cache::write('cookie_blocks_' . $regionAlias, $blocks);
             }
             $this->processBlocksData($blocks);
             $this->blocksForLayout[$regionAlias] = $blocks;
