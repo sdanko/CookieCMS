@@ -44,7 +44,8 @@ class BlocksDataComponent extends Component {
      * initialize
      *
      */
-    public function initialize(array $config) {
+    public function initialize(array $config)
+    {
         $this->controller = $this->_registry->getController();
         $this->_stringConverter = new StringConverter();
         if (isset($this->controller->Block)) {
@@ -59,7 +60,8 @@ class BlocksDataComponent extends Component {
      *
      * @return void
      */
-    public function startup(Event $event) {
+    public function startup(Event $event)
+    {
         if (isset($this->request->params['prefix'])) {
             if ($this->request->params['prefix'] == 'admin') {
                 return;
@@ -68,13 +70,8 @@ class BlocksDataComponent extends Component {
         $this->blocks();
     }
 
-    /**
-     * beforeRender
-     *
-     * @param object $controller instance of controller
-     * @return void
-     */
-    public function beforeRender(Event $event) {
+    public function beforeRender(Event $event)
+    {
         $controller = $this->_registry->getController();
         $controller->set('blocks_for_layout', $this->blocksForLayout);
     }
@@ -86,18 +83,19 @@ class BlocksDataComponent extends Component {
      *
      * @return void
      */
-    public function blocks() {
-        $regions = $this->Block->Regions->find('active')->combine('id', 'alias')->cache('cookie_regions')->toArray();
+    public function blocks()
+    {
+        $regions = $this->Block->Regions->find('active')->cache('regions', 'layoutData')->combine('id', 'alias')->toArray();
        
         foreach ($regions as $regionId => $regionAlias) {
             $this->blocksForLayout[$regionAlias] = array();
 
-            $blocks = Cache::read('cookie_blocks_' . $regionAlias);
+            $blocks = Cache::read('blocks_' . $regionAlias, 'layoutData');
             if ($blocks === false) {
                 $blocks = $this->Block->find('active', array(
                     'regionId' => $regionId
                 ))->toArray();
-                Cache::write('cookie_blocks_' . $regionAlias, $blocks);
+                Cache::write('blocks_' . $regionAlias, $blocks, 'layoutData');
             }
             $this->processBlocksData($blocks);
             $this->blocksForLayout[$regionAlias] = $blocks;
@@ -110,7 +108,8 @@ class BlocksDataComponent extends Component {
      * @param array $blocks
      * @return void
      */
-    public function processBlocksData($blocks) {
+    public function processBlocksData($blocks)
+    {
         $converter = $this->_stringConverter;
         foreach ($blocks as $block) {
             $this->blocksData['menus'] = Hash::merge(
@@ -149,7 +148,8 @@ class BlocksDataComponent extends Component {
      * @param string $string in this format: Node.type:blog;Node.user_id:1;
      * @return array
      */
-    public function stringToArray($string) {
+    public function stringToArray($string) 
+    {
         return $this->_stringConverter->stringToArray($string);
     }
 

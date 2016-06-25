@@ -72,7 +72,7 @@ class TaxonomiesDataComponent extends Component {
     
     public function types() 
     {
-        $types = $this->Taxonomies->Vocabularies->ContentTypes->find('all')->cache('cookie_types')->toArray();
+        $types = $this->Taxonomies->Vocabularies->ContentTypes->find('all')->cache('types', 'layoutData')->toArray();
         foreach ($types as $type) {
                 $alias = $type['alias'];
                 $this->typesForLayout[$alias] = $type;
@@ -90,10 +90,9 @@ class TaxonomiesDataComponent extends Component {
 
         $vocabularies = array_unique($vocabularies);
         foreach ($vocabularies as $vocabularyAlias) {
-            $query = $this->Taxonomies->Vocabularies->find('all', [
+            $vocabulary = $this->Taxonomies->Vocabularies->find('all', [
                   'conditions' => ['Vocabularies.alias' => $vocabularyAlias]
-              ]);
-            $vocabulary = $query->first();
+              ])->cache($vocabularyAlias . '_vocabularies', 'layoutData')->first();
 
             if (isset($vocabulary['id'])) {
                 $this->vocabulariesForLayout[$vocabularyAlias] = $vocabulary;
@@ -102,7 +101,8 @@ class TaxonomiesDataComponent extends Component {
                                 'vocabulary_id' => $vocabulary['id']
                         )
                 );
-                $taxonomies = $this->Taxonomies->find('threaded', $findOptions)->contain(['Terms'])->toArray();
+                $taxonomies = $this->Taxonomies->find('threaded', $findOptions)->contain(['Terms'])
+                        ->cache($vocabularyAlias . '_taxonomies', 'layoutData')->toArray();
                 $this->vocabulariesForLayout[$vocabularyAlias]['threaded'] = $taxonomies;
             }
         }

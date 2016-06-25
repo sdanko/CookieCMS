@@ -72,6 +72,7 @@ class ContentController extends AppController {
             'promote' => true
         ]);
         $query->applyOptions(['published' => true]);
+        $query->cache('promoted');
 
         $this->paginate = [
             'limit' => $limit,

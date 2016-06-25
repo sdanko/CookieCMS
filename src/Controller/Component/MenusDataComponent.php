@@ -33,7 +33,8 @@ class MenusDataComponent extends Component {
  */
     public $menusForLayout = array();
     
-    public function initialize(array $config) {
+    public function initialize(array $config)
+    {
             $this->controller = $this->_registry->getController();
             if (isset($this->controller ->Links)) {
                     $this->Links = $this->controller->Links;
@@ -47,7 +48,8 @@ class MenusDataComponent extends Component {
  *
  * @return void
  */
-    public function startup(Event $event) {
+    public function startup(Event $event)
+    {
         if(isset($this->request->params['prefix'])) {
            if ($this->request->params['prefix'] == 'admin')  {
                     return;
@@ -56,12 +58,6 @@ class MenusDataComponent extends Component {
         $this->menus();
     }
     
-    /**
- * beforeRender
- *
- * @param object $controller instance of controller
- * @return void
- */
     public function beforeRender(Event $event) {
         $controller = $this->_registry->getController();
         $controller->set('menus_for_layout', $this->menusForLayout);
@@ -74,7 +70,8 @@ class MenusDataComponent extends Component {
  *
  * @return void
  */
-    public function menus() {
+    public function menus() 
+    {
         $menus = array();
         $themeData = $this->CookieData->getThemeData(Configure::read('Site.theme'));
         if (isset($themeData['menus']) && is_array($themeData['menus'])) {
@@ -86,7 +83,7 @@ class MenusDataComponent extends Component {
         foreach ($menus as $menuAlias) {
             $menu = $this->Links->Menus->find('all', [
                   'conditions' => ['Menus.alias' => $menuAlias]
-              ])->first();
+              ])->cache($menuAlias . '_menus', 'layoutData')->first();
  
 
             if (isset($menu['id'])) {
@@ -96,7 +93,7 @@ class MenusDataComponent extends Component {
                                 'menu_id' => $menu['id']
                         )
                 );
-                $links = $this->Links->find('threaded', $findOptions)->toArray();
+                $links = $this->Links->find('threaded', $findOptions)->cache($menuAlias . '_links', 'layoutData')->toArray();
                 $this->menusForLayout[$menuAlias]['threaded'] = $links;
             }
         }

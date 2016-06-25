@@ -33,7 +33,7 @@
 
         <div class="container">
 
-            <div class="blog-header">
+            <div class="blog-header jumbotron">
                 <h1 class="blog-title"><?php echo Configure::read('Site.title'); ?></h1>
                 <p class="lead blog-description"><?php echo Configure::read('Site.tagline'); ?></p>
             </div>

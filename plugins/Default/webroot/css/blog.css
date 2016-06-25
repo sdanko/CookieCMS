@@ -81,8 +81,8 @@ h6, .h6 {
 .blog-header {
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-top: 10px;
   margin-bottom: 10px;
-  border-bottom: 1px #333 inset;
 }
 .blog-title {
   margin-top: 30px;
@@ -93,6 +93,13 @@ h6, .h6 {
 .blog-description {
   font-size: 20px;
   color: #999;
+}
+
+.jumbotron {
+    /* add bootstrap jumbotron background image */
+    background: url("../img/banner.jpg");
+    /* change bootstrap jumbotron text color */
+    color: #FFF;
 }
 
 
