@@ -180,8 +180,8 @@ class LinksController extends AppController
                        $row['url'] = $this->_urlToLinkString([
                             'controller' => 'content',
                             'action' => 'view',
-                            'slug' => $row['slug'],
-                            'type' => $row['content_type']['alias']
+                            'type' => $row['content_type']['alias'],
+                            'slug' => $row['slug']
                         ]);
                        return $row;
                    });

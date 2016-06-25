@@ -18,18 +18,18 @@ use Cake\I18n\Time;
  */
 class ContentController extends AppController {
 
-    public function view($id = null) {
-        if ($this->request->query('type') != null && $this->request->query('slug') != null) {
+    public function view($type = null, $slug=null) {
+        if ($type != null && $slug != null) {
             $content = $this->Content->find('bySlug', array(
-                        'type' => $this->request->query('type'),
-                        'slug' => $this->request->query('slug')
+                        'type' => $type,
+                        'slug' => $slug
                     ))->first();
-        } elseif ($id == null) {
+        } else {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
-        } else {
-            $content = $this->Content->findById($id)->contain(['ContentTypes', 'Taxonomies' => ['Terms']])->first();
-        }
+        } //else {
+//            $content = $this->Content->findById($id)->contain(['ContentTypes', 'Taxonomies' => ['Terms']])->first();
+//        }
         
         if (!isset($content->id)) {
             $this->Flash->error(__d('cookie', 'Invalid content'));

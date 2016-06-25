@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <label><?= __d('admin','Link') ?></label>
-                    <input  name="link" id="link" class="form-control" type="text" value="<?= $link->link; ?>">
+                    <input  name="link" id="link" class="form-control" type="text" value="<?= $link->link; ?>" required>
                 </div>
                 <div class="col-sm-3">
                     <label><?= __d('admin','Type') ?></label>

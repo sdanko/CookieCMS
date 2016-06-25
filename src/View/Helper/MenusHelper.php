@@ -112,7 +112,7 @@ class MenusHelper extends Helper {
         $_options = array();
         $options = array_merge($_options, $options);
         
-        $linkUrl=array();
+        //$linkUrl=array();
         $output = '';
         foreach ($links as $link) {
             $linkAttr = array(
@@ -126,10 +126,12 @@ class MenusHelper extends Helper {
             // if link is in the format: controller:contacts/action:view
             if (strstr($link['link'], 'controller:')) {
                 $linkUrl = $this->linkStringToArray($link['link']);
+            } else {
+                 $linkUrl = $link['link'];
             }
 
             $currentUrl = $this->_View->request->url;
-            if (Router::url($link['link']) == Router::url('/' . $currentUrl)) {
+            if (Router::url($linkUrl) == Router::url('/' . $currentUrl)) {
                 if (!isset($linkAttr['class'])) {
                     $linkAttr['class'] = '';
                 }
