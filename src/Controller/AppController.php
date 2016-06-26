@@ -96,7 +96,11 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
         
-        if ((isset( $this->request->params['prefix']) && ( $this->request->params['prefix'] == 'admin'))) {  
+        if ((isset( $this->request->params['prefix']) && ( $this->request->params['prefix'] == 'admin'))) { 
+            if (!$this->Auth->user()) {
+                $this->Auth->config('authError', false);
+            }
+            
             I18n::locale(Configure::read('Site.language'));
             Time::setToStringFormat(Configure::read('Writing.date_time_format'));
             $this->viewBuilder()->theme('Admin');

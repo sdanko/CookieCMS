@@ -1,5 +1,5 @@
    
-   <div>
+
     <h4><?= __d('admin', 'Profile') ?></h4>
     <hr />
     <dl class="dl-horizontal">
@@ -10,8 +10,9 @@
         <dd>
             <?= $fullname; ?>
         </dd>
-
+            
     </dl>
-
-       <?= $this->Html->link(__d('admin','Change password'), ['controller' => 'users', 'action' => 'changePassword'], ['class'=> 'btn btn-danger']) ?>
-</div>
+       
+     <div class="form-actions no-color">
+             <?= $this->Html->link(__d('admin','Change password'), ['controller' => 'users', 'action' => 'changePassword'], ['class'=> 'btn btn-danger']) ?>
+    </div>

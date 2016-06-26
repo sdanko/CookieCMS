@@ -18,7 +18,7 @@ require_once(ROOT .DS. "Vendor" . DS . "cookie" . DS . "CookieNav.php");
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                 </button>
-                <a href="<?= $this->Url->build('/admin') ?>" class="pull-left"><?= $this->Html->image('logo.png') ?></a>
+                <a href="<?= $this->Url->build('/admin') ?>" class="pull-left"><?= $this->Html->image('logo.png', ['style'=> 'margin-top:5px']) ?></a>
                 <a class="navbar-brand" href="<?= $this->Url->build('/admin') ?>">CookieCMS</a>
         </div>
 
