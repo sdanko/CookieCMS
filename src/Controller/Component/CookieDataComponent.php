@@ -96,23 +96,10 @@ class CookieDataComponent extends Component {
             CookieNav::add('sidebar', 'content', array(
                 'icon' => false,
                 'title' => '<span class="glyphicon glyphicon-book"></span>' . __d('admin', 'Content'),
-                'url' => '#dropdown-content',
-                'children' => array(
-                    'content' => array(
-                        'title' =>  __d('admin', 'Content'),
-                        'url' => array(
+                'url' => array(
                             'controller' => 'Content',
                             'action' => 'types'
-                        ),
-                    ),
-                    'content-types' => array(
-                        'title' => __d('admin', 'Content Types'),
-                        'url' => array(
-                            'controller' => 'ContentTypes',
-                            'action' => 'index'
-                        ),
-                    ),
-                ),
+                        )
             ));
         }
       
@@ -155,23 +142,19 @@ class CookieDataComponent extends Component {
             CookieNav::add('sidebar', 'settings', array(
                 'icon' => false,
                 'title' => '<span class="glyphicon glyphicon-wrench"></span>' . __d('admin', 'Settings'),
-                'url' => array(
+                'url' => '#dropdown-settings',
+                'children' => array(
+                    'settings' => array(
+                        'title' =>  __d('admin', 'Settings'),
+                        'url' => array(
                             'controller' => 'Settings',
                             'action' => 'index'
-                        )
-            ));
-        }
-     
-        if($this->_checkRoleForMenu($userRoles, 'users')) {
-            CookieNav::add('sidebar', 'users', array(
-                'icon' => false,
-                'title' => '<span class="glyphicon glyphicon-user"></span>' . __d('admin', 'Users'),
-                'url' => '#dropdown-users',
-                'children' => array(
-                    'users' => array(
-                        'title' =>  __d('admin', 'Users'),
+                        ),
+                    ),
+                    'content-types' => array(
+                        'title' => __d('admin', 'Content Types'),
                         'url' => array(
-                            'controller' => 'Users',
+                            'controller' => 'ContentTypes',
                             'action' => 'index'
                         ),
                     ),
@@ -182,7 +165,18 @@ class CookieDataComponent extends Component {
                             'action' => 'index'
                         ),
                     )
-                )
+                ),
+            ));
+        }
+     
+        if($this->_checkRoleForMenu($userRoles, 'users')) {
+            CookieNav::add('sidebar', 'users', array(
+                'icon' => false,
+                'title' => '<span class="glyphicon glyphicon-user"></span>' . __d('admin', 'Users'),
+                'url' => array(
+                            'controller' => 'Users',
+                            'action' => 'index'
+                        )
             ));
         }
        

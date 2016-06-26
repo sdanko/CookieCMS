@@ -139,9 +139,7 @@ class UsersController extends AppController
     {
         $user = $this->Auth->user();
         
-        $fullname = $user['first_name'] . " " . $user['last_name'];
-        
-        $this->set('fullname', $fullname);
+        $this->set('user', $user);
     }
     
 	
