@@ -181,6 +181,7 @@ class ContentTable extends Table
     public function beforeFind(Event $event, Query $query, ArrayObject $options)
     {
         $generateUrl = isset($options['generateUrl']) ? isset($options['generateUrl']) : false;
+        $active = isset($options['active']) ? isset($options['active']) : false;
         
         if ($generateUrl){
              $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
@@ -194,7 +195,13 @@ class ContentTable extends Table
                    return $row;
                });
            });
-        }       
+        }
+        
+        if ($active){
+           $query->where([
+               'active ' => true
+           ]);
+        }  
     }
     
     public function findByType(Query $query, array $options)

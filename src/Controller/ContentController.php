@@ -23,7 +23,7 @@ class ContentController extends AppController {
             $content = $this->Content->find('bySlug', array(
                         'type' => $type,
                         'slug' => $slug
-                    ))->first();
+                    ))->applyOptions(['published' => true, 'active' => true])->first();
         } else {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
@@ -32,22 +32,6 @@ class ContentController extends AppController {
 //        }
         
         if (!isset($content->id)) {
-            $this->Flash->error(__d('cookie', 'Invalid content'));
-            return $this->redirect('/');
-        }
-
-        $published = false;
-        $date = Time::now();
-        $startDate = $content->publish_start;
-        $endDate = empty($content->publish_end) ?  $date : $content->publish_end;
-        
-        if(!empty($startDate)) {
-            if( ( $date >= $startDate ) && ( $date <= $endDate ) ) {
-                $published = true;
-            }
-        }
-        
-        if (!$published) {
             $this->Flash->error(__d('cookie', 'Invalid content'));
             return $this->redirect('/');
         }
@@ -71,7 +55,7 @@ class ContentController extends AppController {
                 ))->where([
             'promote' => true
         ]);
-        $query->applyOptions(['published' => true]);
+        $query->applyOptions(['published' => true, 'active' => true]);
         $query->cache('promoted');
 
         $this->paginate = [
@@ -120,7 +104,7 @@ class ContentController extends AppController {
             'type' => $this->request->query('type'),
             'term' => $this->request->query('slug')
         ));
-        $query->applyOptions(['published' => true]);
+        $query->applyOptions(['published' => true, 'active' => true]);
         
         $content = $this->paginate($query);
         $this->set(compact('term', 'content'));
