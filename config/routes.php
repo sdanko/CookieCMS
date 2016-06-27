@@ -159,6 +159,11 @@ Router::prefix('admin', function ($routes) {
     );
 	
 	$routes->connect(
+        '/content/getNodes/', 
+        ['controller' => 'Content', 'action' => 'getNodes', '_ext' => 'json']
+    );
+	
+	$routes->connect(
         '/terms/:vocabularyId', 
         ['controller' => 'Terms', 'action' => 'index'],
         [

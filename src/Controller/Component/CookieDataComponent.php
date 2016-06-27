@@ -219,7 +219,7 @@ class CookieDataComponent extends Component {
                     'tableClass' => 'table',
                     'thumbnailClass' => 'img-polaroid',
                 )
-            ),
+            )
         );
 
         if ($alias == null || $alias == 'default') {

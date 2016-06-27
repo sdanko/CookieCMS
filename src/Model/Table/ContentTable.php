@@ -48,6 +48,21 @@ class ContentTable extends Table
             'foreignKey' => 'content_type_id'
         ]);
         
+        $this->belongsTo('Creator', [
+            'className' => 'Users',
+            'foreignKey' => 'created_by'
+        ]);
+        
+        $this->belongsTo('Modifier', [
+            'className' => 'Users',
+            'foreignKey' => 'modified_by'
+        ]);
+        
+        $this->belongsTo('Publisher', [
+            'className' => 'Users',
+            'foreignKey' => 'published_by'
+        ]);
+        
          $this->searchManager()
             ->add('q', 'Search.Like', [
                 'before' => true,

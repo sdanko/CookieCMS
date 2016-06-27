@@ -261,4 +261,24 @@ class ContentController extends AppController
             $this->set('_serialize', []);
         }
     }
+    
+    public function getNodes()
+    {
+        if( $this->request->is('ajax') ) {
+             $id = $this->request->query('id');
+
+             $content = $this->Content->get($id, [
+                  'contain' => ['Creator', 'Publisher']
+              ]);
+             
+             $data['created'] = ['title' => __d('admin', 'Created'),'date' => $content->created, 'creator' => $content->creator];
+             
+             if($content->publisher) {
+                  $data['published'] = ['title' => __d('admin', 'Published'), 'date' => $content->publish_start, 'creator' => $content->publisher];
+             }
+             
+              $this->set('data', $data);
+              $this->set('_serialize', ['data']);
+        }
+    }
 }
