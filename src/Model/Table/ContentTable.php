@@ -73,14 +73,14 @@ class ContentTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('title');
+            ->notEmpty('title');
 
         $validator
             ->boolean('active')
             ->allowEmpty('active');
 
         $validator
-            ->allowEmpty('slug');
+            ->notEmpty('slug');
         
         $validator->add('slug', 'custom', [
             'rule' => [$this, 'isUniquePerType'],
@@ -88,7 +88,7 @@ class ContentTable extends Table
         ]);
 
         $validator
-            ->allowEmpty('body');
+            ->notEmpty('body');
 
            $validator
             ->allowEmpty('excerpt');

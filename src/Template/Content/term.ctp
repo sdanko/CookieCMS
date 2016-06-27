@@ -1,8 +1,8 @@
 <div class="content term">
-      <?php
-    if (count($content) == 0) {
-        echo __d('cookie', 'No items found.');
-    }
+    <?php
+        if (count($content) == 0) {
+            echo __d('cookie', 'No items found.');
+        }
     ?>
 
     <?php
@@ -14,7 +14,7 @@
             echo $this->element('Content/content_info', [
                 "content" => $item
             ]);
-            echo $this->element('Content/content_body', [
+            echo $this->element('Content/content_excerpt', [
                 "content" => $item
             ]);
             echo $this->element('Content/content_more_info', [

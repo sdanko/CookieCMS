@@ -189,11 +189,10 @@ class ContentController extends AppController
         
         if ($this->Content->save($content)) {
             $this->Flash->success(__('Content has been promoted.'));
-            return $this->redirect(['action' => 'index', "typeAlias" => $type->alias]);
         } else {
             $this->Flash->error(__('Content not be promoted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'index', "typeAlias" => $type->alias]);
     }
     
     public function unpromote($id = null)
@@ -211,11 +210,10 @@ class ContentController extends AppController
         
         if ($this->Content->save($content)) {
             $this->Flash->success(__('Content has been unpromoted.'));
-            return $this->redirect(['action' => 'index']);
         } else {
             $this->Flash->error(__('Content not be unpromoted. Please, try again.'));
         }
-        return $this->redirect(['action' => 'index']);
+          return $this->redirect(['action' => 'index', "typeAlias" => $type->alias]);
     }
     
     public function types() 

@@ -54,13 +54,13 @@ class ContentTypesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('title');
+            ->notEmpty('title');
 
         $validator
             ->allowEmpty('description');
 
         $validator
-            ->allowEmpty('alias');
+            ->notEmpty('alias');
 
         $validator
             ->boolean('format_show_author')
