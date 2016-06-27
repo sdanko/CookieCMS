@@ -4,7 +4,8 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
-
+use Cake\I18n\Time;
+use Cake\Core\Configure;
 
 /**
  * Content Controller
@@ -265,20 +266,32 @@ class ContentController extends AppController
     public function getNodes()
     {
         if( $this->request->is('ajax') ) {
-             $id = $this->request->query('id');
+            $id = $this->request->query('id');
 
-             $content = $this->Content->get($id, [
+            $content = $this->Content->get($id, [
                   'contain' => ['Creator', 'Publisher']
               ]);
              
-             $data['created'] = ['title' => __d('admin', 'Created'),'date' => $content->created, 'creator' => $content->creator];
+            $data['created'] = ['title' => __d('admin', 'Created'),'date' => $content->created, 'creator' => $content->creator];
              
-             if($content->publisher) {
-                  $data['published'] = ['title' => __d('admin', 'Published'), 'date' => $content->publish_start, 'creator' => $content->publisher];
-             }
+            $published = false;
+            $date = Time::now();
+            $startDate = $content->publish_start;
+            $endDate = empty($content->publish_end) ?  $date : $content->publish_end;
+
+            if(!empty($startDate)) {
+                if( ( $date >= $startDate ) && ( $date <= $endDate ) ) {
+                    $published = true;
+                }
+            }
+
+            if ($published) {
+                $data['published'] = ['title' => __d('admin', 'Published'), 'date' => $content->publish_start, 'publisher' => $content->publisher];
+            }
+        
              
-              $this->set('data', $data);
-              $this->set('_serialize', ['data']);
+            $this->set('data', $data);
+            $this->set('_serialize', ['data']);
         }
     }
 }
