@@ -272,7 +272,8 @@ class ContentController extends AppController
                   'contain' => ['Creator', 'Publisher']
               ]);
              
-            $data['created'] = ['title' => __d('admin', 'Created'),'date' => $content->created, 'creator' => $content->creator];
+            $data['created'] = ['title' => __d('admin', 'Created'),'date' => $content->created->i18nFormat(Configure::read('Writing.date_time_format')),
+                'creator' => $content->creator];
              
             $published = false;
             $date = Time::now();
@@ -286,7 +287,8 @@ class ContentController extends AppController
             }
 
             if ($published) {
-                $data['published'] = ['title' => __d('admin', 'Published'), 'date' => $content->publish_start, 'publisher' => $content->publisher];
+                $data['published'] = ['title' => __d('admin', 'Published'), 'date' => $content->publish_start->i18nFormat(Configure::read('Writing.date_time_format')),
+                    'publisher' => $content->publisher];
             }
         
              
