@@ -109,6 +109,12 @@ msgstr "Traži sadržaj"
 msgid "Reset"
 msgstr "Poništi"
 
+msgid "Created"
+msgstr "Kreirano"
+
+msgid "Published"
+msgstr "Objavljeno"
+
 # Content
 
 msgid "Content"

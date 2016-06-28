@@ -18,7 +18,16 @@ use Cake\I18n\Time;
  */
 class ContentController extends AppController {
 
-    public function view($type = null, $slug=null) {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Search.Prg', [
+            'actions' => ['search']
+        ]);
+    }
+    
+    public function view($type = null, $slug=null)
+    {
         if ($type != null && $slug != null) {
             $content = $this->Content->find('bySlug', array(
                         'type' => $type,
@@ -40,7 +49,8 @@ class ContentController extends AppController {
         $this->set(compact('content'));
     }
 
-    public function promoted($type = null) {
+    public function promoted($type = null)
+    {
         //$Content = $this->{$this->modelClass};
         $this->set('title_for_layout', __d('cookie', 'Home'));
 
@@ -79,7 +89,8 @@ class ContentController extends AppController {
         }
     }
 
-    public function term() {
+    public function term() 
+    {
         $limit = Configure::read('Reading.items_per_page');
 
         $term = $this->Content->Taxonomies->Terms->find('all', array(
@@ -108,6 +119,14 @@ class ContentController extends AppController {
         
         $content = $this->paginate($query);
         $this->set(compact('term', 'content'));
+    }
+    
+    public function search()
+    {
+        $query = $this->Content
+            ->find('search', ['search' => $this->request->query]);
+
+        $this->set('content', $this->paginate($query));
     }
 
 }
