@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var url = window.location.href;
     var id = url.substring(url.lastIndexOf("/") + 1);
-    var api = url.substring(xIndexOf('/', url, 3), xIndexOf('/', url, 6) + 1) + 'getNodes';
+    var api = url.substring(xIndexOf('/', url, 3), url.indexOf('nodes')) + 'getNodes';
 
     $.ajax({
         type: "POST",
