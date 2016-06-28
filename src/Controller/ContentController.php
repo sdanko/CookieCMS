@@ -63,7 +63,7 @@ class ContentController extends AppController {
         $query = $this->Content->find('byType', array(
                     'type' => $type
                 ))->where([
-            'promote' => true
+                    'promote' => true
         ]);
         $query->applyOptions(['published' => true, 'active' => true]);
         $query->cache('promoted');
@@ -123,10 +123,22 @@ class ContentController extends AppController {
     
     public function search()
     {
+        $limit = Configure::read('Reading.items_per_page');
+        
+        $this->set('title_for_layout', $this->request->query('q'));
+        
         $query = $this->Content
             ->find('search', ['search' => $this->request->query]);
 
-        $this->set('content', $this->paginate($query));
+        $this->paginate = [
+            'limit' => $limit,
+            'contain' => ['ContentTypes', 'Taxonomies' => ['Terms']]
+        ];
+         
+        $query->applyOptions(['published' => true, 'active' => true, 'generateUrl' => true]);
+        
+        $content = $this->paginate($query);
+        $this->set(compact('content'));
     }
 
 }

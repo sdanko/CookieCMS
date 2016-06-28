@@ -54,10 +54,10 @@ class VocabulariesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('title');
+            ->notEmpty('title');
 
         $validator
-            ->allowEmpty('alias');
+            ->notEmpty('alias');
 
         $validator
             ->allowEmpty('description');

@@ -52,10 +52,10 @@ class TermsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('title');
+            ->notEmpty('title');
 
         $validator
-            ->allowEmpty('slug');
+            ->notEmpty('slug');
 
         $validator
             ->allowEmpty('description');

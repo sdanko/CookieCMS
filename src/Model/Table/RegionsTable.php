@@ -44,10 +44,10 @@ class RegionsTable extends Table
             ->allowEmpty('id', 'create');
             
         $validator
-            ->allowEmpty('title');
+            ->notEmpty('title');
             
         $validator
-            ->allowEmpty('alias');
+            ->notEmpty('alias');
 
         return $validator;
     }

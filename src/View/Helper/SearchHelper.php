@@ -19,7 +19,7 @@ class SearchHelper extends Helper {
     {
             $_options = array(
                     'class' => '',
-                    'placeholder' => '',
+                    'placeholder' => 'Search',
                     'element' => 'Search/search',
             );
             $options = array_merge($_options, $options);

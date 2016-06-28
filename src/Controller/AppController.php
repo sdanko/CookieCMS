@@ -122,7 +122,7 @@ class AppController extends Controller
     public function beforeRender(Event $event)
     {
         parent::beforeRender($event);
-        $this->viewBuilder()->helpers(['Cookie', 'Layout', 'Menus', 'Regions', 'Taxonomies'  ]);
+        $this->viewBuilder()->helpers(['Cookie', 'Layout', 'Menus', 'Regions', 'Taxonomies', 'Search' ]);
     }
     
  /*    public function isAuthorized($user)

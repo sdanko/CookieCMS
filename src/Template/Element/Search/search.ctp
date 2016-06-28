@@ -1,9 +1,11 @@
 <?php
  use Cake\Routing\Router;
 ?>
-<form class="navbar-form navbar-left" method="post" role="search" action="<?php echo Router::url(array('controller' => 'content','action'=>'search')) ?>">
-        <div class="form-group">
-                <input type="text" name="q" class="form-control" placeholder="<?=  __d('admin','Search Content') ?>">
+<form  method="post" role="search" action="<?php echo Router::url(array('controller' => 'content','action'=>'search')) ?>">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="<?=  $options['placeholder']; ?>" name="q">
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
         </div>
-        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+    </div>
 </form>
