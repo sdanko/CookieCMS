@@ -101,7 +101,7 @@ class LinksController extends AppController
         $link = $this->Links->get($id, [
             'contain' => []
         ]);
-        //$menuId = $link->menu_id;
+        $menuId = $link->menu_id;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             $link = $this->Links->patchEntity($link, $this->request->data);
@@ -174,6 +174,7 @@ class LinksController extends AppController
                             'Content.title LIKE ' => "%" . $term . "%",
                         )
                 )])->contain(['ContentTypes']);
+                
                 
                 $data->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
                    return $results->map(function ($row) {                     
@@ -254,6 +255,6 @@ class LinksController extends AppController
             $this->Flash->error(__d('cookie', 'Invalid Menu ID.'));
             return $this->redirect($redirectUrl);
         }
-    }
+    }   
     
 }
