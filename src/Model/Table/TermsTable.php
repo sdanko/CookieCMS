@@ -167,8 +167,8 @@ class TermsTable extends Table
     {
         $taxonomy = $this->Taxonomies->find('all', array(
                 'term_id' => $id, 'vocabulary_id' => $vocabularyId
-        ))->first();
+        ))->first();debug($taxonomy);die;
   
-        return $this->Taxonomies->delete($taxonomy->id) && $this->delete($id);
+        return $this->Taxonomies->delete($taxonomy) && $this->delete($this->get($id));
     }
 }
