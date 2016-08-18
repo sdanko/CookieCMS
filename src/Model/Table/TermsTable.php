@@ -166,8 +166,11 @@ class TermsTable extends Table
     public function remove($id, $vocabularyId)
     {
         $taxonomy = $this->Taxonomies->find('all', array(
-                'term_id' => $id, 'vocabulary_id' => $vocabularyId
-        ))->first();debug($taxonomy);die;
+              'conditions' => array(
+                    'Taxonomies.term_id' => $id,
+                    'Taxonomies.vocabulary_id' => $vocabularyId,
+            )
+        ))->first();
   
         return $this->Taxonomies->delete($taxonomy) && $this->delete($this->get($id));
     }
