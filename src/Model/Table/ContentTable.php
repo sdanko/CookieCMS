@@ -103,7 +103,7 @@ class ContentTable extends Table
         ]);
 
         $validator
-            ->notEmpty('body');
+            ->allowEmpty('body');
 
            $validator
             ->allowEmpty('excerpt');

@@ -66,14 +66,16 @@ class ContentController extends AppController {
                     'promote' => true
         ]);
         $query->applyOptions(['published' => true, 'active' => true]);
-        $query->cache('promoted');
-
+        $query->order(['publish_start' => 'DESC']);
+        //$query->cache('promoted');
+        
         $this->paginate = [
             'limit' => $limit,
             'contain' => ['ContentTypes', 'Taxonomies' => ['Terms']]
         ];
-
+                
         $content = $this->paginate($query);
+        
 
         if ($type != null) {
             if (!isset($type->id)) {

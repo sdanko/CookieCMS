@@ -11,7 +11,7 @@ echo $this->Html->script('tinymce.init', ['block' => true]);
     <?php
     echo $this->Form->input('title');
     //echo $this->Form->input('content_type_id');
-    echo $this->Form->input('menu_id', array('type' => 'hidden', 'value' => $type->id));
+    echo $this->Form->input('content_type_id', array('type' => 'hidden', 'value' => $type->id));
     echo $this->Form->input('slug');
     echo $this->Form->input('excerpt', array(
         'class'=>'editor',
