@@ -133,7 +133,7 @@ class BlocksController extends AppController
         $block->position--;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if ($this->Links->save($block)) {
+            if ($this->Blocks->save($block)) {
                 $this->Flash->success(__('The block has been moved.'));
             } else {
                 $this->Flash->error(__('The block could not be moved. Please, try again.'));
@@ -151,7 +151,7 @@ class BlocksController extends AppController
         $block->position++;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if ($this->Links->save($block)) {
+            if ($this->Blocks->save($block)) {
                 $this->Flash->success(__('The blocks has been moved.'));
             } else {
                 $this->Flash->error(__('The block could not be moved. Please, try again.'));

@@ -13,7 +13,7 @@
                     $('.side-body').removeClass('body-slide-in');
                     $('.search-input').focus();
             });
-            $('.tree-view ul:first').treed({openedClass:'glyphicon-chevron-right', closedClass:'glyphicon-chevron-down'});
+            $('.tree-view ul:first-child').treed({openedClass:'glyphicon-chevron-right', closedClass:'glyphicon-chevron-down'});
         });
 	
 </script>

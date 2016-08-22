@@ -34,12 +34,14 @@ class ContentController extends AppController
         $query = $this->Content->find('byType', array(
             'type' => $typeAlias
         ));
+        $query->order(['created' => 'DESC']);
         
         $type = $this->Content->ContentTypes->find('byAlias',array(
             'alias' => $typeAlias
         ))->first();
 
         $this->paginate = [
+             'limit' => 10,
             'contain' => ['ContentTypes']
         ];
         
