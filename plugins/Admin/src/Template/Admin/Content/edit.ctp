@@ -1,7 +1,6 @@
  <?php
     use Cake\Utility\Hash;
     use Cake\Routing\Router;
-      
     if (count($taxonomy) > 0):
         $taxonomyIds = Hash::extract($content, 'taxonomies.{n}.id');
     endif;
