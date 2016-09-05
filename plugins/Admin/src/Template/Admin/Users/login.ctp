@@ -53,7 +53,7 @@
                                 ]) ?>
                             </fieldset>
                            <?= $this->Form->button(__d('admin','Login')); ?>
-                           <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                           <a href="https://github.com/sdanko/CookieCMS" target = "_blank" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                            <?= $this->Form->end() ?>
 <!--                           <form class="form-signin">
                            <input type="text" class="form-control" placeholder="Email" required autofocus>
@@ -64,7 +64,6 @@
                            <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                            </form>-->
                        </div>
-                       <a href="#" class="text-center new-account">Create an account </a>
                    </div>
                </div>
            </div>
