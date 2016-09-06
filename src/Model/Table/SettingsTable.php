@@ -30,6 +30,8 @@ class SettingsTable extends Table
         $this->table('cms.settings');
         $this->displayField('title');
         $this->primaryKey('id');
+        
+        $this->addBehavior('Ceeram/Blame.Blame');
     }
 
     /**
@@ -64,6 +66,14 @@ class SettingsTable extends Table
             
         $validator
             ->allowEmpty('description');
+        
+        $validator
+            ->integer('created_by')
+            ->allowEmpty('created_by');
+
+        $validator
+            ->integer('modified_by')
+            ->allowEmpty('modified_by');
 
         return $validator;
     }
