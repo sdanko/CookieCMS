@@ -118,6 +118,7 @@ class ContentController extends AppController {
             'term' => $this->request->query('slug')
         ));
         $query->applyOptions(['published' => true, 'active' => true]);
+        $query->order(['publish_start' => 'DESC']);
         
         $content = $this->paginate($query);
         $this->set(compact('term', 'content'));
@@ -138,6 +139,7 @@ class ContentController extends AppController {
         ];
          
         $query->applyOptions(['published' => true, 'active' => true, 'generateUrl' => true]);
+        $query->order(['publish_start' => 'DESC']);
         
         $content = $this->paginate($query);
         $this->set(compact('content'));
