@@ -4,7 +4,7 @@
         "title": "Novinska agencija",
         "tagline": "Stranica novinske agencije",
         "timezone": "UTC",
-        "language": "en_US"
+        "language": "bs"
     },
     "Reading": {
         "date_time_format": "dd\/MM\/yyyy",
@@ -17,5 +17,8 @@
     "Menus": {
         "administrator": "content,layout,menus,settings,users,taxonomy",
         "editor": "content,layout,menus,taxonomy"
+    },
+    "Config": {
+        "adminEmail": "multiload@gmail.com"
     }
 }

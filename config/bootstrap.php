@@ -234,3 +234,5 @@ Plugin::load('Tools', array('bootstrap' => true));
 Plugin::load('Ceeram/Blame');
 Plugin::load('Admin', ['bootstrap' => false, 'routes' => true]);
 Plugin::load('Default', ['bootstrap' => false, 'routes' => true]);
+
+Plugin::load('Contacts', ['bootstrap' => false, 'routes' => true]);

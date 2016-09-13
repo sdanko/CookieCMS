@@ -12,7 +12,7 @@
         "cakephp/plugin-installer": "*",
         "dereuromark/cakephp-tinyauth": "dev-master",
         "ceeram/cakephp-blame": "^1.0",
-		"dereuromark/cakephp-tools": "dev-master",
+        "dereuromark/cakephp-tools": "dev-master",
         "friendsofcake/search": "^2.0"
     },
     "require-dev": {
@@ -26,13 +26,15 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src"
+            "App\\": "src",
+            "Contacts\\": "./plugins/Contacts/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests",
-            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests",
+            "Contacts\\Test\\": "./plugins/Contacts/tests"
         }
     },
     "scripts": {

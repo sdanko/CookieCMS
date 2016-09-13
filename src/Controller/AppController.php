@@ -96,6 +96,8 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
         
+        $this->set('form_templates', Configure::read('Templates'));
+        
         if ((isset( $this->request->params['prefix']) && ( $this->request->params['prefix'] == 'admin'))) { 
             if (!$this->Auth->user()) {
                 $this->Auth->config('authError', false);
@@ -106,7 +108,6 @@ class AppController extends Controller
             $this->viewBuilder()->theme('Admin');
             //$this->theme  = 'Admin';
             $this->set('title_for_layout', 'Cookie Dashboard');
-            $this->set('form_templates', Configure::read('Templates'));
             
             if($this->request->controller!='Home')
             {
