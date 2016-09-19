@@ -18,7 +18,7 @@
         echo $this->fetch('meta');
 
         //Bootstrap core CSS 
-        echo $this->Html->css(array('bootstrap', 'cookie', 'font-awesome', 'featherlight', 'flag-icon'));
+        echo $this->Html->css(array('bootstrap', 'cookie', 'font-awesome', 'featherlight', 'flag-icon', 'fileinput'));
         echo $this->Html->css('/jquery-ui-1.11.4.custom/jquery-ui');
         echo $this->fetch('css');
         ?>
@@ -58,6 +58,7 @@
         echo $this->Html->script('bootstrap/bootstrap');
         echo $this->Html->script('featherlight');
         echo $this->Html->script('/jquery-ui-1.11.4.custom/jquery-ui');
+        echo $this->Html->script('fileinput/fileinput');
         echo $this->fetch('script');
         echo $this->element('initializers');
         ?>

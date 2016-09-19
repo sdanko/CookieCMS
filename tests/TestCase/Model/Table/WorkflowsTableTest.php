@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ContentTypesTable;
+use App\Model\Table\WorkflowsTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ContentTypesTable Test Case
+ * App\Model\Table\WorkflowsTable Test Case
  */
-class ContentTypesTableTest extends TestCase
+class WorkflowsTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ContentTypesTable
+     * @var \App\Model\Table\WorkflowsTable
      */
-    public $ContentTypes;
+    public $Workflows;
 
     /**
      * Fixtures
@@ -24,6 +24,7 @@ class ContentTypesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.workflows',
         'app.content_types',
         'app.content',
         'app.taxonomies',
@@ -37,7 +38,8 @@ class ContentTypesTableTest extends TestCase
         'app.users',
         'app.roles_users',
         'app.modifier',
-        'app.publisher'
+        'app.publisher',
+        'app.nodes'
     ];
 
     /**
@@ -48,8 +50,8 @@ class ContentTypesTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('ContentTypes') ? [] : ['className' => 'App\Model\Table\ContentTypesTable'];
-        $this->ContentTypes = TableRegistry::get('ContentTypes', $config);
+        $config = TableRegistry::exists('Workflows') ? [] : ['className' => 'App\Model\Table\WorkflowsTable'];
+        $this->Workflows = TableRegistry::get('Workflows', $config);
     }
 
     /**
@@ -59,7 +61,7 @@ class ContentTypesTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->ContentTypes);
+        unset($this->Workflows);
 
         parent::tearDown();
     }
@@ -80,16 +82,6 @@ class ContentTypesTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test findByAlias method
-     *
-     * @return void
-     */
-    public function testFindByAlias()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

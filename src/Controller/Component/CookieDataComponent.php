@@ -164,6 +164,13 @@ class CookieDataComponent extends Component {
                             'controller' => 'Roles',
                             'action' => 'index'
                         ),
+                    ),
+                    'workflows' => array(
+                      'title' =>  __d('admin', 'Workflows'),
+                      'url' => array(
+                          'controller' => 'Workflows',
+                          'action' => 'index'
+                      ),
                     )
                 ),
             ));

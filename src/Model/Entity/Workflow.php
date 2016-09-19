@@ -4,19 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * ContentType Entity.
+ * Workflow Entity.
  *
  * @property int $id
+ * @property string $xml
  * @property string $title
- * @property string $description
- * @property string $alias
- * @property bool $format_show_author
- * @property bool $format_show_date
- * @property int $workflow_id
- * @property \App\Model\Entity\Content[] $content
- * @property \App\Model\Entity\Vocabulary[] $vocabularies
+ * @property \App\Model\Entity\ContentType[] $content_types
+ * @property \App\Model\Entity\Node[] $nodes
  */
-class ContentType extends Entity
+class Workflow extends Entity
 {
 
     /**

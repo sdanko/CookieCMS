@@ -30,6 +30,7 @@ class ContentTypesFixture extends TestFixture
         'alias' => ['type' => 'string', 'length' => '510', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'fixed' => null],
         'format_show_author' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => 0, 'precision' => null, 'comment' => null],
         'format_show_date' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => 0, 'precision' => null, 'comment' => null],
+        'workflow_id' => ['type' => 'integer', 'length' => '10', 'null' => true, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -48,7 +49,8 @@ class ContentTypesFixture extends TestFixture
             'description' => 'Lorem ipsum dolor sit amet',
             'alias' => 'Lorem ipsum dolor sit amet',
             'format_show_author' => 1,
-            'format_show_date' => 1
+            'format_show_date' => 1,
+            'workflow_id' => 1
         ],
     ];
 }
