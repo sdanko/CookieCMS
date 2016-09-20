@@ -13,19 +13,21 @@ use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use Cake\Utility\Hash;
 use Cake\Core\Configure;
+use Cake\Utility\Xml;
 
 class CookieDataComponent extends Component {
 
     public $components = ['Auth', 'Tools.AuthUser'];
 
-    public function startup(Event $event) {
-
+    public function startup(Event $event)
+    {
         if ((isset($this->request->params['prefix']) && ( $this->request->params['prefix'] == 'admin'))) {
             $this->_adminMenus();
         }
     }
 
-    protected function _adminMenus() {
+    protected function _adminMenus() 
+    {
         CookieNav::add('top-right', 'site', array(
             'title' => __d('admin', 'Visit website' ),
             'url' => '/',
@@ -205,7 +207,8 @@ class CookieDataComponent extends Component {
         }
     }
     
-    public function getThemeData($alias = null) {
+    public function getThemeData($alias = null)
+    {
         $themeData = array(
             'name' => $alias,
             'regions' => array(),
@@ -271,6 +274,17 @@ class CookieDataComponent extends Component {
         }
        
         return false;
+    }
+    
+    public function getWorkflowXmlNodes($workflow) 
+    {debug(WWW_ROOT .'GraphMLViewer/graphs/'. $workflow->path);die;
+        try {
+            $xml = Xml::build(WWW_ROOT .'GraphMLViewer/graphs/'. $workflow->path); 
+        } catch (\Cake\Utility\Exception\XmlException $e) {
+            throw new InternalErrorException("Invalid GraphML file", 1);
+        }   
+        
+        return $xml; 
     }
 
 }

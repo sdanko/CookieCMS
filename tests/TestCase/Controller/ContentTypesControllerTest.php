@@ -17,11 +17,21 @@ class ContentTypesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.content_types',
+        'app.workflows',
+        'app.nodes',
         'app.content',
-        'app.vocabularies',
         'app.taxonomies',
         'app.terms',
-        'app.content_types_vocabularies'
+        'app.vocabularies',
+        'app.content_types_vocabularies',
+        'app.model_taxonomies',
+        'app.comments',
+        'app.creator',
+        'app.roles',
+        'app.users',
+        'app.roles_users',
+        'app.modifier',
+        'app.publisher'
     ];
 
     /**

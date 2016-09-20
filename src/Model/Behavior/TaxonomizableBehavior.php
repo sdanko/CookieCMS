@@ -31,8 +31,8 @@ class TaxonomizableBehavior extends Behavior {
     
     protected function _setupEvents()
     {
-        $callback = array($this, 'onBeforeSaveNode');
-        EventManager::instance()->on("Model.Node.beforeSaveNode", $callback);
+        $callback = array($this, 'onBeforeSaveContent');
+        EventManager::instance()->on("Model.Content.beforeSaveContent", $callback);
     }
     
     protected function _setupRelationships()
@@ -54,7 +54,7 @@ class TaxonomizableBehavior extends Behavior {
  *
  * @param CakeEvent $event Event containing `data` and `typeAlias`
  */
-    public function onBeforeSaveNode($event)
+    public function onBeforeSaveContent($event)
     {
         $data = $event->data['data'];
         $typeAlias = $event->data['typeAlias'];

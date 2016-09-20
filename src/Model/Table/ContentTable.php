@@ -276,7 +276,7 @@ class ContentTable extends Table
     {
         $result = false;
         
-        $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
+        $event = new Event('Model.Content.beforeSaveContent', $this, compact('data', 'typeAlias'));
         EventManager::instance()->dispatch($event);
 
         $content = $this->patchEntity($content, $event->data['data'], ['associated' => ['Taxonomies']]);
@@ -289,7 +289,7 @@ class ContentTable extends Table
     {
         $result = false;
         
-        $event = new Event('Model.Node.beforeSaveNode', $this, compact('data', 'typeAlias'));
+        $event = new Event('Model.Content.beforeSaveContent', $this, compact('data', 'typeAlias'));
         EventManager::instance()->dispatch($event);
 
         $content = $this->patchEntity($content, $event->data['data'], ['associated' => ['Taxonomies']]);

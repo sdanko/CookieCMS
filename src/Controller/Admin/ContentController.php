@@ -228,11 +228,6 @@ class ContentController extends AppController
         $this->set(compact('types'));
     }
     
-    public function nodes($id = null)
-    {
-        
-    }
-    
     public function lookup()
     {
         $query = $this->Content
@@ -263,6 +258,53 @@ class ContentController extends AppController
 
             $this->set('_serialize', []);
         }
+    }
+    
+    public function workflow($id = null)
+    {
+        $content = $this->Content->get($id);
+        
+        if (empty($content)) {
+            throw new Exception(__d('admin', 'Invalid Content'));
+        }
+        
+        $nodes_table = TableRegistry::get('Nodes');
+        $query = $nodes_table->find('byContent', array(
+            'content_id' => $id
+        ));
+        $query->order(['level' => 'ASC']);
+        
+        $this->paginate = [
+            'limit' => 10,
+            'contain' => ['NodeTypes']
+        ];
+        
+        $nodes = $this->paginate($query);
+        $this->set(compact('nodes', 'content'));
+        $this->set('_serialize', ['nodes']);
+    }
+    
+    public function startWorkflow($id = null)
+    {
+        $content = $this->Content->get($id, [
+            'contain' => ['ContentTypes']
+        ]);
+              
+        if (empty($content)) {
+            throw new Exception(__d('admin', 'Invalid Content'));
+        }
+        
+         $nodes_table = TableRegistry::get('Nodes');
+         $workflow = $nodes_table->Workflows->get($content->content_type->workflow_id);
+         $xml_nodes = $this->CookieData->getWorkflowXmlNodes($workflow);debug($xml_nodes);die;
+         $nodes_table->startWorkflow($id);
+         
+         return $this->redirect(['action' => 'workflow', "id" => $id]);
+    }
+    
+    public function nodes($id = null)
+    {
+        
     }
     
     public function getNodes()

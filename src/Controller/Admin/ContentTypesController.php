@@ -18,6 +18,10 @@ class ContentTypesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Workflows']
+        ];
+          
         $contentTypes = $this->paginate($this->ContentTypes);
 
         $this->set(compact('contentTypes'));
@@ -34,7 +38,7 @@ class ContentTypesController extends AppController
     public function view($id = null)
     {
         $contentType = $this->ContentTypes->get($id, [
-            'contain' => ['Vocabularies', 'Content']
+            'contain' => ['Workflows', 'Vocabularies', 'Content']
         ]);
 
         $this->set('contentType', $contentType);
@@ -58,8 +62,9 @@ class ContentTypesController extends AppController
                 $this->Flash->error(__('The content type could not be saved. Please, try again.'));
             }
         }
+        $workflows = $this->ContentTypes->Workflows->find('list', ['limit' => 200]);
         $vocabularies = $this->ContentTypes->Vocabularies->find('list', ['limit' => 200]);
-        $this->set(compact('contentType', 'vocabularies'));
+        $this->set(compact('contentType', 'workflows', 'vocabularies'));
         $this->set('_serialize', ['contentType']);
     }
 
@@ -84,8 +89,9 @@ class ContentTypesController extends AppController
                 $this->Flash->error(__('The content type could not be saved. Please, try again.'));
             }
         }
+        $workflows = $this->ContentTypes->Workflows->find('list', ['limit' => 200]);
         $vocabularies = $this->ContentTypes->Vocabularies->find('list', ['limit' => 200]);
-        $this->set(compact('contentType', 'vocabularies'));
+        $this->set(compact('contentType', 'workflows', 'vocabularies'));
         $this->set('_serialize', ['contentType']);
     }
 

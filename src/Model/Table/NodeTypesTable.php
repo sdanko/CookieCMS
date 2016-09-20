@@ -1,19 +1,18 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Workflow;
+use App\Model\Entity\NodeType;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Workflows Model
+ * NodeTypes Model
  *
- * @property \Cake\ORM\Association\HasMany $ContentTypes
  * @property \Cake\ORM\Association\HasMany $Nodes
  */
-class WorkflowsTable extends Table
+class NodeTypesTable extends Table
 {
 
     /**
@@ -26,15 +25,12 @@ class WorkflowsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('cms.workflows');
+        $this->table('cms.node_types');
         $this->displayField('title');
         $this->primaryKey('id');
 
-        $this->hasMany('ContentTypes', [
-            'foreignKey' => 'workflow_id'
-        ]);
         $this->hasMany('Nodes', [
-            'foreignKey' => 'workflow_id'
+            'foreignKey' => 'node_type_id'
         ]);
     }
 
@@ -51,17 +47,11 @@ class WorkflowsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('path');
+            ->allowEmpty('title');
 
         $validator
-            ->notEmpty('title');
+            ->allowEmpty('config');
 
         return $validator;
-    }
-    
-     public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->isUnique(['title']));
-        return $rules;
     }
 }

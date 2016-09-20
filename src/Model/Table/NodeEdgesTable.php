@@ -1,19 +1,18 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\Workflow;
+use App\Model\Entity\NodeEdge;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Workflows Model
+ * NodeEdges Model
  *
- * @property \Cake\ORM\Association\HasMany $ContentTypes
- * @property \Cake\ORM\Association\HasMany $Nodes
+ * @property \Cake\ORM\Association\HasMany $NodeFlows
  */
-class WorkflowsTable extends Table
+class NodeEdgesTable extends Table
 {
 
     /**
@@ -26,15 +25,12 @@ class WorkflowsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('cms.workflows');
-        $this->displayField('title');
+        $this->table('cms.node_edges');
+        $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('ContentTypes', [
-            'foreignKey' => 'workflow_id'
-        ]);
-        $this->hasMany('Nodes', [
-            'foreignKey' => 'workflow_id'
+        $this->hasMany('NodeFlows', [
+            'foreignKey' => 'node_edge_id'
         ]);
     }
 
@@ -51,17 +47,16 @@ class WorkflowsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('path');
+            ->integer('source')
+            ->allowEmpty('source');
 
         $validator
-            ->notEmpty('title');
+            ->integer('target')
+            ->allowEmpty('target');
+
+        $validator
+            ->allowEmpty('label');
 
         return $validator;
-    }
-    
-     public function buildRules(RulesChecker $rules)
-    {
-        $rules->add($rules->isUnique(['title']));
-        return $rules;
     }
 }

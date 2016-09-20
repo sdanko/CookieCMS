@@ -1,20 +1,22 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\ContentType;
+use App\Model\Entity\Node;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * ContentTypes Model
+ * Nodes Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Contents
  * @property \Cake\ORM\Association\BelongsTo $Workflows
- * @property \Cake\ORM\Association\HasMany $Content
- * @property \Cake\ORM\Association\BelongsToMany $Vocabularies
+ * @property \Cake\ORM\Association\BelongsTo $NodeTypes
+ * @property \Cake\ORM\Association\BelongsTo $NodeStatuses
+ * @property \Cake\ORM\Association\HasMany $NodeJobs
  */
-class ContentTypesTable extends Table
+class NodesTable extends Table
 {
 
     /**
@@ -27,27 +29,21 @@ class ContentTypesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('cms.content_types');
+        $this->table('cms.nodes');
         $this->displayField('title');
         $this->primaryKey('id');
 
+        $this->belongsTo('Contents', [
+            'foreignKey' => 'content_id'
+        ]);
         $this->belongsTo('Workflows', [
             'foreignKey' => 'workflow_id'
         ]);
-        
-        $this->hasMany('Content', [
-            'foreignKey' => 'content_type_id'
+        $this->belongsTo('NodeTypes', [
+            'foreignKey' => 'node_type_id'
         ]);
-//        $this->belongsToMany('Vocabularies', [
-//            'foreignKey' => 'content_type_id',
-//            'targetForeignKey' => 'vocabulary_id',
-//            'joinTable' => 'content_types_vocabularies'
-//        ]);
-         $this->belongsToMany('Vocabularies', [
-            'foreignKey' => 'content_type_id',
-            'targetForeignKey' => 'vocabulary_id',
-            'joinTable' => 'content_types_vocabularies',
-            'through' => 'ContentTypesVocabularies'
+        $this->hasMany('NodeJobs', [
+            'foreignKey' => 'node_id'
         ]);
     }
 
@@ -64,21 +60,25 @@ class ContentTypesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->notEmpty('title');
+            ->allowEmpty('title');
+
+        $validator
+            ->allowEmpty('label');
 
         $validator
             ->allowEmpty('description');
 
         $validator
-            ->notEmpty('alias');
+            ->boolean('first')
+            ->allowEmpty('first');
 
         $validator
-            ->boolean('format_show_author')
-            ->allowEmpty('format_show_author');
+            ->boolean('last')
+            ->allowEmpty('last');
 
         $validator
-            ->boolean('format_show_date')
-            ->allowEmpty('format_show_date');
+            ->integer('level')
+            ->allowEmpty('level');
 
         return $validator;
     }
@@ -92,18 +92,27 @@ class ContentTypesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
+        $rules->add($rules->existsIn(['content_id'], 'Contents'));
         $rules->add($rules->existsIn(['workflow_id'], 'Workflows'));
+        $rules->add($rules->existsIn(['node_type_id'], 'NodeTypes'));
         return $rules;
     }
     
-    public function findByAlias(Query $query, array $options)
+    public function findByContent(Query $query, array $options)
     {
-        $alias = isset($options["alias"]) ? $options["alias"] : null;
-
-        $query->contain(['Vocabularies'])->where([
-            'alias' => $alias
-        ]);
+        $content_id = isset($options["content_id"]) ? $options["content_id"] : null;
+        
+        if($content_id!=null) {
+            $query->contain(['NodeTypes'])->where([
+                'content_id' => $content_id
+            ]);
+        }
         
         return $query;
+    }
+    
+    public function startWorkflow($id)
+    {
+        
     }
 }

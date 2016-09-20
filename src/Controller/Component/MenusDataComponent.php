@@ -58,7 +58,8 @@ class MenusDataComponent extends Component {
         $this->menus();
     }
     
-    public function beforeRender(Event $event) {
+    public function beforeRender(Event $event)
+    {
         $controller = $this->_registry->getController();
         $controller->set('menus_for_layout', $this->menusForLayout);
     }
