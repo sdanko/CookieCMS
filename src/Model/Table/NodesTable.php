@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Core\Configure;
 
 /**
  * Nodes Model
@@ -111,8 +112,64 @@ class NodesTable extends Table
         return $query;
     }
     
-    public function startWorkflow($id)
+    public function startWorkflow($id, $workflow_id, $xmlNodes)
     {
-        
+         $nodes = $xmlNodes->graph;
+         foreach ($nodes->node as $node) {
+             $i=0;
+             
+             do{
+                $children = $node->data[$i]->children(Configure::read('Workflow.GraphMLNamespace'));
+                $i++;
+             }while(empty($children));
+  
+            $newNode = $this->newEntity();
+            $newNode->content_id = $id;
+            $newNode->title = (string)$node->attributes()->id;
+            $newNode->label = (string)$children->GenericNode->NodeLabel;
+            $newNode->workflow_id = $workflow_id;
+       
+            $nodeType = $this->NodeTypes->findByConfig((string)$children->GenericNode->attributes()->configuration)->first();
+            
+            if(!empty($nodeType)) {
+                $newNode->node_type_id = $nodeType->id;
+                
+                if($nodeType->config===Configure::read('Workflow.startNode')) {
+                    $newNode->first = true;
+                }
+                 if($nodeType->config===Configure::read('Workflow.endNode')) {
+                    $newNode->last = true;
+                }
+            }  
+            //$this->save($newNode);
+         }
+         
+         foreach ($nodes->edge as $edge) {
+              $i=0;
+             
+             do{
+                $children = $edge->data[$i]->children(Configure::read('Workflow.GraphMLNamespace'));
+                $i++;
+             }while(empty($children));
+             
+             $newEdge = $this->NodeEdges->newEntity();
+             
+             $source = $this->findByTitle((string)$edge->attributes()->source);
+             if(!empty($source)) {
+                 $newEdge->source = $source->id;
+            }
+            
+            $target = $this->findByTitle((string)$edge->attributes()->target);
+             if(!empty($target)) {
+                 $newEdge->target = $target->id;
+            }
+            
+            if(!empty($children->PolyLineEdge->EdgeLabel)) {
+                $newEdge->label = (string)$children->PolyLineEdge->EdgeLabel;
+            }
+            
+            $this->NodeEdges->save($newEdge);
+        }
+             
     }
 }

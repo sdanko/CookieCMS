@@ -20,5 +20,10 @@
     },
     "Config": {
         "adminEmail": "multiload@gmail.com"
+    },
+    "Workflow": {
+        "GraphMLNamespace": "http:\/\/www.yworks.com\/xml\/graphml",
+        "startNode": "com.yworks.flowchart.start1",
+        "endNode": "com.yworks.flowchart.terminator"
     }
 }

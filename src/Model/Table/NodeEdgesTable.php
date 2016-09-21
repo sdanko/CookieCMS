@@ -28,7 +28,17 @@ class NodeEdgesTable extends Table
         $this->table('cms.node_edges');
         $this->displayField('id');
         $this->primaryKey('id');
-
+              
+        $this->belongsTo('Source', [
+            'className' => 'Nodes',
+            'foreignKey' => 'source'
+        ]);
+        
+        $this->belongsTo('Target', [
+            'className' => 'Nodes',
+            'foreignKey' => 'target'
+        ]);
+        
         $this->hasMany('NodeFlows', [
             'foreignKey' => 'node_edge_id'
         ]);

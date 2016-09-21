@@ -268,8 +268,8 @@ class ContentController extends AppController
             throw new Exception(__d('admin', 'Invalid Content'));
         }
         
-        $nodes_table = TableRegistry::get('Nodes');
-        $query = $nodes_table->find('byContent', array(
+        $nodesTable = TableRegistry::get('Nodes');
+        $query = $nodesTable->find('byContent', array(
             'content_id' => $id
         ));
         $query->order(['level' => 'ASC']);
@@ -294,10 +294,16 @@ class ContentController extends AppController
             throw new Exception(__d('admin', 'Invalid Content'));
         }
         
-         $nodes_table = TableRegistry::get('Nodes');
-         $workflow = $nodes_table->Workflows->get($content->content_type->workflow_id);
-         $xml_nodes = $this->CookieData->getWorkflowXmlNodes($workflow);debug($xml_nodes);die;
-         $nodes_table->startWorkflow($id);
+         $nodesTable = TableRegistry::get('Nodes');
+         $workflow = $nodesTable->Workflows->get($content->content_type->workflow_id);
+         
+         if (empty($content)) {
+            throw new Exception(__d('admin', 'Invalid Workflow'));
+        }
+        
+         $xmlNodes = $this->CookieData->getWorkflowXmlNodes($workflow);
+       
+         $nodesTable->startWorkflow($id, $workflow->id, $xmlNodes);
          
          return $this->redirect(['action' => 'workflow', "id" => $id]);
     }
