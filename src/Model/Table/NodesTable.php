@@ -6,7 +6,6 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Cake\Core\Configure;
 
 /**
  * Nodes Model
@@ -34,7 +33,7 @@ class NodesTable extends Table
         $this->displayField('title');
         $this->primaryKey('id');
 
-        $this->belongsTo('Contents', [
+        $this->belongsTo('Content', [
             'foreignKey' => 'content_id'
         ]);
         $this->belongsTo('Workflows', [
@@ -83,6 +82,7 @@ class NodesTable extends Table
 
         return $validator;
     }
+    
 
     /**
      * Returns a rules checker object that will be used for validating
@@ -93,7 +93,7 @@ class NodesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['content_id'], 'Contents'));
+        $rules->add($rules->existsIn(['content_id'], 'Content'));
         $rules->add($rules->existsIn(['workflow_id'], 'Workflows'));
         $rules->add($rules->existsIn(['node_type_id'], 'NodeTypes'));
         return $rules;
@@ -109,67 +109,24 @@ class NodesTable extends Table
             ]);
         }
         
+        $query->formatResults(function (\Cake\Datasource\ResultSetInterface $results) {
+               return $results->map(function ($row) {
+                   $nodeJob = $this->NodeJobs->findByNodeId($row['id'])->first();
+                   
+                   if(isset($nodeJob)) {
+                       if($nodeJob->finished) {
+                           $row['status'] = 'finished';
+                       } else {
+                           $row['status'] = 'active';
+                       }                     
+                   } else {
+                       $row['status'] = 'waiting';
+                   }
+                   
+                   return $row;
+               });
+           });
+        
         return $query;
-    }
-    
-    public function startWorkflow($id, $workflow_id, $xmlNodes)
-    {
-         $nodes = $xmlNodes->graph;
-         foreach ($nodes->node as $node) {
-             $i=0;
-             
-             do{
-                $children = $node->data[$i]->children(Configure::read('Workflow.GraphMLNamespace'));
-                $i++;
-             }while(empty($children));
-  
-            $newNode = $this->newEntity();
-            $newNode->content_id = $id;
-            $newNode->title = (string)$node->attributes()->id;
-            $newNode->label = (string)$children->GenericNode->NodeLabel;
-            $newNode->workflow_id = $workflow_id;
-       
-            $nodeType = $this->NodeTypes->findByConfig((string)$children->GenericNode->attributes()->configuration)->first();
-            
-            if(!empty($nodeType)) {
-                $newNode->node_type_id = $nodeType->id;
-                
-                if($nodeType->config===Configure::read('Workflow.startNode')) {
-                    $newNode->first = true;
-                }
-                 if($nodeType->config===Configure::read('Workflow.endNode')) {
-                    $newNode->last = true;
-                }
-            }  
-            //$this->save($newNode);
-         }
-         
-         foreach ($nodes->edge as $edge) {
-              $i=0;
-             
-             do{
-                $children = $edge->data[$i]->children(Configure::read('Workflow.GraphMLNamespace'));
-                $i++;
-             }while(empty($children));
-             
-             $newEdge = $this->NodeEdges->newEntity();
-             
-             $source = $this->findByTitle((string)$edge->attributes()->source);
-             if(!empty($source)) {
-                 $newEdge->source = $source->id;
-            }
-            
-            $target = $this->findByTitle((string)$edge->attributes()->target);
-             if(!empty($target)) {
-                 $newEdge->target = $target->id;
-            }
-            
-            if(!empty($children->PolyLineEdge->EdgeLabel)) {
-                $newEdge->label = (string)$children->PolyLineEdge->EdgeLabel;
-            }
-            
-            $this->NodeEdges->save($newEdge);
-        }
-             
-    }
+    }  
 }

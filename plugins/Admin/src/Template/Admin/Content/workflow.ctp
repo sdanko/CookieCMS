@@ -17,18 +17,21 @@
                     <tr>
                         <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
                         <th><?= $this->Paginator->sort('label', __d('admin', 'Label')) ?></th>
+                        <th><?= $this->Paginator->sort('node_type.title', __d('admin', 'Type')) ?></th>
                         <th class="actions"><?= __d('admin','Actions')  ?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($nodes as $node): ?>
-                    <tr>
+                    <tr class="node-<?= $node->status; ?>">
                         <td><?= h($node->title) ?></td>
                         <td><?= h($node->label) ?></td>
+                        <td><?= h($node->node_type->title) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['action' => 'edit', $node->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
-                            <?= $this->Form->postLink(__('<i class="fa fa-trash fa-lg"></i>'), ['action' => 'delete', $node->id], ['confirm' => __('Are you sure you want to delete # {0}?', $node->id), 'escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Delete')]) ?>
-                            <?= $this->Html->link('<i class="fa fa-map fa-lg"></i>', ['action' => 'diagram', $node->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Show Diagram')]) ?>
+                            <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['controller' => 'Nodes', 'action' => 'edit', $node->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
+                            <?= $node->status==='active' ? 
+                                    $this->Html->link('<i class="fa fa-user fa-lg"></i>', ['controller' => 'NodeJobs', 'action' => 'setUser', $node->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Assign User')]) : '' 
+                            ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

@@ -29,12 +29,12 @@ class NodeEdgesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
               
-        $this->belongsTo('Source', [
+        $this->belongsTo('SourceEdge', [
             'className' => 'Nodes',
             'foreignKey' => 'source'
         ]);
         
-        $this->belongsTo('Target', [
+        $this->belongsTo('TargetEdge', [
             'className' => 'Nodes',
             'foreignKey' => 'target'
         ]);

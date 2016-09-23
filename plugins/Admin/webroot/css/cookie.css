@@ -482,3 +482,15 @@ h1.page-header {
 .error-message {
     color:red;
 }
+
+.node-finished {
+    color: #008000;
+}
+
+.node-active {
+    color: #DD4A68;
+}
+
+.node-waiting {
+    color: #FFC600;
+}

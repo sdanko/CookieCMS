@@ -303,9 +303,139 @@ class ContentController extends AppController
         
          $xmlNodes = $this->CookieData->getWorkflowXmlNodes($workflow);
        
-         $nodesTable->startWorkflow($id, $workflow->id, $xmlNodes);
+        $this->_createWorkflowElements($id, $workflow->id, $xmlNodes);
+        $this->_setWorkflowLevels($id);
+        $this->_createFirstJob($id);
          
-         return $this->redirect(['action' => 'workflow', "id" => $id]);
+        return $this->redirect(['action' => 'workflow', $id]);
+    }
+    
+    protected function _createWorkflowElements($id, $workflow_id, $xmlNodes)
+    {
+        $nodesTable = TableRegistry::get('Nodes');
+        $nodes = $xmlNodes->graph;
+        foreach ($nodes->node as $node) {
+            $i=0;
+
+            do{
+               $children = $node->data[$i]->children(Configure::read('Workflow.GraphMLNamespace'));
+               $i++;
+            }while(empty($children));
+
+           $newNode = $nodesTable->newEntity();
+           $newNode->content_id = $id;
+           $newNode->title = (string)$node->attributes()->id;
+           $newNode->label = (string)$children->GenericNode->NodeLabel;
+           $newNode->workflow_id = $workflow_id;
+
+           $nodeType = $nodesTable->NodeTypes->findByConfig((string)$children->GenericNode->attributes()->configuration)->first();
+
+           if(!empty($nodeType)) {
+               $newNode->node_type_id = $nodeType->id;
+
+               if($nodeType->config===Configure::read('Workflow.startNode')) {
+                   $newNode->first = true;
+               }
+                if($nodeType->config===Configure::read('Workflow.endNode')) {
+                   $newNode->last = true;
+               }
+           } 
+           $nodesTable->save($newNode);
+        }
+
+        foreach ($nodes->edge as $edge) {
+           $i=0;
+
+           do{
+               $children = $edge->data[$i]->children(Configure::read('Workflow.GraphMLNamespace'));
+               $i++;
+            }while(empty($children));
+
+           $newEdge = $nodesTable->NodeJobs->NodeFlows->NodeEdges->newEntity();
+
+           $source = $nodesTable->findByTitle((string)$edge->attributes()->source)->first();
+           if(!empty($source)) {
+                $newEdge->source = $source->id;
+           }
+
+           $target = $nodesTable->findByTitle((string)$edge->attributes()->target)->first();
+            if(!empty($target)) {
+                $newEdge->target = $target->id;
+           }
+
+           if(!empty($children->PolyLineEdge->EdgeLabel)) {
+               $newEdge->label = (string)$children->PolyLineEdge->EdgeLabel;
+           }
+           $nodesTable->NodeJobs->NodeFlows->NodeEdges->save($newEdge);
+       }
+             
+    }
+    
+    protected function _setWorkflowLevels($id)
+    {
+        $nodesTable = TableRegistry::get('Nodes');
+        $startNode = $nodesTable->find()->where(['content_id' => $id, 'first' => true])->first();
+        
+        if(!empty($startNode)) {
+            $startNode->level = 1;
+            $nodesTable->save($startNode);
+            $this->_setNextNodeLevel($startNode);
+        }
+    }
+    
+    protected function _setNextNodeLevel($node)
+    {
+        if($node->last) {
+            return;
+        }
+        
+        $nodesTable = TableRegistry::get('Nodes');
+
+        $nodeEdges = $nodesTable->NodeJobs->NodeFlows->NodeEdges->find()->where(['source' => $node->id])->toList();
+
+        foreach ($nodeEdges as $nodeEdge) {
+            $nextNode = $nodesTable->get($nodeEdge->target);
+            if(!empty($nextNode)) {
+                    if($nextNode->level < $node->level) {
+                        $nextNode->level = $node->level+1;
+                        $nodesTable->save($nextNode);
+                        $this->_setNextNodeLevel($nextNode); 
+                    }                                  
+            }
+        }
+    }
+    
+    protected function _createFirstJob($id)
+    {
+        $nodesTable = TableRegistry::get('Nodes');
+        
+        $startNode = $nodesTable->find()->where(['content_id' => $id, 'first' => true])->first();
+        
+        if(!empty($startNode)) {
+            $nodeJob = $nodesTable->NodeJobs->newEntity();
+            $nodeJob->node_id = $startNode->id;
+            $nodeJob->title = $startNode->label;
+            $nodeJob->finished = true;
+            $nodesTable->NodeJobs->save($nodeJob);
+            
+            $edge = $nodesTable->NodeJobs->NodeFlows->NodeEdges->find()->where(['source' => $startNode->id])->first();
+            
+            if(!empty($edge)) {
+                $nextNode = $nodesTable->get($edge->target);
+                
+                $nodeFlow = $nodesTable->NodeJobs->NodeFlows->newEntity();
+                $nodeFlow->node_job_id = $nodeJob->id;
+                $nodeFlow->node_edge_id = $edge->id;
+                $nodesTable->NodeJobs->NodeFlows->save($nodeFlow);
+            }           
+        }
+        
+        if(!empty($nextNode)) {
+            $nodeJob = $nodesTable->NodeJobs->newEntity();
+            $nodeJob->node_id = $nextNode->id;
+            $nodeJob->title = $nextNode->label;
+            $nodesTable->NodeJobs->save($nodeJob);
+        }
     }
     
     public function nodes($id = null)
