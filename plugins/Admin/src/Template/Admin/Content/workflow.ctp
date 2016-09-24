@@ -18,6 +18,7 @@
                         <th><?= $this->Paginator->sort('title', __d('admin', 'Title')) ?></th>
                         <th><?= $this->Paginator->sort('label', __d('admin', 'Label')) ?></th>
                         <th><?= $this->Paginator->sort('node_type.title', __d('admin', 'Type')) ?></th>
+                        <th><?= __d('admin', 'User') ?></th>
                         <th class="actions"><?= __d('admin','Actions')  ?></th>
                     </tr>
                 </thead>
@@ -27,11 +28,9 @@
                         <td><?= h($node->title) ?></td>
                         <td><?= h($node->label) ?></td>
                         <td><?= h($node->node_type->title) ?></td>
+                        <td><?= h(!empty($node->user) ? $node->user->first_name . ' ' . $node->user->last_name : '') ?></td>
                         <td class="actions">
                             <?= $this->Html->link('<i class="fa fa-pencil fa-lg"></i>', ['controller' => 'Nodes', 'action' => 'edit', $node->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Edit')]) ?>
-                            <?= $node->status==='active' ? 
-                                    $this->Html->link('<i class="fa fa-user fa-lg"></i>', ['controller' => 'NodeJobs', 'action' => 'setUser', $node->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Assign User')]) : '' 
-                            ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

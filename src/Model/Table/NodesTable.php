@@ -45,6 +45,9 @@ class NodesTable extends Table
         $this->hasMany('NodeJobs', [
             'foreignKey' => 'node_id'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id'
+        ]);
     }
 
     /**
@@ -96,6 +99,7 @@ class NodesTable extends Table
         $rules->add($rules->existsIn(['content_id'], 'Content'));
         $rules->add($rules->existsIn(['workflow_id'], 'Workflows'));
         $rules->add($rules->existsIn(['node_type_id'], 'NodeTypes'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
     

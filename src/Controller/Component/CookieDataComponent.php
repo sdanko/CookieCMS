@@ -13,8 +13,6 @@ use Cake\Filesystem\Folder;
 use Cake\Filesystem\File;
 use Cake\Utility\Hash;
 use Cake\Core\Configure;
-use Cake\Utility\Xml;
-use Cake\Utility\Exception\XmlException;
 
 class CookieDataComponent extends Component {
 
@@ -282,17 +280,6 @@ class CookieDataComponent extends Component {
         }
        
         return false;
-    }
-    
-    public function getWorkflowXmlNodes($workflow) 
-    {
-        try {
-            $xml = Xml::build($workflow->path); 
-        } catch (\Cake\Utility\Exception\XmlException $e) {
-            throw new InternalErrorException("Invalid GraphML file", 1);
-        }   
-        
-        return $xml; 
     }
 
 }

@@ -195,6 +195,11 @@ Router::prefix('admin', function ($routes) {
             'pass' => ['id','vocabularyId']
         ]
     );
+    
+    $routes->connect(
+        '/users/searchUsers/', 
+        ['controller' => 'Users', 'action' => 'searchUsers', '_ext' => 'json']
+    );
 
 });
 

@@ -37,9 +37,6 @@ class NodeJobsTable extends Table
         $this->belongsTo('Nodes', [
             'foreignKey' => 'node_id'
         ]);
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
-        ]);
         $this->hasMany('NodeFlows', [
             'foreignKey' => 'node_job_id'
         ]);
@@ -80,7 +77,6 @@ class NodeJobsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['node_id'], 'Nodes'));
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
 }

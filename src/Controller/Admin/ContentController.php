@@ -6,6 +6,8 @@ use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
 use Cake\I18n\Time;
 use Cake\Core\Configure;
+use Cake\Utility\Xml;
+use Cake\Utility\Exception\XmlException;
 
 /**
  * Content Controller
@@ -276,7 +278,7 @@ class ContentController extends AppController
         
         $this->paginate = [
             'limit' => 10,
-            'contain' => ['NodeTypes']
+            'contain' => ['NodeTypes', 'Users']
         ];
         
         $nodes = $this->paginate($query);
@@ -301,13 +303,24 @@ class ContentController extends AppController
             throw new Exception(__d('admin', 'Invalid Workflow'));
         }
         
-         $xmlNodes = $this->CookieData->getWorkflowXmlNodes($workflow);
+         $xmlNodes = $this->_getWorkflowXmlNodes($workflow);
        
         $this->_createWorkflowElements($id, $workflow->id, $xmlNodes);
         $this->_setWorkflowLevels($id);
         $this->_createFirstJob($id);
          
         return $this->redirect(['action' => 'workflow', $id]);
+    }
+    
+    protected function _getWorkflowXmlNodes($workflow) 
+    {
+        try {
+            $xml = Xml::build($workflow->path); 
+        } catch (\Cake\Utility\Exception\XmlException $e) {
+            throw new InternalErrorException("Invalid GraphML file", 1);
+        }   
+        
+        return $xml; 
     }
     
     protected function _createWorkflowElements($id, $workflow_id, $xmlNodes)

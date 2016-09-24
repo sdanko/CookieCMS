@@ -21,21 +21,25 @@ class NodesController extends AppController
     public function edit($id = null)
     {
         $node = $this->Nodes->get($id, [
-            'contain' => []
+            'contain' => ['Users']
         ]);
+        
+        $user = '';
+        if(!empty($node->user)) {
+            $user = $node->user->first_name . ' ' . $node->user->last_name;
+        } 
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $node = $this->Nodes->patchEntity($node, $this->request->data);
             if ($this->Nodes->save($node)) {
                 $this->Flash->success(__('The node has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([ 'controller' => 'Content' ,'action' => 'workflow', $node->content_id]);
             } else {
                 $this->Flash->error(__('The node could not be saved. Please, try again.'));
             }
         }
-        $content = $this->Nodes->Content->find('list', ['limit' => 200]);
-        $workflows = $this->Nodes->Workflows->find('list', ['limit' => 200]);
-        $nodeTypes = $this->Nodes->NodeTypes->find('list', ['limit' => 200]);
-        $this->set(compact('node', 'content', 'workflows', 'nodeTypes'));
+
+        $this->set(compact('node', 'user'));
         $this->set('_serialize', ['node']);
     }
 
