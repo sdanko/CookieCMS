@@ -132,5 +132,18 @@ class NodesTable extends Table
            });
         
         return $query;
-    }  
+    }
+    
+    public function findByTitleAndContent(Query $query, array $options)
+    {
+        $title = isset($options["title"]) ? $options["title"] : null;
+        $content_id = isset($options["content_id"]) ? $options["content_id"] : null;
+
+        $query->where([
+            'title' => $title,
+            'content_id' => $content_id
+        ]);
+        
+        return $query;
+    }
 }

@@ -20,10 +20,10 @@ class WorkflowDataComponent extends Component {
     public function initialize(array $config)
     {
         $this->controller = $this->_registry->getController();
-        if (isset($this->controller->WorkflowJobs)) {
-            $this->WorkflowJobs = $this->controller->WorkflowJobs;
+        if (isset($this->controller->NodeJobs)) {
+            $this->NodeJobs = $this->controller->NodeJobs;
         } else {
-            $this->WorkflowJobs = TableRegistry::get('WorkflowJobs');
+            $this->NodeJobs = TableRegistry::get('NodeJobs');
         }
     }
 
@@ -34,10 +34,8 @@ class WorkflowDataComponent extends Component {
      */
     public function startup(Event $event)
     {
-        if (isset($this->request->params['prefix'])) {
-            if ($this->request->params['prefix'] == 'admin') {
-                $this->workflowJobs();
-            }
+        if ((isset($this->request->params['prefix']) && ( $this->request->params['prefix'] == 'admin'))) {
+             $this->workflowJobs();
         }
     }
 
@@ -56,20 +54,21 @@ class WorkflowDataComponent extends Component {
      */
     public function workflowJobs()
     {
-        $regions = $this->Block->Regions->find('active')->cache('regions', 'layoutData')->combine('id', 'alias')->toArray();
+        $user = $this->Auth->user();
+        $jobs = $this->NodeJobs->find()->where(['Nodes.user_id' => $user['id'], 'OR' => [['finished' => false], ['finished IS' => null]]])->contain(['Nodes' => ['NodeTypes', 'Content']])->toList();
        
-        foreach ($regions as $regionId => $regionAlias) {
-            $this->blocksForLayout[$regionAlias] = array();
-
-            $blocks = Cache::read('blocks_' . $regionAlias, 'layoutData');
-            if ($blocks === false) {
-                $blocks = $this->Block->find('active', array(
-                    'regionId' => $regionId
-                ))->toArray();
-                Cache::write('blocks_' . $regionAlias, $blocks, 'layoutData');
-            }
-            $this->processBlocksData($blocks);
-            $this->blocksForLayout[$regionAlias] = $blocks;
+        foreach ($jobs as $job) {
+            $this->workflowJobs[$job->id] = array();
+           
+            $this->workflowJobs[$job->id]['text'] = $job->text;
+            $this->workflowJobs[$job->id]['title'] = $job->title;
+            $this->workflowJobs[$job->id]['type'] = $job->node->node_type->title;
+            $this->workflowJobs[$job->id]['node_id'] = $job->node->id;
+            $this->workflowJobs[$job->id]['content_id'] = $job->node->content_id;
+            $this->workflowJobs[$job->id]['content_title'] = $job->node->content->title;
+            
+            $targets = $this->NodeJobs->NodeFlows->NodeEdges->find()->where(['source' => $job->node->id])->combine('target', 'label')->toArray();
+            $this->workflowJobs[$job->id]['targets'] = $targets;
         }
     }
 

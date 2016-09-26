@@ -36,6 +36,26 @@ class CookieDataComponent extends Component {
             ),
         ));
         
+        if(!empty($this->_registry->getController()->WorkflowData->workflowJobs)) {
+            CookieNav::add('top-right', 'workflow', array(
+                'title' => '<span class="glyphicon glyphicon-envelope"></span><span class="badge">' . count($this->_registry->getController()->WorkflowData->workflowJobs) . '</span>',
+                'url' => array(
+                        'controller' => 'Users',
+                        'action' => 'messages'
+                    ),
+                'weight' => 0
+            ));
+        } else {
+              CookieNav::add('top-right', 'workflow', array(
+                'title' => '<span class="glyphicon glyphicon-envelope"></span>',
+                 'url' => array(
+                        'controller' => 'Users',
+                        'action' => 'messages'
+                    ),
+                'weight' => 0
+            ));
+        }
+        
         CookieNav::add('top-right', 'language', array(
             'icon' => false,
             'title' => __d('admin', 'Language'),

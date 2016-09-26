@@ -86,11 +86,11 @@ class AppController extends Controller
             ]
         );
         
+        $this->loadComponent('WorkflowData');
         $this->loadComponent('CookieData');
         $this->loadComponent('BlocksData');
         $this->loadComponent('TaxonomiesData');
         $this->loadComponent('MenusData');
-        $this->loadComponent('WorkflowData');
     }
     
     public function beforeFilter(Event $event) 

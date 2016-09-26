@@ -365,14 +365,16 @@ class ContentController extends AppController
             }while(empty($children));
 
            $newEdge = $nodesTable->NodeJobs->NodeFlows->NodeEdges->newEntity();
-
-           $source = $nodesTable->findByTitle((string)$edge->attributes()->source)->first();
+           
+           $source = $nodesTable->findByTitleAndContent(['title' => (string)$edge->attributes()->source, 'content_id' => $id])->first();
+           //$source = $nodesTable->findByTitle((string)$edge->attributes()->source)->first();
            if(!empty($source)) {
                 $newEdge->source = $source->id;
            }
-
-           $target = $nodesTable->findByTitle((string)$edge->attributes()->target)->first();
-            if(!empty($target)) {
+           
+           $target = $nodesTable->findByTitleAndContent(['title' => (string)$edge->attributes()->target, 'content_id' => $id])->first();
+           //$target = $nodesTable->findByTitle((string)$edge->attributes()->target)->first();
+           if(!empty($target)) {
                 $newEdge->target = $target->id;
            }
 

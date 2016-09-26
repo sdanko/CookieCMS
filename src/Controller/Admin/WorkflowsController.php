@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Controller\AppController;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\Routing\Router;
+use App\Form\WorkflowJobForm;
 
 /**
  * Workflows Controller
@@ -138,5 +139,22 @@ class WorkflowsController extends AppController
     {
         $workflow = $this->Workflows->get($id);
         $this->set('path', Router::url('/', true) . $workflow->path);
+    }
+    
+    public function workflowJob($id = null)
+    {
+        $this->set('job', $this->WorkflowData->workflowJobs[$id]);
+        $this->set('node_job_id', $id);
+        
+        $jobs = new WorkflowJobForm();
+        if ($this->request->is('post')) {
+            if ($jobs->execute($this->request->data)) {                  
+                $this->Flash->success(__d('cookie', 'Item finished.'));
+                 return $this->redirect(['controller' => 'Users' ,'action' => 'messages']);
+            } else {
+                $this->Flash->error(__d('cookie', 'There was a problem with the item.'));
+            }
+        }
+        $this->set('jobs', $jobs);
     }
 }

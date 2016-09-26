@@ -166,6 +166,14 @@ class UsersController extends AppController
         $this->set('_serialize', ['user']);
     }
     
+    public function messages()
+    {
+        $jobs = $this->WorkflowData->workflowJobs;
+        
+        $this->set(compact('jobs'));
+        $this->set('_serialize', ['jobs']);      
+    }
+    
     public function searchUsers()
     {
          if( $this->request->is('ajax') ) {
@@ -180,7 +188,6 @@ class UsersController extends AppController
             
             $this->set('data', $data);
             $this->set('_serialize', ['data']);
-        }
-        
+        }       
     }
 }
