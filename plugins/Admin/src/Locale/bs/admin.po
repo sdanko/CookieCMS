@@ -115,6 +115,15 @@ msgstr "Kreirano"
 msgid "Published"
 msgstr "Objavljeno"
 
+msgid "Label"
+msgstr "Oznaka"
+
+msgid "User"
+msgstr "Korisnik"
+
+msgid "View"
+msgstr "Pregledaj"
+
 # Content
 
 msgid "Content"
@@ -349,3 +358,49 @@ msgstr "Stara šifra"
 
 msgid "Repeat password"
 msgstr "Ponovi šifru"
+
+# Workflows
+
+msgid "Workflow"
+msgstr "Tok podataka"
+
+msgid "Workflows"
+msgstr "Tokovi podataka"
+
+msgid "Node Types"
+msgstr "Tipovi čvorova"
+
+msgid "New Workflow"
+msgstr "Novi tok podataka"
+
+msgid "Edit Workflow"
+msgstr "Izmjeni tok podataka"
+
+msgid "Add Workflow"
+msgstr "Dodaj tok podataka"
+
+msgid "Show Diagram"
+msgstr "Prikaži dijagram"
+
+msgid "Select GraphML file"
+msgstr "Odaberi GraphML datoteku"
+
+msgid "New Node Type"
+msgstr "Novi tip čvora"
+
+msgid "Add Node Type"
+msgstr "Dodaj tip čvora"
+
+msgid "Edit Node Type"
+msgstr "Izmjeni tip čvora"
+
+msgid "Edit Node"
+msgstr "Izmjeni čvor"
+
+msgid "Finish workflow item"
+msgstr "Završi stavku toka podataka"
+
+# Messages
+
+msgid "Workflow items"
+msgstr "Stavke toka podataka"

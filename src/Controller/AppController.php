@@ -37,6 +37,11 @@ class AppController extends Controller
      */
     use BlameTrait;
     
+    public $helpers = [
+        'BootstrapForm' => [
+            'className' => 'Bootstrap.BootstrapForm'
+        ]
+    ];
     /**
      * Initialization hook method.
      *

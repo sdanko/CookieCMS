@@ -326,6 +326,7 @@ class ContentController extends AppController
     protected function _createWorkflowElements($id, $workflow_id, $xmlNodes)
     {
         $nodesTable = TableRegistry::get('Nodes');
+
         $nodes = $xmlNodes->graph;
         foreach ($nodes->node as $node) {
             $i=0;
@@ -366,14 +367,19 @@ class ContentController extends AppController
 
            $newEdge = $nodesTable->NodeJobs->NodeFlows->NodeEdges->newEntity();
            
-           $source = $nodesTable->findByTitleAndContent(['title' => (string)$edge->attributes()->source, 'content_id' => $id])->first();
-           //$source = $nodesTable->findByTitle((string)$edge->attributes()->source)->first();
+           //$source = $nodesTable->findByTitleAndContent(['title' => (string)$edge->attributes()->source, 'content_id' => $id])->first();
+           $source = $nodesTable->find('byTitleAndContent', array(
+                'title' => (string)$edge->attributes()->source,
+                'content_id' => $id
+            ))->first();
            if(!empty($source)) {
                 $newEdge->source = $source->id;
            }
            
-           $target = $nodesTable->findByTitleAndContent(['title' => (string)$edge->attributes()->target, 'content_id' => $id])->first();
-           //$target = $nodesTable->findByTitle((string)$edge->attributes()->target)->first();
+           $target = $nodesTable->find('byTitleAndContent', array(
+                'title' => (string)$edge->attributes()->target,
+                'content_id' => $id
+            ))->first();
            if(!empty($target)) {
                 $newEdge->target = $target->id;
            }

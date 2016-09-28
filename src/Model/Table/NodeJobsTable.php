@@ -41,6 +41,7 @@ class NodeJobsTable extends Table
             'foreignKey' => 'node_job_id'
         ]);
     }
+    
 
     /**
      * Default validation rules.

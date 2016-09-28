@@ -236,3 +236,4 @@ Plugin::load('Admin', ['bootstrap' => false, 'routes' => true]);
 Plugin::load('Default', ['bootstrap' => false, 'routes' => true]);
 
 Plugin::load('Contacts', ['bootstrap' => false, 'routes' => true]);
+Plugin::load('Bootstrap');

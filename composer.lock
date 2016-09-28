@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "78392c3a9a2c00ae09e2fe1fb33566f8",
-    "content-hash": "05e9d6ff6608e5afeef2edcc0cf5f29a",
+    "hash": "b303c09a837dd1ce5d7521f49080aacc",
+    "content-hash": "567725fceca4d8d47d6dcf48353700c1",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -441,7 +441,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth/zipball/62fb9962e30d6b340dda701376b083444b6be558",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth/zipball/c4ecfd60a0a8883e59d70a99219e4dedb5e3c181",
                 "reference": "62fb9962e30d6b340dda701376b083444b6be558",
                 "shasum": ""
             },
@@ -493,7 +493,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/0df0e8db5103ca495d65c71b83d833a2fee02e67",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/4071f32bf886ddf6782c53919e0c0d06fa754658",
                 "reference": "0df0e8db5103ca495d65c71b83d833a2fee02e67",
                 "shasum": ""
             },
@@ -584,6 +584,47 @@
                 "search"
             ],
             "time": "2016-06-08 07:21:17"
+        },
+        {
+            "name": "holt59/cakephp3-bootstrap-helpers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Holt59/cakephp3-bootstrap-helpers.git",
+                "reference": "07e00290af09a1a50ee8ba708357b9af56c56e14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Holt59/cakephp3-bootstrap-helpers/zipball/07e00290af09a1a50ee8ba708357b9af56c56e14",
+                "reference": "07e00290af09a1a50ee8ba708357b9af56c56e14",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": ">=3.2.3"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "dev-master",
+                "phpunit/phpunit": "*"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "installer-name": "Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bootstrap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache"
+            ],
+            "description": "Bootstrap Helpers for CakePHP 3.0",
+            "keywords": [
+                "bootstrap",
+                "cakephp"
+            ],
+            "time": "2016-09-19 06:41:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -1474,6 +1515,7 @@
     "stability-flags": {
         "dereuromark/cakephp-tinyauth": 20,
         "dereuromark/cakephp-tools": 20,
+        "holt59/cakephp3-bootstrap-helpers": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,

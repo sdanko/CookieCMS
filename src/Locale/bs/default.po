@@ -27,6 +27,12 @@ msgstr "Oznaka"
 msgid "Class"
 msgstr "Klasa"
 
+msgid "Label"
+msgstr "Oznaka"
+
+msgid "User"
+msgstr "Korisnik"
+
 # ContentTypes
 
 msgid "Content Types"
@@ -109,3 +115,8 @@ msgstr "Višestruk"
 
 msgid "Tags"
 msgstr "Tagovi"
+
+# Workflows
+
+msgid "Level"
+msgstr "Nivo"

@@ -62,7 +62,7 @@ class WorkflowDataComponent extends Component {
            
             $this->workflowJobs[$job->id]['text'] = $job->text;
             $this->workflowJobs[$job->id]['title'] = $job->title;
-            $this->workflowJobs[$job->id]['type'] = $job->node->node_type->title;
+            $this->workflowJobs[$job->id]['type'] = $job->node->node_type->config;
             $this->workflowJobs[$job->id]['node_id'] = $job->node->id;
             $this->workflowJobs[$job->id]['content_id'] = $job->node->content_id;
             $this->workflowJobs[$job->id]['content_title'] = $job->node->content->title;

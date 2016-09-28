@@ -25,6 +25,7 @@
         "GraphMLNamespace": "http:\/\/www.yworks.com\/xml\/graphml",
         "startNode": "com.yworks.flowchart.start1",
         "endNode": "com.yworks.flowchart.terminator",
-        "processNode": "com.yworks.flowchart.process"
+        "processNode": "com.yworks.flowchart.process",
+        "decisionNode": "com.yworks.flowchart.decision"
     }
 }

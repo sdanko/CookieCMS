@@ -23,7 +23,7 @@ class WorkflowJobForm extends Form
         ]);
         
         try {
-            if($nodeJob->node->node_type->config == Configure::read('Workflow.processNode')) {               
+            if($nodeJob->node->node_type->config == Configure::read('Workflow.decisionNode')) {               
                 $edge = $nodeJobs->NodeFlows->NodeEdges->find()->where(['source' => $nodeJob->node_id, 'target' => $data['next_node']])->first();
             } else { 
                 $edge = $nodeJobs->NodeFlows->NodeEdges->find()->where(['source' => $nodeJob->node_id])->first();              
@@ -38,11 +38,19 @@ class WorkflowJobForm extends Form
             $nodeJobs->NodeFlows->save($nodeFlow);
 
             $nextNode = $nodeJobs->Nodes->get($edge->target);
-
-            $nextNodeJob = $nodeJobs->newEntity();
-            $nextNodeJob->node_id = $nextNode->id;
-            $nextNodeJob->title = $nextNode->label;
-            $nodeJobs->save($nextNodeJob);
+            
+            if($nextNode->last) {
+                $nextNodeJob = $nodeJobs->newEntity();
+                $nextNodeJob->node_id = $nextNode->id;
+                $nextNodeJob->title = $nextNode->label;
+                $nextNodeJob->finished = true;
+                $nodeJobs->save($nextNodeJob);
+            } else {
+                $nextNodeJob = $nodeJobs->newEntity();
+                $nextNodeJob->node_id = $nextNode->id;
+                $nextNodeJob->title = $nextNode->label;
+                $nodeJobs->save($nextNodeJob);
+            }
             
             return true;
             

@@ -13,7 +13,8 @@
         "dereuromark/cakephp-tinyauth": "dev-master",
         "ceeram/cakephp-blame": "^1.0",
         "dereuromark/cakephp-tools": "dev-master",
-        "friendsofcake/search": "^2.0"
+        "friendsofcake/search": "^2.0",
+        "holt59/cakephp3-bootstrap-helpers": "dev-master"
     },
     "require-dev": {
         "psy/psysh": "@stable",
