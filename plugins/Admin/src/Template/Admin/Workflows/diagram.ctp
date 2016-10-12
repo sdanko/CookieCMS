@@ -1,5 +1,5 @@
 <?php
-    echo $this->Html->script('/GraphMLViewer/GraphMLViewer');
+    echo $this->Html->script('/GraphMLViewer/GraphMLViewer.js');
 ?>
 
 
@@ -8,7 +8,7 @@
     if (!RunPlayer(
         "width", "100%",
         "height", "500",  //Internet Explorer may interpret relative sizes in tables as 0
-        "graphURL", "http://localhost:8383/CookieCMS/GraphMLViewer/graphs/news.graphml",
+       //"graphURL", "http://cmscookie.azurewebsites.net/webroot/GraphMLViewer/graphs/news.graphml",
         "graphURL", "<?= $path; ?>",
         "overview", "true",
         "toolbar", "false",
