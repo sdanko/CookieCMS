@@ -62,7 +62,7 @@ msgid "Publish"
 msgstr "Objavi"
 
 msgid "Promote"
-msgstr "Promkani"
+msgstr "Promakni"
 
 msgid "Publish Start"
 msgstr "Početak objave"
