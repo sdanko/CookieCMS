@@ -35,6 +35,7 @@
    
                 ?>
                 <?= $this->Html->link('<i class="fa fa-sitemap fa-lg"></i>', ['action' => 'workflow', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Workflow')]) ?>
+                <?=  $this->Form->postLink(__('<i class="fa fa-file fa-lg"></i>'), ['action' => 'convertToDoc', $content->id], ['escape'=>false, 'data-toggle'=>'tooltip', 'title'=>__d('admin','Convert to document')]) ?>
                
             </td>
         </tr>

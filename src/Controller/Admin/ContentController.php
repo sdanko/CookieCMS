@@ -221,6 +221,30 @@ class ContentController extends AppController
           return $this->redirect(['action' => 'index', "typeAlias" => $type->alias]);
     }
     
+    public function convertToDoc($id = null)
+    {   
+        $this->request->allowMethod(['post', 'convertToDoc']);
+        $content = $this->Content->get($id);        
+        $type = $this->Content->ContentTypes->get($content->content_type_id);
+        
+        if (empty($type)) {
+            throw new Exception(__d('admin', 'Invalid Content Type'));
+        }
+        
+        $contentToDocument = TableRegistry::get('ContentToDocument');
+        
+        $newDoc = $contentToDocument->newEntity();
+        $newDoc->title = $content->title;
+        $newDoc->body = $content->body;
+        
+        if ($contentToDocument->save($newDoc)) {
+            $this->Flash->success(__('Content has been converted.'));
+        } else {
+            $this->Flash->error(__('Content not be converted. Please, try again.'));
+        }
+        return $this->redirect(['action' => 'index', "typeAlias" => $type->alias]);
+    }
+    
     public function types() 
     {
         $this->set('title_for_layout', __d('admin', 'Choose content type'));
